@@ -60,6 +60,12 @@ const logout = async () => {
 
 }
 
+const sendPasswordReset = async(email) => {
+    console.info("Password Reset...")
+    let { data, error } = await supabase.auth.api.resetPasswordForEmail(email);
+    if (error) return alert(error.message);
+}
+
 const getStates = async () => {
     console.info("GET States")
     return (await supabase.from("states_eu").select('state_name')).data;
@@ -68,6 +74,11 @@ const getStates = async () => {
 const getCoinByStates = async (state) => {
     console.info("GET Coin By States -> " + state)
     return (await supabase.from("states_eu").select('coin').eq('state_name', state)).data[0].coin;
+}
+
+const getInfoCoinByStates = async (state) => {
+    console.info("GET Info Coin By States -> " + state)
+    return (await supabase.from("states_eu").select('detail').eq('state_name', state)).data[0].detail;
 }
 
 const putInsertCoin = async (state, year, value, uuid) => {
@@ -137,7 +148,9 @@ export {
     loginWithEmailAndPassword, 
     loginWithProvider,
     logout, 
+    sendPasswordReset,
     getCoinByStates, 
+    getInfoCoinByStates,
     putInsertCoin,
     putInsertCoinCommemorative,
     getAlbum,

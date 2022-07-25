@@ -1,13 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getInfoCoinByStates } from '../service/firebase';
+
 import Popup from '../component/Popup';
 import 'reactjs-popup/dist/index.css';
 
 import '../style/Coins.css';
 
-import { getCoinByStates } from '../service/supabase';
+import { getCoinByStates, getInfoCoinByStates } from '../service/supabase';
 
 function Info({details}) {
 
@@ -62,7 +62,7 @@ function CoinStates() {
 
     return(
         <div>
-        <Info details={storyCoin.detail}></Info>
+        <Info details={storyCoin}></Info>
         {Object.keys(coin).map((key) => {
            return (
              <div>

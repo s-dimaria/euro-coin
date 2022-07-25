@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { sendPasswordReset } from "../service/firebase";
+import { sendPasswordReset } from "../service/supabase";
 import withLogin from '../hoc/withLogin';
 
 import "../style/Reset.css";
