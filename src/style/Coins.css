@@ -10,7 +10,8 @@
 }
 
 .coinList li{
-    margin-right: 1vw;
+    margin-right: 1vmin;
+    margin-bottom: 1vmin;
     display: inline;
 }
 

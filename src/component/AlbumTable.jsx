@@ -23,7 +23,7 @@ function AlbumTable({ id, album }) {
                                     .map((key) => {
                                         return (
 
-                                            <tr>
+                                            <tr onClick={()=>console.log(album[key].state)}>
                                                 <td>{album[key].state}</td>
                                                 <td>{album[key].year}</td>
                                                 <td>{album[key].value}</td>

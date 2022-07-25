@@ -17,6 +17,10 @@
     /* background-color: white; */
 }
 
+.fl-table tr:active{
+    background-color: #fdcc01;
+}
+
 .fl-table td, .fl-table th {
     text-align: center;
     padding: 8px;
@@ -41,7 +45,10 @@
 }
 
 .fl-table tr:nth-child(even) {
-    background: #454545;
+    background-color: #454545;
+}
+.fl-table tr:nth-child(even):active {
+    background-color: #fdcc01;
 }
 
 /* Responsive */
