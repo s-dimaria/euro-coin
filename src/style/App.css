@@ -1,0 +1,132 @@
+.App {
+  margin-left:5%;
+  margin-right: 5%;
+  text-align: center;
+  background-color: #333;
+  height: 100vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: calc(5px + 2vmin);
+  color: white;
+  justify-content: center;
+  background-color: #333333;
+}
+
+.App-header a {
+  color: white;
+  text-decoration: none;
+}
+
+.App-header a:active {
+  color: white;
+  text-decoration: none;
+}
+
+.App-logo {
+	align-items: center;
+	max-width: 100px;
+	padding-right: 2vmin;
+}
+
+.App-logo svg{
+	width: 7vmin;
+	height: 7vmin;
+}
+
+.App-logo svg g{
+	fill: white;
+}
+
+.App-body {
+  float: left;
+  width: 100%;
+  background-color:#333333;
+  color: white;
+}
+
+
+/*menu*/
+.navbar {
+	float: left;
+	width: 100%;
+	font-size: 3vmin;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	overflow: visible;
+	background-color: #0061dc;
+}
+
+.navbar li {
+	margin:0;
+	padding:0;
+	float:left;
+	display: block;
+	border-right: 1px solid #0151bb;
+	position: relative;
+}
+
+.navbar li a {
+	float: left;
+	padding:12px 20px;
+	color: #fff;
+	text-decoration:none;
+}
+
+.navbar li a:hover {
+	background: #666;
+	color:#fff
+}
+
+.navbar ul {
+	padding:0;
+	display:inline-block;
+	overflow: auto;
+	max-height: 30vmin;
+	list-style: none;
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index:9999;
+	background: #444;
+}
+
+.navbar li:hover ul {
+	opacity: 1;
+	visibility: visible;
+}
+
+.navbar ul li {
+	float: none;
+	display: block;
+	border: 0;
+}
+
+.navbar ul a {
+	
+	display: block;
+	/* white-space: nowrap; */
+	float: none;
+	text-transform: none;
+}
+
+.navbar ul a:hover {
+	background-color: #0268ed;
+	color:#fff
+}
+
+.nav-right {
+	float: right;
+}
+
+.nav-right li{
+	border-right: 0px;
+	border-left: 1px solid #0151bb;
+	;
+}

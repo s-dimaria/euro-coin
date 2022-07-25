@@ -1,0 +1,47 @@
+.titlePop {
+    background: #0061dc;
+    font-size: 2.5vmin;
+    padding: 5px 10px;
+}
+
+.titlePop button {
+    font-size: 2.5vmin;
+    float: right;
+    background-color: #0061dc;
+    border: none;
+    padding: 0;
+    margin: 0
+}
+
+.titlePop button:hover {
+    color: white;
+    padding: 0;
+    margin: 0;
+    font-size: 2.5vmin;
+    border: none;
+}
+
+.wrapperPop {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.popDiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 100vmax rgba(255 255 255 / .3);
+    background: #333;
+    color: white
+}
+
+.imagePop {
+    width: 350px;
+}
+  

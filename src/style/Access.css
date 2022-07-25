@@ -1,0 +1,71 @@
+
+.access {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../EUflag.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+.access_container {
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #e7f9fc;
+    padding: 30px;
+  }
+
+  .access_container .access_header {
+    max-inline-size: fit-content;
+    padding-bottom: 50px;
+  }
+
+  .access__textBox {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .access_btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border: 1px solid #023476;
+    color: white;
+    background-color: #034499;
+    text-decoration: none;
+  }
+
+  .access_btn a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .access_logo {
+    display: contents;
+  }
+
+  .access_logo svg {
+    width: 50%;
+    height: 50%;
+  }
+
+  .access_logo svg g {
+    fill: #0D47A1;
+  }
+
+  .route_register a{
+    text-decoration: none;
+    color: #383838;
+  }
+
+  .route_register a:hover, a:active{
+    color:green; 
+  }
+
+
