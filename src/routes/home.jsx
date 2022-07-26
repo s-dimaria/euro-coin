@@ -4,11 +4,21 @@ import { ReactComponent as LogoAlbum } from '../logo.svg';
 import { ReactComponent as LogoCoin } from '../coin.svg';
 import withProtected from "../hoc/withProtected";
 import "../style/Home.css";
+import User from '../component/User';
+
 
 function Home() {
 
+
   return (
     <>
+    <div className="userBox">
+      <div className="accessPage">
+          <div className="userInfoBox">
+            <User />
+          </div>
+      </div>
+    </div>
     <div className="wrapper_accessPage">
       <div className="accessPage">
         <div className="accessPage_container">

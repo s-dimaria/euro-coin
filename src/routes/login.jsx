@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, Outlet } from "react-router-dom";
-// import { signInWithGoogle, signInWithFacebook } from "../service/firebase";
-import { BsGoogle } from 'react-icons/bs';
-import { ImFacebook } from 'react-icons/im';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { BsGoogle, bsGithub, BsGithub } from 'react-icons/bs';
 import Divider from '@mui/material/Divider';
 import "../style/Login.css";
 
@@ -13,13 +11,8 @@ import withLogin from '../hoc/withLogin';
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [user, setUser] = useState(getLoginUser());
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if(user) navigate("/home");
-  // }, [user])
 
   const login = async() =>
   {
@@ -58,8 +51,8 @@ function Login() {
         <button className="access_btn access_google" onClick={() => loginWithProvider("google")}>
           <BsGoogle/>
         </button>
-        <button className="access_btn access_facebook" onClick={() => loginWithProvider("facebook")}>
-          <ImFacebook/>
+        <button className="access_btn access_github" onClick={() => loginWithProvider("github")}>
+          <BsGithub/>
         </button>
         <div className="route_register">
           Non hai un account? <Link to="/register">Registrati</Link> ora.

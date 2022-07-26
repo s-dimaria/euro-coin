@@ -57,8 +57,8 @@
     border:none;
   }
 
-  .access_facebook {
-    background-color: #1877f2;
+  .access_github {
+    background-color: #2d2d2d;
     border:none;
   }
 
@@ -67,8 +67,8 @@
     border:none;
   }
 
-  .access_facebook:hover {
-    background-color: #196ad3;
+  .access_github:hover {
+    background-color: rgb(66, 66, 66);
     border:none;
   }
 

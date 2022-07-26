@@ -1,0 +1,92 @@
+.row{
+    flex-direction: column;
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      /* align-items: center; */
+      /* justify-content: center; */
+      display: flex;
+      flex-wrap: wrap;
+      margin: 2vw;
+      max-height: 100%;
+  }
+  
+  .row>* {
+      flex-shrink: 0;
+      max-width: 100%;
+      padding-right: calc(var(--bs-gutter-x) * .5);
+      padding-left: calc(var(--bs-gutter-x) * .5);
+      margin-top: var(--bs-gutter-y);
+  }
+  
+  .wrapperCard {
+    display: flex
+  }
+  
+  .userInfoBox {
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    background-color: #e7f9fc;
+    /* padding: 20px; */
+    box-shadow: 5px 7px #888888;
+  }
+  
+  .col span {
+    font-weight: bold;
+    font-size: 2.5vmin;
+  }
+  
+  .col p {
+    font-size: 1.8vmin;
+    margin:0;
+  }
+  
+  .col .deleteBtn button {
+    background-color: #c01414;
+    border: 1px solid #b10f0f
+  }
+  
+  .col .deleteBtn button:hover {
+    background-color: #d31c1c;
+  }
+  
+  .col button {
+    width: 100%;
+    padding: 7px;
+    font-size: 2vmin;
+    margin-bottom: 10px;
+    border: 1px solid #023476;
+    color: white;
+    background-color: #034499;
+    text-decoration: none;
+  }
+  
+  .col button:hover {
+    padding: 7px;
+    font-size: 2vmin;
+    
+  }
+  
+  .buttonBox {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .col {
+      /* display: flex; */
+      flex: 1 0;
+      width: 100%;
+  }
+
+  .image {
+    text-align: center;
+    /* width: 1vmin; */
+  }
+
+  .image img {
+    margin-bottom: 5px;
+    width: 8vmin;
+  }
+   
+   

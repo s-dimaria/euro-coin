@@ -1,7 +1,7 @@
 .wrapper_accessPage {
    display: flex;
    justify-content: center;
-   height: 100vh;
+   /* height: 100vh; */
  }
  
  .accessPage {
@@ -59,6 +59,15 @@
    .accessPage_logo svg g {
      fill: #0D47A1;
    }
- 
- 
- 
+
+   .userBox{
+    justify-content: center;
+    display: flex;
+    --bs-gutter-x: 3rem;
+    --bs-gutter-y: 0;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
