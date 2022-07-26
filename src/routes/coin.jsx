@@ -30,6 +30,7 @@ function Coin() {
         <div className="coinSelectList">
             <ul className="coinList">
             {Object.keys(states)
+                .sort((a,b) => states[a].state_name > states[b ].state_name ? 1: -1)
                 .map(element => {
                   return (
                     Object.values(states[element])
