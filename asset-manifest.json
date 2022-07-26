@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/euro-coin/static/css/main.f5ac0812.css",
-    "main.js": "/euro-coin/static/js/main.68c14f4c.js",
+    "main.css": "/euro-coin/static/css/main.ce18ffb1.css",
+    "main.js": "/euro-coin/static/js/main.ff272d27.js",
     "static/js/255.92556122.chunk.js": "/euro-coin/static/js/255.92556122.chunk.js",
     "static/media/EUflag.svg": "/euro-coin/static/media/EUflag.9b5670327fbe80b6e161.svg",
     "static/media/logo.svg": "/euro-coin/static/media/logo.baffb2de16bbe2c16a5029066d5850ab.svg",
     "static/media/coin.svg": "/euro-coin/static/media/coin.5819f05175351b9d256064b64bf10f09.svg",
     "index.html": "/euro-coin/index.html",
-    "main.f5ac0812.css.map": "/euro-coin/static/css/main.f5ac0812.css.map",
-    "main.68c14f4c.js.map": "/euro-coin/static/js/main.68c14f4c.js.map",
+    "main.ce18ffb1.css.map": "/euro-coin/static/css/main.ce18ffb1.css.map",
+    "main.ff272d27.js.map": "/euro-coin/static/js/main.ff272d27.js.map",
     "255.92556122.chunk.js.map": "/euro-coin/static/js/255.92556122.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f5ac0812.css",
-    "static/js/main.68c14f4c.js"
+    "static/css/main.ce18ffb1.css",
+    "static/js/main.ff272d27.js"
   ]
 }
