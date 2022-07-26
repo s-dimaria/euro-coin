@@ -5,7 +5,7 @@ import Coin from "./routes/coin";
 import CoinStates from "./routes/coinStates";
 import Home from "./routes/home";
 import Album from "./routes/album";
-import AlbumCase from './routes/albumCoin';
+import AlbumCase from './routes/albumCase';
 import Access from './routes/access';
 import Register from './routes/register';
 import Login from './routes/login';

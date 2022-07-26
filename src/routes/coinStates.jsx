@@ -8,6 +8,7 @@ import 'reactjs-popup/dist/index.css';
 import '../style/Coins.css';
 
 import { getCoinByStates, getInfoCoinByStates } from '../service/supabase';
+import LoadingSpinner from '../component/LoadingSpinner';
 
 function Info({details}) {
 
@@ -25,13 +26,14 @@ function CoinStates() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [infoPopCoin, setInfoPopCoin] = useState("");
     const [storyCoin, setStoryCoin] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const {id} = useParams();
 
     useEffect(() => {
 
         let ignore = false;
-
+        setLoading(true)
         async function startFetching() {
             const coins = await getCoinByStates(id);
             const story = await getInfoCoinByStates(id);
@@ -39,6 +41,7 @@ function CoinStates() {
               console.info("Done");
               setCoin(coins);
               setStoryCoin(story);
+              setLoading(false)
 
             }
           }
@@ -62,6 +65,7 @@ function CoinStates() {
 
     return(
         <div>
+        {loading ? <LoadingSpinner/> :<>
         <Info details={storyCoin}></Info>
         {Object.keys(coin).map((key) => {
            return (
@@ -88,7 +92,8 @@ function CoinStates() {
          <Popup open={selectedImage} onClose={closePopup} infoPopup={infoPopCoin}>
             <br/>
             <img className="imagePop" src={selectedImage} modal nested></img>
-         </Popup>
+         </Popup></>
+         }
        </div>
     );
 }
