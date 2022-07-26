@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
     <div className="userBox">
-      <div className="accessPage">
+      <div className="accessPageUser">
           <div className="userInfoBox">
             <User />
           </div>
