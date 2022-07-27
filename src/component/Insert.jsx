@@ -42,11 +42,11 @@ function SelectInput({ label, value, onChange}) {
     );
 }
 
-function Button({onClick}) {
+function Button({label, onClick}) {
 
     return (
         <div className="insertColumn">
-            <button onClick={onClick}>Inserisci euro</button>
+            <button onClick={onClick}>{label}</button>
         </div>
     );
 }
@@ -75,19 +75,28 @@ function Insert({id, onInsert}) {
     return (
         <>
             {id=="euro" ? 
-            <div className="rowBox">
-                <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
-                <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
-                <SelectInput label="Valore:"  value={value} onChange={(event) => setValue(event.target.value)}></SelectInput>
-                {/* <Input label="Commemorativa:"  checked={checked} type="checkbox" onChange={() => setChecked(!checked)}></Input> */}
-                <Button onClick={putCoin}/>
+            <div className="containerBox">
+                <div className="rowBox">
+                    <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
+                    <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
+                    <SelectInput label="Valore:"  value={value} onChange={(event) => setValue(event.target.value)}></SelectInput>
+                    {/* <Input label="Commemorativa:"  checked={checked} type="checkbox" onChange={() => setChecked(!checked)}></Input> */}
+                </div>
+                <div>
+                    <Button label="Inserisci moneta euro" onClick={putCoin}/>
+                </div>
             </div>   :
-            <div className="rowBox">
-                <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
-                <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
-                <Input label="Descrizione:"  value={description} onChange={(event) => setDescription(event.target.value)}></Input>
-                <Button onClick={putCoinCommemorative}/>
-            </div>  
+            <div className="containerBox">
+                <div className="rowBox">
+                    <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
+                    <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
+                    <Input label="Descrizione:"  value={description} onChange={(event) => setDescription(event.target.value)}></Input>
+                    {/* <Button onClick={putCoinCommemorative}/> */}
+                </div>  
+                <div>
+                    <Button label="Inserisci moneta commemorativa" onClick={putCoinCommemorative}/>
+                </div>
+            </div>
             }
         </>
               

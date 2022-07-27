@@ -64,12 +64,12 @@ function CoinStates() {
 
 
     return(
-        <div>
+        <>
         {loading ? <LoadingSpinner/> :<>
         <Info details={storyCoin}></Info>
         {Object.keys(coin).map((key) => {
            return (
-             <div>
+             <>
                 <h2>In vigore dal: {key}</h2>
                 <hr/>
                 <div className="columnBox">
@@ -86,7 +86,7 @@ function CoinStates() {
                   )
                  })}
                  </div>
-             </div>
+             </>
            )
          })}
          <Popup open={selectedImage} onClose={closePopup} infoPopup={infoPopCoin}>
@@ -94,7 +94,7 @@ function CoinStates() {
             <img className="imagePop" src={selectedImage} modal nested></img>
          </Popup></>
          }
-       </div>
+       </>
     );
 }
 

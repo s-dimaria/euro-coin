@@ -5,15 +5,15 @@
  }
  
  .accessPage {
-     margin: 3vw;
+     margin: 2vw;
      display: flex;
      align-items: center;
      justify-content: center;
    }
 
 .accessPageUser {
-    margin: 3vw;
-    margin-bottom:0;
+    margin: 2vw;
+    /* margin-bottom:0; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,21 +25,29 @@
      flex-direction: column;
      text-align: center;
      background-color: #e7f9fc;
-     padding: 30px;
+     padding: 20px;
      box-shadow: 5px 7px #888888;
    }
  
    .accessPage_container .accessPage_header {
-     padding-bottom: 50px;
+     padding-bottom: 2.5vmin;
      width: 20vw;
-     height: 25vh;
+     /* height: 25vh; */
+   }
+
+   .accessPage_header p {
+    font-size: 2vmin;
    }
 
    @media only screen and (max-width: 600px) {
     .accessPage_container .accessPage_header {
-      padding-bottom: 50px;
       width: 25vw;
-      height: 50vh;
+      height: 30vh;
+    }
+
+    .accessPageUser {
+      margin-top: 20%;
+      margin-bottom: 5vh;
     }
   }
  

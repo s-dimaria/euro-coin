@@ -1,22 +1,22 @@
 .insertColumn {
-    padding-right: 2vmin;
+    /* padding-right: 2vmin; */
     height: 100%;
-    display: flex;
+    /* display: flex; */
     flex: 1 0;
     flex-direction: column;
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }
   
   .insertColumn label {
     padding-top: 2vh;
-    font-size: 2vmin;
+    font-size: 1.5rem;
     font-weight: bold;
     color: white;
   }
   
   .insertColumn input {
-    font-size: 2vmin;
-    width: 80%;
+    font-size: 2.5vmin;
+    width: 90%;
   }
 
   .insertColumn input[type="checkbox"] {
@@ -24,8 +24,8 @@
   }
 
   .insertColumn select {
-    font-size: 2vmin;
-    width: 80%;
+    font-size: 2.5vmin;
+    width: 90%;
     padding: 1px 2px;
   }
   
@@ -49,4 +49,14 @@
     font-size: 2vmin;
     margin-bottom:0;
     background-color: #3e8e41;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .insertColumn label {
+      padding-top: 2vh;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: white;
+    }
+
   }
