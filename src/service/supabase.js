@@ -42,7 +42,7 @@ const loginWithEmailAndPassword = async (email, password) => {
 const loginWithProvider = async (provider) => {
   
     console.info("Login Provider...")
-    let { user, session, error } = await supabase.auth.signIn({
+    let { user, error } = await supabase.auth.signIn({
         provider: provider
     });
     if (error) return alert(error.message);
@@ -64,6 +64,7 @@ const sendPasswordReset = async(email) => {
     console.info("Password Reset...")
     let { data, error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) return alert(error.message);
+    return data;
 }
 
 const getStates = async () => {
@@ -133,11 +134,26 @@ const getAlbumCommemorative = async (uuid) => {
         .eq('commemorative',true)).data;
 }
 
+const deleteCoin = async(state,year,value,uuid) => {
+    console.info("Delete Coin...")
+    const {data, error} = await supabase
+    .from('album_coin')
+    .delete()
+    .match({ state: state, year: year, value: value, user: uuid })
+
+    if(error)
+        console.log(error)
+    
+    return data;
+}
+
 const subscribeAlbum = (callback) => {
     let subscribe = supabase
     .from('album_coin')
     .on('INSERT', callback)
     .subscribe()
+
+    return subscribe;
 }
 
 export { 
@@ -156,5 +172,6 @@ export {
     getAlbum,
     getAlbumNoComm,
     getAlbumCommemorative,
+    deleteCoin,
     subscribeAlbum
 }

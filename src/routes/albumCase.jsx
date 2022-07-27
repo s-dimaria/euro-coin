@@ -10,6 +10,7 @@ function AlbumCase (){
 
     const {id} = useParams();
 
+    const uuid = getUserInfo().id;
     const [album, setAlbum] = useState([]);
     const [loading,setLoading] = useState(false);
 
@@ -17,13 +18,21 @@ function AlbumCase (){
         setAlbum([...album,newInsert])
     }
 
+    const onDelete = (deletedCoin) => {
+        setAlbum(album.filter(coin => coin!==deletedCoin))
+    }
+
     useEffect(() => {
         setLoading(true)
         async function fetchAlbum() {
-            if(id=="euro") 
-                setAlbum(await getAlbumNoComm(getUserInfo().id))
-            else
-                setAlbum(await getAlbumCommemorative(getUserInfo().id))
+            if(id=="euro") {
+                setAlbum(await getAlbumNoComm(uuid))
+                album.sort((a,b) => a > b ? 1 : -1)
+            }
+            else {
+                setAlbum(await getAlbumCommemorative(uuid))
+                album.sort((a,b) => a > b ? 1 : -1)
+            }
             setLoading(false)
         }
         fetchAlbum()
@@ -33,7 +42,7 @@ function AlbumCase (){
         <>
             <Insert id={id} onInsert={onInsert}/>
             { loading ?
-            <LoadingSpinner/>: <AlbumTable id={id} album={album}/> }
+            <LoadingSpinner/>: <AlbumTable id={id} album={album} uuid={uuid} onDelete={onDelete}/> }
         </>
     )
 }

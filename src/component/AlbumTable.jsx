@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import {deleteCoin} from '../service/supabase';
 import '../style/AlbumTable.css'
 
-function AlbumTable({ id, album }) {
+function AlbumTable({ id, album, uuid, onDelete}) {
+
+    const onDeleteCoin = async(coinToDelete) => {
+        await deleteCoin(
+            coinToDelete.state,
+            coinToDelete.year,
+            coinToDelete.value ?  coinToDelete.value : "2 Euro",
+            uuid).then(()=> onDelete(coinToDelete))
+    }
 
     return (
         <>
@@ -10,10 +19,9 @@ function AlbumTable({ id, album }) {
                     <table className="fl-table">
                         <thead>
                             <tr>
-                                <th>Stato</th>
-                                <th>Anno</th>
-                                <th>Valore</th>
-                                {/* <th>Commemorativa</th> */}
+                                <th style={{width: "50vw"}}>Stato</th>
+                                <th style={{width: "30vw"}}>Anno</th>
+                                <th style={{width: "100vw"}}>Valore</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,14 +31,10 @@ function AlbumTable({ id, album }) {
                                     .map((key) => {
                                         return (
 
-                                            <tr onClick={()=>console.log(album[key].state)}>
-                                                <td>{album[key].state}</td>
-                                                <td>{album[key].year}</td>
-                                                <td>{album[key].value}</td>
-                                                {/* {album[key].commemorative ? 
-                            <td>si</td> :
-                            <td>no</td>
-                            } */}
+                                            <tr onClick={() => onDeleteCoin(album[key])}>
+                                                <td style={{width: "50vw"}}>{album[key].state}</td>
+                                                <td style={{width: "30vw"}}>{album[key].year}</td>
+                                                <td style={{width: "100vw"}}>{album[key].value}</td>
                                             </tr>
                                         )
                                     })
@@ -43,9 +47,9 @@ function AlbumTable({ id, album }) {
                     <table className="fl-table">
                         <thead>
                             <tr>
-                                <th>Stato</th>
-                                <th>Anno</th>
-                                <th>Descrizione</th>
+                                <th style={{width: "50vw"}}>Stato</th>
+                                <th style={{width: "30vw"}}>Anno</th>
+                                <th style={{width: "100vw"}}>Descrizione</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,10 +58,10 @@ function AlbumTable({ id, album }) {
                                     .sort((a, b) => album[a].state > album[b].state ? 1 : -1)
                                     .map((key) => {
                                         return (
-                                            <tr>
-                                                <td>{album[key].state}</td>
-                                                <td>{album[key].year}</td>
-                                                <td>{album[key].description}</td>
+                                            <tr onClick={() => onDeleteCoin(album[key])}>
+                                                <td style={{width: "50vw"}}>{album[key].state}</td>
+                                                <td style={{width: "30vw"}}>{album[key].year}</td>
+                                                <td style={{width: "100vw"}}>{album[key].description}</td>
                                             </tr>
                                         )
                                     })

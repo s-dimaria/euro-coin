@@ -43,6 +43,10 @@
     cursor: pointer;
     padding: 10px;
   }
+
+  .insertColumn button:hover {
+    border: 1px solid green;
+  }
   
   
   .insertColumn button:hover {
