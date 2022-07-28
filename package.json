@@ -1,12 +1,12 @@
 {
-  "homepage":"http://s-dimaria.github.io/euro-coin",
+  "homepage": "http://s-dimaria.github.io/euro-coin",
   "name": "euro-coin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.9.0",
+    "@mui/material": "^5.9.2",
     "@react-firebase/database": "^0.3.11",
     "@supabase/supabase-js": "^1.35.4",
     "@testing-library/jest-dom": "^5.16.4",

@@ -90,7 +90,7 @@ const putInsertCoin = async (state, year, value, uuid) => {
             { state: state, year: year, value: value, user: uuid }
         ])
     if(error)
-        error.code === "23502" ? alert("Campi non inseriti") : alert("Moneta già esiste")
+        console.error(error.message)
     else
         return data[0];
 }
@@ -103,7 +103,7 @@ const putInsertCoinCommemorative = async (state, year, value, bool, descr, uuid)
             { state: state, year: year, value: value, user: uuid, commemorative: bool, description: descr }
         ])
     if(error)
-        error.code === "23502" ? alert("Campi non inseriti") : alert("Moneta già esiste")
+        console.error(error.message)
     else
         return data[0];
 }

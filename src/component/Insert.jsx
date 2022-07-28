@@ -4,6 +4,7 @@ import '../style/Coins.css';
 import '../style/Insert.css';
 
 import { putInsertCoin, putInsertCoinCommemorative, getUserInfo } from '../service/supabase';
+import CustomizedSnackbars from './CustomizedSnackbar';
 
 function Input({ label, value, onChange, type}) {
 
@@ -58,18 +59,44 @@ function Insert({id, onInsert}) {
     const [value, setValue] = useState("1 Centesimo");
     const [description, setDescription] = useState(null);
 
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState("");
+    const [text, setText] = useState("");
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const putCoin = async () => {
         let userId = getUserInfo().id;
-        let coin = await putInsertCoin(state,year,value,userId)
-        if(coin)
+        let coin = state!=="" ? await putInsertCoin(state,year,value,userId) : setState(null)
+        if(coin) {
+            setOpen(true)
             onInsert(coin)
+            setText("Moneta aggiunta con successo!")
+            setSeverity("success")
+        }
+        else {
+            setOpen(true)
+            setText("Operazione annullata! Moneta duplicata o campi non inseriti")
+            setSeverity("error")
+        }
     }
 
     const putCoinCommemorative = async () => {
         let userId = getUserInfo().id;
-        let coin = await putInsertCoinCommemorative(state,year,"2 Euro","true",description,userId)
-        if(coin)
+        let coin = state!=="" ? await putInsertCoinCommemorative(state,year,"2 Euro","true",description,userId) : setState(null)
+        if(coin) {
+            setState(true)
             onInsert(coin)
+            setText("Moneta aggiunta con successo!")
+            setSeverity("success")
+        }
+        else {
+            setOpen(true)
+            setText("Operazione annullata! Moneta duplicata o campi non inseriti")
+            setSeverity("error")
+        }
     }
     
     return (
@@ -80,10 +107,10 @@ function Insert({id, onInsert}) {
                     <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
                     <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
                     <SelectInput label="Valore:"  value={value} onChange={(event) => setValue(event.target.value)}></SelectInput>
-                    {/* <Input label="Commemorativa:"  checked={checked} type="checkbox" onChange={() => setChecked(!checked)}></Input> */}
                 </div>
                 <div>
                     <Button label="Inserisci moneta euro" onClick={putCoin}/>
+                    <CustomizedSnackbars text= {text} severity={severity} open={open} onClose={handleClose} />
                 </div>
             </div>   :
             <div className="containerBox">
@@ -91,10 +118,10 @@ function Insert({id, onInsert}) {
                     <Input label="Stato:" value={state} type="text" onChange={(event) => setState(event.target.value)}></Input>
                     <Input label="Anno:" value={year} type="number" onChange={(event) => setYear(event.target.value)}></Input>
                     <Input label="Descrizione:"  value={description} onChange={(event) => setDescription(event.target.value)}></Input>
-                    {/* <Button onClick={putCoinCommemorative}/> */}
                 </div>  
                 <div>
                     <Button label="Inserisci moneta commemorativa" onClick={putCoinCommemorative}/>
+                    <CustomizedSnackbars text= {text} severity={severity} open={open} onClose={handleClose} />
                 </div>
             </div>
             }

@@ -1,16 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {deleteCoin} from '../service/supabase';
 import '../style/AlbumTable.css'
+import CustomizedSnackbars from './CustomizedSnackbar';
 
 function AlbumTable({ id, album, uuid, onDelete}) {
+
+    const [open, setOpen] = useState(false);
+    const [text, setText] = useState("");
 
     const onDeleteCoin = async(coinToDelete) => {
         await deleteCoin(
             coinToDelete.state,
             coinToDelete.year,
             coinToDelete.value ?  coinToDelete.value : "2 Euro",
-            uuid).then(()=> onDelete(coinToDelete))
+            uuid).then(()=> {
+                onDelete(coinToDelete)
+            }).then(() =>  {setOpen(true)
+            setText("Moneta '"+ coinToDelete.state + " " + coinToDelete.year + " " + coinToDelete.value + "' eliminata")})
     }
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <>
@@ -71,6 +82,7 @@ function AlbumTable({ id, album, uuid, onDelete}) {
                     </table>
                 </div>
             }
+             <CustomizedSnackbars open={open} onClose={handleClose} text={text} severity="info" />
         </>
     )
 }

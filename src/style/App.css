@@ -130,3 +130,9 @@
 	border-left: 1px solid #0151bb;
 	;
 }
+
+.MuiAlert-action button:hover {
+	margin: 0;
+	padding: 5px;
+	border:0
+}
