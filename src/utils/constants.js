@@ -1,4 +1,4 @@
-const values= [
+export const values= [
     "1 Centesimo",
     "2 Centesimi",
     "5 Centesimi",
@@ -9,4 +9,26 @@ const values= [
     "2 Euro"
 ]
 
-export default values;
+export const states = [
+    "Italia",
+    "Austria",
+    "Andorra",
+    "Spagna",
+    "Francia",
+    "Germania",
+    "Portogallo",
+    "Belgio",
+    "Finlandia",
+    "Malta",
+    "Grecia",
+    "Lettonia",
+    "Estonia",
+    "Lituania",
+    "Cipro",
+    "Irlanda",
+    "Lussemburgo",
+    "Olanda",
+    "San Marino",
+    "Slovacchia",
+    "Slovenia"
+]

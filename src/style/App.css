@@ -136,3 +136,42 @@
 	padding: 5px;
 	border:0
 }
+
+.MuiDialogActions-root button:hover {
+	margin-top:0;
+	margin-bottom: 0;
+	padding: 6px 8px;
+	border:0;
+	font-size: 0.875rem;
+	/* line-height: 1.75; */
+	background-color: #4CAF50;
+}
+
+.MuiDialogActions-root button:hover {
+	margin-top:0;
+	margin-bottom: 0;
+	padding: 6px 8px;
+	border:0;
+	font-size: 0.875rem;
+	/* line-height: 1.75; */
+	background-color: #4CAF50;
+}
+
+.MuiDialogActions-root .disagree {
+	margin-top:0;
+	margin-bottom: 0;
+	margin-right: 5px;
+	padding: 6px 8px;
+	border:0;
+	font-size: 0.875rem;
+}
+
+.MuiDialogActions-root .disagree button:hover {
+	margin-top:0;
+	margin-bottom: 0;
+	padding: 6px 8px;
+	border:0;
+	font-size: 0.875rem;
+	background-color: #980606;
+}
+
