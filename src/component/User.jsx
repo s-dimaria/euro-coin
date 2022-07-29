@@ -74,10 +74,7 @@ function User() {
             sum = sum + 2.00
         })
 
-        console.log(sum)
         setTotalSum(sum)
-
-
     }
 
     const handleClose = () => {

@@ -30,5 +30,7 @@ export const states = [
     "Olanda",
     "San Marino",
     "Slovacchia",
-    "Slovenia"
+    "Slovenia",
+    "Città del Vaticano",
+    "Monaco"
 ]
