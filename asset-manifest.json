@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/euro-coin/static/css/main.42f66331.css",
-    "main.js": "/euro-coin/static/js/main.9f10dea5.js",
+    "main.js": "/euro-coin/static/js/main.c4ca0a68.js",
     "static/js/255.92556122.chunk.js": "/euro-coin/static/js/255.92556122.chunk.js",
     "static/media/EUflag.svg": "/euro-coin/static/media/EUflag.9b5670327fbe80b6e161.svg",
     "static/media/logo.svg": "/euro-coin/static/media/logo.baffb2de16bbe2c16a5029066d5850ab.svg",
     "static/media/coin.svg": "/euro-coin/static/media/coin.5819f05175351b9d256064b64bf10f09.svg",
     "index.html": "/euro-coin/index.html",
     "main.42f66331.css.map": "/euro-coin/static/css/main.42f66331.css.map",
-    "main.9f10dea5.js.map": "/euro-coin/static/js/main.9f10dea5.js.map",
+    "main.c4ca0a68.js.map": "/euro-coin/static/js/main.c4ca0a68.js.map",
     "255.92556122.chunk.js.map": "/euro-coin/static/js/255.92556122.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.42f66331.css",
-    "static/js/main.9f10dea5.js"
+    "static/js/main.c4ca0a68.js"
   ]
 }
