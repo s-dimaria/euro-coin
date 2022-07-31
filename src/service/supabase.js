@@ -44,6 +44,8 @@ const loginWithProvider = async (provider) => {
     console.info("Login Provider...")
     let { user, error } = await supabase.auth.signIn({
         provider: provider
+    }, {
+        redirectTo: "https://s-dimaria.github.io/euro-coin/"
     });
     if (error) return alert(error.message);
 
