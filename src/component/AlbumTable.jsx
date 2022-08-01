@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { deleteCoin } from '../service/supabase';
+import React, { useState } from 'react';
+import { deleteCoin, deleteCommemorative } from '../service/supabase';
 import '../style/AlbumTable.css'
 import AlertDialog from './AlertDialog';
 import CustomizedSnackbars from './CustomizedSnackbar';
@@ -14,19 +14,30 @@ function AlbumTable({ id, album, uuid, onDelete }) {
 
 
     const onConfirm = async () => {
-        await deleteCoin(
-            coin.state,
-            coin.year,
-            coin.value ? coin.value : "2 Euro",
-            uuid).then(() => {
-                onDelete(coin)
-            }).then(() => {
-                setCoin(null)
-                setOpen(true)
-                id === "euro" ?
-                    setText("Moneta '" + coin.state + " " + coin.year + " " + coin.value + "' eliminata") :
+        id === "euro" ?
+            await deleteCoin(
+                coin.state,
+                coin.year,
+                coin.value,
+                uuid).then(() => {
+                    onDelete(coin)
+                }).then(() => {
+                    setCoin(null)
+                    setOpen(true)
+                    setText("Moneta '" + coin.state + " " + coin.year + " " + coin.value + "' eliminata")
+                }) :
+            await deleteCommemorative(
+                coin.state,
+                coin.year,
+                coin.description,
+                uuid).then(() => {
+                    onDelete(coin)
+                }).then(() => {
+                    setCoin(null)
+                    setOpen(true)
                     setText("Moneta '" + coin.state + " " + coin.year + " " + coin.description + "' eliminata")
-            })
+                })
+
     }
 
     const handleClose = () => {

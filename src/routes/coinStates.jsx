@@ -7,95 +7,113 @@ import 'reactjs-popup/dist/index.css';
 
 import '../style/Coins.css';
 
-import { getCoinByStates, getInfoCoinByStates } from '../service/supabase';
+import { getCoin, getCoinByStates, getInfoCoinByStates } from '../service/supabase';
 import LoadingSpinner from '../component/LoadingSpinner';
+import CoinTable from '../component/CoinTable';
 
-function Info({details}) {
+function Info({ details }) {
 
-  return ( 
-      <div style={{textAlign: "justify"}}>
-          <p>{details}</p>
-      </div>
+  return (
+    <div style={{ textAlign: "justify" }}>
+      <p>{details}</p>
+    </div>
   );
 
 }
 
 function CoinStates() {
 
-    const [coin, setCoin] = useState([]);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [infoPopCoin, setInfoPopCoin] = useState("");
-    const [storyCoin, setStoryCoin] = useState("");
-    const [loading, setLoading] = useState(false);
+  const [coin, setCoin] = useState([]);
+  const [coinComm, setCoinComm] = useState([])
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [titlePopCoin, setTitlePopCoin] = useState("");
+  const [descriptionImage, setDescriptionImage] = useState("");
+  const [storyCoin, setStoryCoin] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const {id} = useParams();
+  const { id } = useParams();
 
-    useEffect(() => {
+  useEffect(() => {
 
-        let ignore = false;
-        setLoading(true)
-        async function startFetching() {
-            const coins = await getCoinByStates(id);
-            const story = await getInfoCoinByStates(id);
-            if(!ignore) {
-              console.info("Done");
-              setCoin(coins);
-              setStoryCoin(story);
-              setLoading(false)
-
-            }
-          }
-            startFetching();
-      
-            return () => {ignore=true} ;
-
-    },[id])
-
-    const setParametersPopup = (imageUrl, value) => {
-
-        setSelectedImage(imageUrl)
-        setInfoPopCoin(value)
-
+    let ignore = false;
+    setLoading(true)
+    async function startFetching() {
+      const coins = await getCoin(id);
+      if (!ignore) {
+        console.info("Done");
+        setCoin(coins.coin);
+        setStoryCoin(coins.detail);
+        setCoinComm(coins.coin_commemorative);
+        setLoading(false)
+      }
     }
+    startFetching();
 
-    function closePopup() {
-        setSelectedImage(null)
-    }
+    return () => { ignore = true };
+
+  }, [id])
+
+  const setParametersPopup = (imageUrl, value) => {
+
+    setSelectedImage(imageUrl)
+    setTitlePopCoin(value)
+
+  }
+
+  const setCommPopup = (imageUrl, value, description) => {
+    setParametersPopup(imageUrl, value)
+    setDescriptionImage(description)
+  }
+
+  function closePopup() {
+    setSelectedImage(null)
+  }
 
 
-    return(
-        <>
-        {loading ? <LoadingSpinner/> :<>
+  return (
+    <>
+      {loading ? <LoadingSpinner /> : <>
         <Info details={storyCoin}></Info>
         {Object.keys(coin).map((key) => {
-           return (
-             <>
-                <h2>In vigore dal: {key}</h2>
-                <hr/>
-                <div className="columnBox">
+          return (
+            <>
+              <h2>In vigore dal: {key}</h2>
+              <hr />
+              <div className="columnBox">
                 {Object.values(coin[key])
-                .sort((a,b) => a.order > b.order ? 1 : -1)
-                .map((dataItem) => {
-                  return (
-                    <div className="imageBox">
-                        <img 
-                            onClick={()=>setParametersPopup(dataItem.imageUrl, dataItem.value)} 
-                            className="imageCoin" src={dataItem.imageUrl}>
+                  .sort((a, b) => a.order > b.order ? 1 : -1)
+                  .map((dataItem) => {
+                    return (
+                      <div className="imageBox">
+                        <img
+                          onClick={() => {
+                            setParametersPopup(dataItem.imageUrl, dataItem.value)
+                            setDescriptionImage("")
+                          }}
+                          className="imageCoin" src={dataItem.imageUrl}>
                         </img>
-                    </div>
-                  )
-                 })}
-                 </div>
-             </>
-           )
-         })}
-         <Popup open={selectedImage} onClose={closePopup} infoPopup={infoPopCoin}>
-            <br/>
-            <img className="imagePop" src={selectedImage} modal nested></img>
-         </Popup></>
-         }
-       </>
-    );
+                      </div>
+                    )
+                  })}
+              </div>
+            </>
+          )
+        })}
+        {coinComm ?
+          <CoinTable coin={coinComm} onClick={setCommPopup} /> : <></>}
+        <Popup open={selectedImage} onClose={closePopup} title={titlePopCoin}>
+          <div className="pop-container">
+            <div className="pop-image">
+              <img className="imagePop" src={selectedImage} modal nested></img>
+            </div>
+            <div className="pop-content">
+              <p>{descriptionImage}</p>
+            </div>
+          </div>
+        </Popup></>
+      }
+    </>
+  );
 }
 
 export default CoinStates;

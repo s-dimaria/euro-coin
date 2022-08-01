@@ -4,7 +4,7 @@ import LoadingSpinner from '../component/LoadingSpinner';
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router';
 
-import { getUserInfo, getAlbumNoComm, getAlbumCommemorative } from '../service/supabase';
+import { getUserInfo, getAlbumCoin, getAlbumCommemorative } from '../service/supabase';
 
 function AlbumCase (){
 
@@ -26,7 +26,7 @@ function AlbumCase (){
         setLoading(true)
         async function fetchAlbum() {
             if(id=="euro") {
-                setAlbum(await getAlbumNoComm(uuid))
+                setAlbum(await getAlbumCoin(uuid))
                 album.sort((a,b) => a > b ? 1 : -1)
             }
             else {

@@ -99,7 +99,7 @@ function Insert({id, onInsert}) {
     const putCoinCommemorative = async () => {
         let userId = getUserInfo().id;
         if(year > 1998 && year < d.getFullYear()+1 && description!=="") {
-            let coin = await putInsertCoinCommemorative(state,year,"2 Euro","true",description,userId);
+            let coin = await putInsertCoinCommemorative(state,year,description,userId);
             if(coin) {
                 setOpen(true)
                 onInsert(coin)

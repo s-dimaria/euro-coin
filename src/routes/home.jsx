@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as LogoAlbum } from '../logo.svg';
 import { ReactComponent as LogoCoin } from '../coin.svg';
 import withProtected from "../hoc/withProtected";
 import "../style/Home.css";
 import User from '../component/User';
+import { getUserInfo } from "../service/supabase";
 
 
 function Home() {

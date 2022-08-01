@@ -42,7 +42,39 @@
     color: white
 }
 
+.popDiv p {
+    margin-top: 0;
+    text-align: justify;
+    font-size: 1.5vmin;
+}
+
 .imagePop {
     width: 350px;
 }
+
+.pop-container {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    /* margin: 20px 20px 0 0;   */
+    border: 8px solid #333;
+    overflow: auto
+}
+
+.pop-image {
+    float: left
+}
+
+@media only screen and (max-width: 600px) {
+    .pop-container {
+        flex-direction: column;
+    }
+
+    .popDiv p {
+        font-size: 2.5vmin;
+    }
+
+}
+
+
   

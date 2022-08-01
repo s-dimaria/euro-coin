@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import withProtected from "../hoc/withProtected";
 import { Link } from "react-router-dom";
 import LoadingSpinner from '../component/LoadingSpinner';
-import { getAlbumCommemorative, getAlbumNoComm, getUserInfo, logout, sendPasswordReset } from "../service/supabase";
+import { getAlbumCommemorative, getAlbumCoin, getUserInfo, logout, sendPasswordReset } from "../service/supabase";
 import '../style/User.css';
 import AlertDialog from "./AlertDialog";
 
@@ -17,15 +17,18 @@ function User() {
 
     useEffect(() => {
         totalValueCoin()
-
+   
     }, [coinEuro, coinComm])
+
+
     useEffect(() => {
 
         let ignore = false;
 
         async function fetchCoin() {
+            
             setLoading(true)
-            const coinNoComm = await getAlbumNoComm(getUserInfo().id);
+            const coinNoComm = await getAlbumCoin(getUserInfo().id);
             const coinComm = await getAlbumCommemorative(getUserInfo().id);
             if (!ignore) {
                 setCoinEuro(coinNoComm);

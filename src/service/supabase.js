@@ -74,6 +74,11 @@ const getStates = async () => {
     return (await supabase.from("states_eu").select('state_name')).data;
 }
 
+const getCoin = async (state) => {
+    console.info("GET Coin By States -> " + state)
+    return (await supabase.from("states_eu").select('coin, coin_commemorative, detail').eq('state_name', state)).data[0];
+}
+
 const getCoinByStates = async (state) => {
     console.info("GET Coin By States -> " + state)
     return (await supabase.from("states_eu").select('coin').eq('state_name', state)).data[0].coin;
@@ -97,12 +102,13 @@ const putInsertCoin = async (state, year, value, uuid) => {
         return data[0];
 }
 
-const putInsertCoinCommemorative = async (state, year, value, bool, descr, uuid) => {
+//modifica
+const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
     console.info("Insert Coin Commemorative")
     let { data, error } = await supabase
-        .from('album_coin')
+        .from('album_commemorative')
         .insert([
-            { state: state, year: year, value: value, user: uuid, commemorative: bool, description: descr }
+            { state: state, year: year, description: descr, user: uuid, value: "2 Euro" }
         ])
     if(error)
         console.error(error.message)
@@ -110,7 +116,23 @@ const putInsertCoinCommemorative = async (state, year, value, bool, descr, uuid)
         return data[0];
 }
 
-const getAlbum = async (uuid) => {
+
+const getFullAlbum = async (uuid) => {
+    console.info("Get Coin of user")
+    let data = await supabase
+    .from('album_coin')
+    .select('state, year, value')
+        .eq('user', uuid);
+    let dataComm = await supabase
+    .from('album_commemorative')
+    .select('state, year, description')
+        .eq('user', uuid);
+    data.data = [...data.data, dataComm.data]
+
+    return data.data;
+}
+
+const getAlbumCoin = async (uuid) => {
     console.info("Get Coin of user")
     return (await supabase
     .from('album_coin')
@@ -118,22 +140,12 @@ const getAlbum = async (uuid) => {
         .eq('user', uuid)).data;
 }
 
-const getAlbumNoComm = async (uuid) => {
-    console.info("Get Coin of user")
-    return (await supabase
-    .from('album_coin')
-    .select('state, year, value')
-        .eq('user', uuid)
-        .eq('commemorative',false)).data;
-}
-
 const getAlbumCommemorative = async (uuid) => {
-    console.info("Get Coin of user")
+    console.info("Get Commemorative of user")
     return (await supabase
-    .from('album_coin')
+    .from('album_commemorative')
     .select('state, year, description')
-        .eq('user', uuid)
-        .eq('commemorative',true)).data;
+        .eq('user', uuid)).data;
 }
 
 const deleteCoin = async(state,year,value,uuid) => {
@@ -142,6 +154,19 @@ const deleteCoin = async(state,year,value,uuid) => {
     .from('album_coin')
     .delete()
     .match({ state: state, year: year, value: value, user: uuid })
+
+    if(error)
+        console.log(error)
+    
+    return data;
+}
+
+const deleteCommemorative = async(state,year,description,uuid) => {
+    console.info("Delete Coin Commemmorative...")
+    const {data, error} = await supabase
+    .from('album_commemorative')
+    .delete()
+    .match({ state: state, year: year, description: description, user: uuid })
 
     if(error)
         console.log(error)
@@ -167,13 +192,15 @@ export {
     loginWithProvider,
     logout, 
     sendPasswordReset,
-    getCoinByStates, 
-    getInfoCoinByStates,
+    getCoin,
+    // getCoinByStates, 
+    // getInfoCoinByStates,
     putInsertCoin,
     putInsertCoinCommemorative,
-    getAlbum,
-    getAlbumNoComm,
+    getFullAlbum,
+    getAlbumCoin,
     getAlbumCommemorative,
     deleteCoin,
+    deleteCommemorative,
     subscribeAlbum
 }
