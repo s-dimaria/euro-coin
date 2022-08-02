@@ -18,7 +18,7 @@ export default function CustomizedSnackbars({text, onClose, open, severity}) {
     <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar 
         open={open} 
-        autoHideDuration={3000} 
+        autoHideDuration={4000} 
         onClose={onClose} 
         anchorOrigin={{ vertical:'bottom', horizontal:'center' }}
         TransitionComponent={SlideTransition}

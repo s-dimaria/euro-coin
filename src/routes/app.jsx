@@ -36,7 +36,6 @@ function App() {
         <h1>Euro Coins</h1>
       </header>
       <Navigator 
-        states={states} 
         onClick={logout}>
       </Navigator>
       <div className="App-body">

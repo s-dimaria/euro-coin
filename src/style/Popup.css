@@ -49,20 +49,25 @@
 }
 
 .imagePop {
-    width: 350px;
+    max-width: 100%;
 }
 
 .pop-container {
     display: flex;
-    text-align: center;
-    flex-direction: row;
-    /* margin: 20px 20px 0 0;   */
-    border: 8px solid #333;
+    text-align: justify;
+    flex-direction: column;
     overflow: auto
 }
 
+.pop-content p {
+    text-align: justify;
+    margin-left: 10px;
+}
+
 .pop-image {
-    float: left
+    text-align: center;
+    float: left;
+    padding: 2vmin;
 }
 
 @media only screen and (max-width: 600px) {

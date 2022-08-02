@@ -5,6 +5,7 @@ import Coin from "./routes/coin";
 import CoinStates from "./routes/coinStates";
 import Home from "./routes/home";
 import Album from "./routes/album";
+import AlbumRoute from './routes/albumRoute';
 import AlbumCase from './routes/albumCase';
 import Access from './routes/access';
 import Register from './routes/register';
@@ -47,7 +48,7 @@ function AppRoute() {
         children: [
           { 
             path: '', 
-            element: <p>Seleziona il tuo album dal menù di navigazione</p>
+            element: <AlbumRoute />
           },
           { 
             path: ':id', 

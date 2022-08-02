@@ -38,7 +38,7 @@ function SelectInput({ label, value, onChange, element}) {
             {
             <select value={value} onChange={onChange}>
                 {Object.keys(element)
-                .sort((a,b) => element[a]>element[b] ? 1: -1)
+                .sort((a,b) => element[a] > element[b] ? 1: -1)
                 .map(value => <option value={element[value]}>{element[value]}</option>)}
             </select>
             }

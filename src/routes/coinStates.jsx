@@ -7,7 +7,7 @@ import 'reactjs-popup/dist/index.css';
 
 import '../style/Coins.css';
 
-import { getCoin, getCoinByStates, getInfoCoinByStates } from '../service/supabase';
+import { getCoin, getUserInfo } from '../service/supabase';
 import LoadingSpinner from '../component/LoadingSpinner';
 import CoinTable from '../component/CoinTable';
 
@@ -30,6 +30,7 @@ function CoinStates() {
   const [descriptionImage, setDescriptionImage] = useState("");
   const [storyCoin, setStoryCoin] = useState("");
   const [loading, setLoading] = useState(false);
+  const uuid = getUserInfo().id;
 
   const { id } = useParams();
 
@@ -60,10 +61,10 @@ function CoinStates() {
 
   }
 
-  const setCommPopup = (imageUrl, value, description) => {
-    setParametersPopup(imageUrl, value)
-    setDescriptionImage(description)
-  }
+  // const openPopup = (selectCoin) => {
+  //   setParametersPopup(selectCoin.imageUrl, selectCoin.value)
+  //   setDescriptionImage(selectCoin.description)
+  // }
 
   function closePopup() {
     setSelectedImage(null)
@@ -100,14 +101,11 @@ function CoinStates() {
           )
         })}
         {coinComm ?
-          <CoinTable coin={coinComm} onClick={setCommPopup} /> : <></>}
+        <CoinTable coins={coinComm} uuid={uuid} state={id}/> : <></>}
         <Popup open={selectedImage} onClose={closePopup} title={titlePopCoin}>
           <div className="pop-container">
             <div className="pop-image">
               <img className="imagePop" src={selectedImage} modal nested></img>
-            </div>
-            <div className="pop-content">
-              <p>{descriptionImage}</p>
             </div>
           </div>
         </Popup></>

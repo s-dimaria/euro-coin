@@ -31,6 +31,6 @@ export const states = [
     "San Marino",
     "Slovacchia",
     "Slovenia",
-    "Città del Vaticano",
+    "Vaticano",
     "Monaco"
 ]

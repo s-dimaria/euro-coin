@@ -38,11 +38,14 @@
    .accessPage_header p {
     font-size: 2vmin;
    }
+   .accessPage_header h2 {
+    font-size: 3vmin;
+   }
 
    @media only screen and (max-width: 600px) {
     .accessPage_container .accessPage_header {
       width: 25vw;
-      height: 30vh;
+      height: 25vh;
     }
 
     .accessPageUser {
