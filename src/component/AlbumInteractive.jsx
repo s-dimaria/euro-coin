@@ -13,6 +13,7 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
 
     const [open, setOpen] = useState(false);
     const [stateToNavigate, setStateToNavigate] = useState("");
+    const [img, setImg] = useState("")
 
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
@@ -30,19 +31,19 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
     const onConfirmDelete = async () => {
 
         id === "euro" ?
-        await deleteCoin(
-            deletedCoin.state,
-            deletedCoin.year,
-            deletedCoin.value,
-            uuid).then((data) =>
-                onDelete(data)
-            ).then(() => {
-                setDeletedCoin(null)
-                setCoin(null)
-                setOpen(true)
-                setText("Moneta '" + deletedCoin.state + " " + deletedCoin.year + " " + deletedCoin.value + "' eliminata")
-                setSeverity("info")
-            }) :
+            await deleteCoin(
+                deletedCoin.state,
+                deletedCoin.year,
+                deletedCoin.value,
+                uuid).then(() =>
+                    onDelete(deletedCoin)
+                ).then(() => {
+                    setDeletedCoin(null)
+                    setCoin(null)
+                    setOpen(true)
+                    setText("Moneta '" + deletedCoin.state + " " + deletedCoin.year + " " + deletedCoin.value + "' eliminata")
+                    setSeverity("info")
+                }) :
             await deleteCommemorative(
                 deletedCoin.state,
                 deletedCoin.year,
@@ -135,12 +136,12 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                                             data.year === yearValue &&
                                                                             data.value === values[value]
                                                                         )) ?
-                                                                            // findCoin(state, yearValue, values[value]) ?
                                                                             <button disabled>
                                                                                 <img src={startedYearofStates[key].coin[years[0]][value].imageUrl}
                                                                                     onClick={() => {
                                                                                         setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
                                                                                         setDeletedCoin({ state: state, year: yearValue, value: values[value] })
+                                                                                        setImg(startedYearofStates[key].coin[years[0]][value].imageUrl)
                                                                                     }}>
                                                                                 </img>
                                                                             </button> :
@@ -184,6 +185,7 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                                                     onClick={() => {
                                                                                         setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
                                                                                         setDeletedCoin({ state: state, year: yearValue, value: values[value] })
+                                                                                        setImg(startedYearofStates[key].coin[imageSelect(yearValue, years)][value].imageUrl)
                                                                                     }}>
                                                                                 </img>
                                                                             </button> :
@@ -231,11 +233,12 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                                                 onClick={() => {
                                                                                     setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + startedYearofStates[key].coin_commemorative[yearValue][value].title + "' ?")
                                                                                     setDeletedCoin({ state: state, year: yearValue, description: startedYearofStates[key].coin_commemorative[yearValue][value].title })
+                                                                                    setImg(startedYearofStates[key].coin_commemorative[yearValue][value].imageUrl)
                                                                                 }}>
                                                                             </img>
                                                                         </button> :
-                                                                        <button onClick={() => {                                             
-                                                                            setTitle(`Inserire una moneta commemorativa dello stato ${state}?` )
+                                                                        <button onClick={() => {
+                                                                            setTitle(`Inserire una moneta commemorativa dello stato ${state}?`)
                                                                             setStateToNavigate(state)
                                                                         }}>
                                                                         </button>)}
@@ -254,11 +257,12 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                 text="Attenzione stai per inserire una moneta. La conferma comporterà la modifica del tuo album." />
             <AlertDialog onClose={handleClose} onConfirm={onConfirmDelete} open={deletedCoin}
                 title={title}
+                image={img}
                 text="Attenzione stai per eliminare una moneta. La conferma comporterà la modifica del tuo album." />
             <AlertDialog onClose={handleClose} onConfirm={navigateToState} open={stateToNavigate}
                 title={title}
                 textConfirm="Procedi"
-                text={<><p>Per inserire una nuova moneta commemorativa, spostati nella sezione 'Monete' e seleziona lo stato della moneta commemorativa.</p><p>Premi il tasto 'Procedi' per spostarti rapidamente nella sezione.</p></>}  />
+                text={<><p>Per inserire una nuova moneta commemorativa, spostati nella sezione 'Monete' e seleziona lo stato della moneta commemorativa.</p><p>Premi il tasto 'Procedi' per spostarti rapidamente nella sezione.</p></>} />
             <CustomizedSnackbars open={open} onClose={handleClose} text={text} severity={severity} />
         </>)
 

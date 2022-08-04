@@ -172,7 +172,7 @@ const getAlbumCommemorative = async (uuid) => {
 }
 
 const deleteCoin = async (state, year, value, uuid) => {
-    console.info("Delete Coin...")
+    console.info("Delete Coin...", state, year, value, uuid)
     const { data, error } = await supabase
         .from('album_coin')
         .delete()
