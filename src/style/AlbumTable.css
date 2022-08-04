@@ -18,7 +18,6 @@
 
     display: grid;
     white-space: nowrap;
-    /* background-color: white; */
 }
 
 .fl-table thead tbody {
@@ -67,4 +66,50 @@
 }
 .fl-table tr:nth-child(even):active {
     background-color: #4caf4f7c;
+}
+
+
+.containerGrid {
+    /* display: grid;  */
+    padding-bottom: 3vh
+}
+
+.rowAlbum {
+    display: flex;
+     height: 100%;
+     padding-left: 2vw;
+     padding-right: 2vw
+}
+
+.rowAlbum .firstColumn {
+    margin: auto;
+    padding: 10px;
+    display: block;
+}
+
+.firstColumn span {
+    font-size: 2.5vmin;
+}
+
+.rowAlbum div {
+    display: contents 
+}
+
+.rowAlbum div button {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #999999;
+}
+
+.rowAlbum div button img {
+    max-width: 100%;
+}
+
+.rowAlbum div button:hover {
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    border: 1px solid #1565C0;
+    color: white;
+    background-color: #1565C0;
+    
 }

@@ -9,23 +9,23 @@ import withProtected from '../hoc/withProtected';
 
 function App() {
 
-  const [states, setStates] = useState([]);
+  // const [states, setStates] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    let ignore = false;
+  //   let ignore = false;
 
-    async function startFetching() {
-      const json = await getStates();
-      if (!ignore) {
-        console.info("Done");
-        setStates(json)
-      }
-    }
-    startFetching();
+  //   async function startFetching() {
+  //     const json = await getStates();
+  //     if (!ignore) {
+  //       console.info("Done");
+  //       setStates(json)
+  //     }
+  //   }
+  //   startFetching();
 
-    return () => { ignore = true };
-  }, []);
+  //   return () => { ignore = true };
+  // }, []);
 
   return (
     <div className="App">

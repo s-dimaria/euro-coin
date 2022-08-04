@@ -6,8 +6,8 @@ function Album() {
 
     return(
         <div className="containerBox">
-            <h2>ALBUM</h2>
-            <hr/>
+            {/* <h2>ALBUM</h2>
+            <hr/> */}
             <Outlet/>
         </div>
         

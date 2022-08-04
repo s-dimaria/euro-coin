@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BsGoogle, bsGithub, BsGithub } from 'react-icons/bs';
+import { BsGoogle, BsGithub } from 'react-icons/bs';
 import Divider from '@mui/material/Divider';
-import "../style/Login.css";
+import "../../style/Login.css";
 
-import { loginWithEmailAndPassword, loginWithProvider, getLoginUser } from "../service/supabase";
+import { loginWithEmailAndPassword, loginWithProvider } from "../../service/supabase";
 
-import withLogin from '../hoc/withLogin';
+import withLogin from '../../hoc/withLogin';
 
 function Login() {
   const [email, setEmail] = useState("");

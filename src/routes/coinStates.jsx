@@ -86,7 +86,7 @@ function CoinStates() {
                   .map((dataItem) => {
                     return (
                       <div className="imageBox">
-                        <img
+                       <img
                           onClick={() => {
                             setParametersPopup(dataItem.imageUrl, dataItem.value)
                             setDescriptionImage("")
@@ -99,7 +99,7 @@ function CoinStates() {
               </div>
             </>
           )
-        })}
+        })} 
         {coinComm ?
         <CoinTable coins={coinComm} uuid={uuid} state={id}/> : <></>}
         <Popup open={selectedImage} onClose={closePopup} title={titlePopCoin}>

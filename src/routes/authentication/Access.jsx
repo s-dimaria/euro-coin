@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from '../logo.svg';
-import "../style/Access.css";
+import { ReactComponent as Logo } from '../../logo.svg';
+import "../../style/Access.css";
 
 function Access() {
 

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../style/Register.css";
+import "../../style/Register.css";
 
-import { getLoginUser, registerWithEmailAndPassword} from "../service/supabase";
+import { registerWithEmailAndPassword} from "../../service/supabase";
 
 
 function Register() {

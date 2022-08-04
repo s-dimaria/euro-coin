@@ -67,6 +67,7 @@ function AlbumTable({ id, album, uuid, onDelete }) {
                                             <tr onClick={() => {
                                                 setTitle("Eliminare la moneta '" + album[key].state + " " + album[key].year + " " + album[key].value + "' ?")
                                                 setCoin(album[key])
+                                                console.log(album[key])
                                             }}>
                                                 <td style={{ width: "50vw" }}>{album[key].state}</td>
                                                 <td style={{ width: "30vw" }}>{album[key].year}</td>

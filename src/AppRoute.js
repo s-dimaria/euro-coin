@@ -7,15 +7,13 @@ import Home from "./routes/home";
 import Album from "./routes/album";
 import AlbumRoute from './routes/albumRoute';
 import AlbumCase from './routes/albumCase';
-import Access from './routes/access';
-import Register from './routes/register';
-import Login from './routes/login';
-import Reset from './routes/reset';
+import Access from './routes/authentication/Access';
+import Register from './routes/authentication/Register';
+import Login from './routes/authentication/Login';
+import Reset from './routes/authentication/Reset';
 
 
 function AppRoute() {
-
-
   
   let routes = useRoutes([
     { 
@@ -68,8 +66,8 @@ function AppRoute() {
           path: ':id', 
           element: <CoinStates />
         }
-      ]
-    }
+        ]
+      }
       ]
     },
   

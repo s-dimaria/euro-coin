@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { sendPasswordReset } from "../service/supabase";
-import withLogin from '../hoc/withLogin';
+import { sendPasswordReset } from "../../service/supabase";
+import withLogin from '../../hoc/withLogin';
 
-import "../style/Reset.css";
+import "../../style/Reset.css";
 
 function Reset() {
   const [email, setEmail] = useState("");
-
-  const navigate = useNavigate();
 
   return (
     <div className="reset">

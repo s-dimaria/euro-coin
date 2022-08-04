@@ -1,11 +1,9 @@
-import {useState} from 'react';
-import { values, states} from '../utils/constants';
-
-import '../style/Coins.css';
-import '../style/Insert.css';
-
+import { useState } from 'react';
+import { values, states } from '../utils/constants';
 import { putInsertCoin, putInsertCoinCommemorative, getUserInfo } from '../service/supabase';
 import CustomizedSnackbars from './CustomizedSnackbar';
+import '../style/Coins.css';
+import '../style/Insert.css';
 
 function Input({ label, value, onChange, type, max}) {
 

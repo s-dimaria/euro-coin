@@ -30,7 +30,7 @@ function CoinTable({ coins, uuid, state}) {
             setCoin(null)
             setOpen(true)
             setText("Moneta '" + state + " - " + coin.year + " - " + coin.title + "' inserita nell'album")
-            setSeverity("info")
+            setSeverity("success")
         }
         else {
             setCoin(null)
@@ -62,7 +62,8 @@ function CoinTable({ coins, uuid, state}) {
                                 .map((key) => {
                                     {return (
                                         Object.values(coins[key])
-                                        .map((dataItem) => {
+                                        .map((dataItem) => { if(dataItem.title !== "")
+                                            {
                                             return (
                                                 <tr onClick={() => {
                                                     setTitle("Inserire la moneta commemorativa '" + state + " " + dataItem.year + " " + dataItem.title + "' ?")
@@ -73,7 +74,7 @@ function CoinTable({ coins, uuid, state}) {
                                                     <td style={{ width: "50vw" }}>{dataItem.title}</td>
                                                 </tr>
                                             )
-                                        })
+                                        }})
                                 )}
                                 })
 
@@ -85,7 +86,7 @@ function CoinTable({ coins, uuid, state}) {
             <AlertDialog onClose={handleClose} onConfirm={onConfirm} open={coin} 
             image = {img}
             infoImg = {infoImg}
-            title={title}
+            title= {title}
             text="Attenzione stai per inserire una moneta commemorativa. La conferma comporterà la modifica del tuo album." />
             <CustomizedSnackbars open={open} onClose={handleClose} text={text} severity={severity} />
         </>

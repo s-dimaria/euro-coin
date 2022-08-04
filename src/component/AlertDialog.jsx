@@ -6,9 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog({ onClose, onConfirm, open, title, text, image, infoImg }) {
+export default function AlertDialog({ onClose, onConfirm, open, title, text, image, infoImg, textConfirm, textClose}) {
 
-  console.log(image)
   return (
     !open ? null :
       image === undefined ?
@@ -29,10 +28,10 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
             </DialogContent>
             <DialogActions>
               <div className="disagree">
-                <Button onClick={onClose}>Annulla</Button>
+                <Button onClick={onClose}>{textClose? textClose: "Annulla"}</Button>
               </div>
               <Button onClick={onConfirm}>
-                Conferma
+                {textConfirm? textConfirm: "Conferma"}
               </Button>
             </DialogActions>
           </Dialog>
