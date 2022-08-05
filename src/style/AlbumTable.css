@@ -99,6 +99,15 @@
     width: 100%;
     padding: 7px;
     border: 1px solid #999999;
+    font-size: 3vmin
+}
+.rowAlbum div button:disabled:hover, button[disabled]:hover {
+    /* font-size: 16px; */
+    background-color: #cccccc;
+    border: 1px solid #999999;
+    color: #666666;
+    font-size: 3vmin;
+    padding: 7px;
 }
 
 .rowAlbum div button img {

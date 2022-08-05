@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../style/Register.css";
-
 import { registerWithEmailAndPassword} from "../../service/supabase";
+import "../../style/Register.css";
 
 
 function Register() {

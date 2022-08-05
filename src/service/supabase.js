@@ -74,17 +74,21 @@ const getStates = async () => {
     return (await supabase.from("states_eu").select('state_name')).data;
 }
 
-const getCoin = async (state) => {
+const getCoinAndCoinCommWithDetail = async (state) => {
     console.info("GET Coin By States -> " + state)
     return (await supabase.from("states_eu").select('coin, coin_commemorative, detail').eq('state_name', state)).data[0];
 }
 
-const getAllCoin = async () => {
+const getAllStatesWithCoins = async () => {
     return (await supabase.from("states_eu").select('state_name, coin, coin_commemorative')).data;
 }
 
+const getAllCoin = async () => {
+    return (await supabase.from("states_eu").select('coin')).data;
+}
+
 const getAllCoinCommemorative = async () => {
-    return (await supabase.from("states_eu").select('state_name, coin_commemorative')).data;
+    return (await supabase.from("states_eu").select('coin_commemorative')).data;
 }
 
 const getSingleAlbumCoin = async (state, year, value, uuid) => {
@@ -102,16 +106,6 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
         return data[0];
 }
 
-// const getCoinByStates = async (state) => {
-//     console.info("GET Coin By States -> " + state)
-//     return (await supabase.from("states_eu").select('coin').eq('state_name', state)).data[0].coin;
-// }
-
-// const getInfoCoinByStates = async (state) => {
-//     console.info("GET Info Coin By States -> " + state)
-//     return (await supabase.from("states_eu").select('detail').eq('state_name', state)).data[0].detail;
-// }
-
 const putInsertCoin = async (state, year, value, uuid) => {
     console.info("Insert Coin")
     let { data, error } = await supabase
@@ -125,7 +119,7 @@ const putInsertCoin = async (state, year, value, uuid) => {
         return data[0];
 }
 
-//modifica
+
 const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
     console.info("Insert Coin Commemorative")
     let { data, error } = await supabase
@@ -138,7 +132,6 @@ const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
     else
         return data[0];
 }
-
 
 const getFullAlbum = async (uuid) => {
     console.info("Get Coin of user")
@@ -215,12 +208,11 @@ export {
     loginWithProvider,
     logout,
     sendPasswordReset,
-    getCoin,
+    getCoinAndCoinCommWithDetail,
+    getAllStatesWithCoins,
     getAllCoin,
     getAllCoinCommemorative,
     getSingleAlbumCoin,
-    // getCoinByStates, 
-    // getInfoCoinByStates,
     putInsertCoin,
     putInsertCoinCommemorative,
     getFullAlbum,

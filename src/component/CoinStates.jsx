@@ -1,15 +1,11 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-
-import Popup from '../component/Popup';
-import 'reactjs-popup/dist/index.css';
+import { getCoinAndCoinCommWithDetail, getUserInfo } from '../service/supabase';
+import Popup from '../info/Popup';
+import LoadingSpinner from '../info/LoadingSpinner';
+import CoinTable from './CoinTable';
 
 import '../style/Coins.css';
-
-import { getCoin, getUserInfo } from '../service/supabase';
-import LoadingSpinner from '../component/LoadingSpinner';
-import CoinTable from '../component/CoinTable';
 
 function Info({ details }) {
 
@@ -27,7 +23,6 @@ function CoinStates() {
   const [coinComm, setCoinComm] = useState([])
   const [selectedImage, setSelectedImage] = useState(null);
   const [titlePopCoin, setTitlePopCoin] = useState("");
-  const [descriptionImage, setDescriptionImage] = useState("");
   const [storyCoin, setStoryCoin] = useState("");
   const [loading, setLoading] = useState(false);
   const uuid = getUserInfo().id;
@@ -39,7 +34,7 @@ function CoinStates() {
     let ignore = false;
     setLoading(true)
     async function startFetching() {
-      const coins = await getCoin(id);
+      const coins = await getCoinAndCoinCommWithDetail(id);
       if (!ignore) {
         console.info("Done");
         setCoin(coins.coin);
@@ -54,6 +49,7 @@ function CoinStates() {
 
   }, [id])
 
+
   const setParametersPopup = (imageUrl, value) => {
 
     setSelectedImage(imageUrl)
@@ -61,15 +57,9 @@ function CoinStates() {
 
   }
 
-  // const openPopup = (selectCoin) => {
-  //   setParametersPopup(selectCoin.imageUrl, selectCoin.value)
-  //   setDescriptionImage(selectCoin.description)
-  // }
-
   function closePopup() {
     setSelectedImage(null)
   }
-
 
   return (
     <>
@@ -86,10 +76,9 @@ function CoinStates() {
                   .map((dataItem) => {
                     return (
                       <div className="imageBox">
-                       <img
+                        <img
                           onClick={() => {
                             setParametersPopup(dataItem.imageUrl, dataItem.value)
-                            setDescriptionImage("")
                           }}
                           className="imageCoin" src={dataItem.imageUrl}>
                         </img>
@@ -99,9 +88,9 @@ function CoinStates() {
               </div>
             </>
           )
-        })} 
+        })}
         {coinComm ?
-        <CoinTable coins={coinComm} uuid={uuid} state={id}/> : <></>}
+        <CoinTable coins={coinComm} uuid={uuid} state={id} /> : <></>}
         <Popup open={selectedImage} onClose={closePopup} title={titlePopCoin}>
           <div className="pop-container">
             <div className="pop-image">

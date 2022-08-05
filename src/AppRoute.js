@@ -2,7 +2,7 @@ import { useRoutes } from 'react-router-dom';
 
 import App from "./routes/app";
 import Coin from "./routes/coin";
-import CoinStates from "./routes/coinStates";
+import CoinStates from "./component/CoinStates";
 import Home from "./routes/home";
 import Album from "./routes/album";
 import AlbumRoute from './routes/albumRoute';

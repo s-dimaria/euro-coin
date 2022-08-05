@@ -1,11 +1,9 @@
-import Insert from '../component/Insert';
 import AlbumInteractive from '../component/AlbumInteractive';
-import AlbumTable from '../component/AlbumTable';
-import LoadingSpinner from '../component/LoadingSpinner';
+import LoadingSpinner from '../info/LoadingSpinner';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { getUserInfo, getAlbumCoin, getAlbumCommemorative, getAllCoin, getAllCoinCommemorative } from '../service/supabase';
+import { getUserInfo, getAlbumCoin, getAlbumCommemorative, getAllStatesWithCoins } from '../service/supabase';
 
 function AlbumCase() {
 
@@ -21,7 +19,6 @@ function AlbumCase() {
         setAlbum([...album, newInsert])
     }
 
-    // non capisco perchè non funziona
     const onDelete = (deletedCoin) => {
         console.log(deletedCoin)
         id === "euro" ?
@@ -33,22 +30,22 @@ function AlbumCase() {
         setLoading(true)
         async function fetchAlbum() {
 
-            setStartedYearOfStates(await getAllCoin());
-            setAlbum(await getAlbumCoin(uuid))
-            setAlbumComm(await getAlbumCommemorative(uuid))
+            setStartedYearOfStates(await getAllStatesWithCoins());
+            if(id === "euro")
+                setAlbum(await getAlbumCoin(uuid))
+            else 
+                setAlbum(await getAlbumCommemorative(uuid))
 
             setLoading(false)
         }
         fetchAlbum()
     }, [id])
 
-    console.log(album)
-
     return (
         <>
             {/* <Insert id={id} onInsert={onInsert}/> */}
             {loading ?
-                <LoadingSpinner /> : <AlbumInteractive id={id} album={album} albumComm={albumComm} startedYearofStates={startedYearofStates} uuid={uuid} onInsert={onInsert} onDelete={onDelete} />}
+                <LoadingSpinner /> : <AlbumInteractive id={id} album={album} startedYearofStates={startedYearofStates} uuid={uuid} onInsert={onInsert} onDelete={onDelete} />}
         </>
     )
 }

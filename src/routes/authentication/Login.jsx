@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsGoogle, BsGithub } from 'react-icons/bs';
-import Divider from '@mui/material/Divider';
-import "../../style/Login.css";
-
 import { loginWithEmailAndPassword, loginWithProvider } from "../../service/supabase";
-
+import Divider from '@mui/material/Divider';
 import withLogin from '../../hoc/withLogin';
+import "../../style/Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");

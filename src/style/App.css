@@ -1,5 +1,5 @@
 .App {
-  margin-left:5%;
+  margin-left: 5%;
   margin-right: 5%;
   text-align: center;
   background-color: #333;
@@ -59,7 +59,17 @@
 	list-style-type: none;
 	overflow: visible;
 	background-color: #0061dc;
+	z-index: 999;
 }
+
+.sticky-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	
+	margin-left: 5%;
+  	width: 90%
+  }
 
 .navbar li {
 	margin:0;

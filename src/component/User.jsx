@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import withProtected from "../hoc/withProtected";
 import { Link } from "react-router-dom";
-import LoadingSpinner from '../component/LoadingSpinner';
 import { getAlbumCommemorative, getAlbumCoin, getUserInfo, logout, sendPasswordReset } from "../service/supabase";
+import withProtected from "../hoc/withProtected";
+import LoadingSpinner from '../info/LoadingSpinner';
+import AlertDialog from "../info/AlertDialog";
 import '../style/User.css';
-import AlertDialog from "./AlertDialog";
 
 function User() {
 

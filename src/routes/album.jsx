@@ -3,14 +3,13 @@ import { Outlet } from 'react-router';
 
 function Album() {
 
-
-    return(
+    return (
         <div className="containerBox">
             {/* <h2>ALBUM</h2>
             <hr/> */}
-            <Outlet/>
+            <Outlet />
         </div>
-        
+
     );
 }
 

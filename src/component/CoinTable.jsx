@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { putInsertCoinCommemorative } from '../service/supabase';
 import '../style/AlbumTable.css'
-import AlertDialog from './AlertDialog';
-import CustomizedSnackbars from './CustomizedSnackbar';
+import AlertDialog from '../info/AlertDialog';
+import CustomizedSnackbars from '../info/CustomizedSnackbar';
 
-function CoinTable({ coins, uuid, state}) {
+function CoinTable({ coins, uuid, state }) {
 
     const [coin, setCoin] = useState(null);
     const [img, setImg] = useState("");
@@ -26,7 +26,7 @@ function CoinTable({ coins, uuid, state}) {
             coin.title,
             uuid
         )
-        if(data) {
+        if (data) {
             setCoin(null)
             setOpen(true)
             setText("Moneta '" + state + " - " + coin.year + " - " + coin.title + "' inserita nell'album")
@@ -46,6 +46,7 @@ function CoinTable({ coins, uuid, state}) {
         setInfoImg(dataItem.description)
     }
 
+
     return (
         <>
             <div className="table-wrapper">
@@ -60,22 +61,25 @@ function CoinTable({ coins, uuid, state}) {
                             Object.keys(coins)
                                 .sort((a, b) => coins[a].order > coins[b].ordder ? -1 : 1)
                                 .map((key) => {
-                                    {return (
-                                        Object.values(coins[key])
-                                        .map((dataItem) => { if(dataItem.title !== "")
-                                            {
-                                            return (
-                                                <tr onClick={() => {
-                                                    setTitle("Inserire la moneta commemorativa '" + state + " " + dataItem.year + " " + dataItem.title + "' ?")
-                                                    setParametersOfCoin(dataItem)
-                                                    }}>
-                                                    <td style={{ width: "30vw" }}>{key}</td>
-                                                    <td style={{ width: "30vw" }}><img src={dataItem.imageUrl}/></td>
-                                                    <td style={{ width: "50vw" }}>{dataItem.title}</td>
-                                                </tr>
-                                            )
-                                        }})
-                                )}
+                                    {
+                                        return (
+                                            Object.values(coins[key])
+                                                .map((dataItem) => {
+                                                    if (dataItem.title !== "") {
+                                                        return (
+                                                            <tr onClick={() => {
+                                                                setTitle("Inserire la moneta commemorativa '" + state + " " + dataItem.year + " " + dataItem.title + "' ?")
+                                                                setParametersOfCoin(dataItem)
+                                                            }}>
+                                                                <td style={{ width: "30vw" }}>{key}</td>
+                                                                <td style={{ width: "30vw" }}><img src={dataItem.imageUrl} /></td>
+                                                                <td style={{ width: "50vw" }}>{dataItem.title}</td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                })
+                                        )
+                                    }
                                 })
 
                         }
@@ -83,11 +87,11 @@ function CoinTable({ coins, uuid, state}) {
                     </tbody>
                 </table>
             </div>
-            <AlertDialog onClose={handleClose} onConfirm={onConfirm} open={coin} 
-            image = {img}
-            infoImg = {infoImg}
-            title= {title}
-            text="Attenzione stai per inserire una moneta commemorativa. La conferma comporterà la modifica del tuo album." />
+            <AlertDialog onClose={handleClose} onConfirm={onConfirm} open={coin}
+                image={img}
+                infoImg={infoImg}
+                title={title}
+                text="Attenzione stai per inserire una moneta commemorativa. La conferma comporterà la modifica del tuo album." />
             <CustomizedSnackbars open={open} onClose={handleClose} text={text} severity={severity} />
         </>
     )

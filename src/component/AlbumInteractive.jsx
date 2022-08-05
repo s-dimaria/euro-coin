@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { values, valuesComm } from '../utils/constants';
 import { putInsertCoin, deleteCoin, deleteCommemorative } from '../service/supabase';
-import CustomizedSnackbars from './CustomizedSnackbar';
-import AlertDialog from './AlertDialog';
+import CustomizedSnackbars from '../info/CustomizedSnackbar';
+import AlertDialog from '../info/AlertDialog';
 import '../style/AlbumTable.css';
 
-function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onInsert, onDelete }) {
+function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDelete }) {
 
     const [coin, setCoin] = useState(null);
     const [deletedCoin, setDeletedCoin] = useState(null);
@@ -48,8 +48,8 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                 deletedCoin.state,
                 deletedCoin.year,
                 deletedCoin.description,
-                uuid).then((data) => {
-                    onDelete(data)
+                uuid).then(() => {
+                    onDelete(deletedCoin)
                 }).then(() => {
                     setDeletedCoin(null)
                     setCoin(null)
@@ -79,8 +79,8 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
         navigate(`/app/coin/${stateToNavigate}`, { replace: true })
     }
 
-    const getYears = (initYear) => {
-        const thisYear = new Date().getFullYear();
+    const getYears = (initYear, lastYear) => {
+        const thisYear = lastYear ? lastYear : new Date().getFullYear();
         const retval = [];
         for (let i = parseInt(initYear); i <= thisYear; i++) retval.push(i)
         return retval
@@ -91,10 +91,8 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
 
         for (let i = 0; i <= years.length; i++) {
             if (yearValue >= years[years.length - 1])
-                // return (<img src={startedYearofStates[key].coin[years[years.length - 1]][value].imageUrl}></img>)
                 return years[years.length - 1]
             if (yearValue >= years[i] && yearValue < years[i + 1])
-                // return (<img src={startedYearofStates[key].coin[years[i]][value].imageUrl}></img>)
                 return years[i]
         }
     }
@@ -111,10 +109,9 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                         let state = startedYearofStates[key].state_name;
                         let years;
 
-
+                        // Euro Table
                         if (id === "euro") {
                             years = Object.keys(startedYearofStates[key].coin);
-                            console.log("Euro")
                             if (years.length === 1) {
                                 return (
                                     <>
@@ -130,26 +127,29 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                             </div>
                                                             <div>
                                                                 {Object.keys(values)
-                                                                    .map((value) =>
-                                                                        album.find((data) => (
+                                                                    .map((value) => {
+                                                                        let coin = album.find((data) => (
                                                                             data.state === state &&
                                                                             data.year === yearValue &&
                                                                             data.value === values[value]
-                                                                        )) ?
-                                                                            <button disabled>
-                                                                                <img src={startedYearofStates[key].coin[years[0]][value].imageUrl}
-                                                                                    onClick={() => {
-                                                                                        setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
-                                                                                        setDeletedCoin({ state: state, year: yearValue, value: values[value] })
-                                                                                        setImg(startedYearofStates[key].coin[years[0]][value].imageUrl)
-                                                                                    }}>
-                                                                                </img>
-                                                                            </button> :
-                                                                            <button onClick={() => {
-                                                                                setTitle("Inserire la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
-                                                                                setCoin({ state: state, year: yearValue, value: values[value] })
-                                                                            }}>
-                                                                            </button>)}
+                                                                        ))
+                                                                        return (
+                                                                            coin ?
+                                                                                <button disabled>
+                                                                                    <img src={startedYearofStates[key].coin[years[0]][value].imageUrl}
+                                                                                        onClick={() => {
+                                                                                            setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
+                                                                                            setDeletedCoin(coin)
+                                                                                            setImg(startedYearofStates[key].coin[years[0]][value].imageUrl)
+                                                                                        }}>
+                                                                                    </img>
+                                                                                </button> :
+                                                                                <button onClick={() => {
+                                                                                    setTitle("Inserire la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
+                                                                                    setCoin({ state: state, year: yearValue, value: values[value] })
+                                                                                }}>
+                                                                                </button>)
+                                                                    })}
                                                             </div>
 
                                                         </></div>)
@@ -173,27 +173,31 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                             </div>
                                                             <div>
                                                                 {Object.keys(values)
-                                                                    .map((value) =>
-                                                                        album.find((data) => (
+                                                                    .map((value) => {
+
+                                                                        let coin = album.find((data) => (
                                                                             data.state === state &&
                                                                             data.year === yearValue &&
                                                                             data.value === values[value]
-                                                                        )) ?
-                                                                            // findCoin(state, yearValue, values[value]) ?
-                                                                            <button disabled>
-                                                                                <img src={startedYearofStates[key].coin[imageSelect(yearValue, years)][value].imageUrl}
-                                                                                    onClick={() => {
-                                                                                        setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
-                                                                                        setDeletedCoin({ state: state, year: yearValue, value: values[value] })
-                                                                                        setImg(startedYearofStates[key].coin[imageSelect(yearValue, years)][value].imageUrl)
-                                                                                    }}>
-                                                                                </img>
-                                                                            </button> :
-                                                                            <button onClick={() => {
-                                                                                setTitle("Inserire la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
-                                                                                setCoin({ state: state, year: yearValue, value: values[value] })
-                                                                            }}>
-                                                                            </button>)}
+                                                                        ))
+                                                                        // findCoin(state, yearValue, values[value]) ?
+                                                                        return (
+                                                                            coin ?
+                                                                                <button disabled>
+                                                                                    <img src={startedYearofStates[key].coin[imageSelect(yearValue, years)][value].imageUrl}
+                                                                                        onClick={() => {
+                                                                                            setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
+                                                                                            setDeletedCoin(coin)
+                                                                                            setImg(startedYearofStates[key].coin[imageSelect(yearValue, years)][value].imageUrl)
+                                                                                        }}>
+                                                                                    </img>
+                                                                                </button> :
+                                                                                <button onClick={() => {
+                                                                                    setTitle("Inserire la moneta '" + state + " " + yearValue + " " + values[value] + "' ?")
+                                                                                    setCoin({ state: state, year: yearValue, value: values[value] })
+                                                                                }}>
+                                                                                </button>)
+                                                                    })}
                                                             </div>
 
                                                         </></div>)
@@ -204,15 +208,17 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                             }
 
                         }
+                        // Commemorative Table
                         else {
-                            console.log("Commemorative")
-                            years = Object.keys(startedYearofStates[key].coin_commemorative);
-                            return (
+
+                            years = startedYearofStates[key].coin_commemorative ? Object.keys(startedYearofStates[key].coin_commemorative) : [];
+                            return (years.length != 0 ?
+
                                 <>
                                     <h2>{state}</h2>
                                     <hr />
                                     <div className="containerGrid">
-                                        {getYears(years[0]).map((yearValue) => {
+                                        {getYears(years[0], years[years.length - 1]).map((yearValue) => {
                                             return (
                                                 <div className="rowAlbum">
                                                     <>
@@ -221,34 +227,44 @@ function AlbumInteractive({ id, uuid, album, albumComm, startedYearofStates, onI
                                                         </div>
                                                         <div>
                                                             {valuesComm
-                                                                .map((value) =>
-                                                                    albumComm.find((data) => (
+                                                                .map((value) => {
+                                                                    if (startedYearofStates[key].coin_commemorative[yearValue] === undefined
+                                                                        || startedYearofStates[key].coin_commemorative[yearValue][value] === undefined)
+                                                                        return (
+                                                                            <button disabled> Non disponibile
+                                                                            </button>
+                                                                        )
+
+                                                                    let coin = album.find((data) => (
                                                                         data.state === state &&
                                                                         data.year === yearValue &&
                                                                         data.description === startedYearofStates[key].coin_commemorative[yearValue][value].title
-                                                                    )) ?
-                                                                        // findCoin(state, yearValue, "2 Euro", startedYearofStates[key].coin_commemorative[yearValue][value].title) ?
-                                                                        <button disabled>
+                                                                    ))
+
+                                                                    return (
+                                                                        coin ? <button disabled>
                                                                             <img src={startedYearofStates[key].coin_commemorative[yearValue][value].imageUrl}
                                                                                 onClick={() => {
                                                                                     setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + startedYearofStates[key].coin_commemorative[yearValue][value].title + "' ?")
-                                                                                    setDeletedCoin({ state: state, year: yearValue, description: startedYearofStates[key].coin_commemorative[yearValue][value].title })
+                                                                                    setDeletedCoin(coin)
                                                                                     setImg(startedYearofStates[key].coin_commemorative[yearValue][value].imageUrl)
                                                                                 }}>
                                                                             </img>
-                                                                        </button> :
-                                                                        <button onClick={() => {
-                                                                            setTitle(`Inserire una moneta commemorativa dello stato ${state}?`)
-                                                                            setStateToNavigate(state)
-                                                                        }}>
-                                                                        </button>)}
+                                                                        </button>
+                                                                            : <button onClick={() => {
+                                                                                setTitle(`Inserire una moneta commemorativa dello stato ${state}?`)
+                                                                                setStateToNavigate(state)
+                                                                            }}>
+                                                                            </button>
+                                                                    )
+                                                                })}
                                                         </div>
 
                                                     </></div>)
                                         })}
                                     </div>
                                 </>
-                            )
+                                : <></>)
                         }
                     })
             }
