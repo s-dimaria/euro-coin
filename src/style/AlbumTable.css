@@ -1,10 +1,10 @@
 /* Table Styles */
 
-.table-wrapper{
+.table-wrapper {
     margin-top: 3vh;
-    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
 
-    display:flex;
+    display: flex;
 }
 
 .fl-table {
@@ -30,7 +30,8 @@
 }
 
 
-.fl-table td, .fl-table th {
+.fl-table td,
+.fl-table th {
     text-align: center;
     padding: 8px;
     border-right: 1px solid #0151bb;
@@ -39,7 +40,7 @@
 .fl-table td {
     border-right: 1px solid #454545;
     font-size: 2vmin;
-    
+
 }
 
 .fl-table img {
@@ -57,13 +58,14 @@
     background: #0061dc;
 }
 
-.fl-table tr:active{
+.fl-table tr:active {
     background-color: #4caf4f7c;
 }
 
 .fl-table tr:nth-child(even) {
     background-color: #454545;
 }
+
 .fl-table tr:nth-child(even):active {
     background-color: #4caf4f7c;
 }
@@ -76,9 +78,9 @@
 
 .rowAlbum {
     display: flex;
-     height: 100%;
-     padding-left: 2vw;
-     padding-right: 2vw
+    height: 100%;
+    padding-left: 2vw;
+    padding-right: 2vw
 }
 
 .rowAlbum .firstColumn {
@@ -92,22 +94,28 @@
 }
 
 .rowAlbum div {
-    display: contents 
+    display: contents
 }
 
 .rowAlbum div button {
     width: 100%;
-    padding: 7px;
+    padding: 1%;
     border: 1px solid #999999;
-    font-size: 3vmin
+    font-size: 3vmin;
+    padding-bottom: 11%;
 }
-.rowAlbum div button:disabled:hover, button[disabled]:hover {
-    /* font-size: 16px; */
+
+.rowAlbum div button:disabled {
+    padding-bottom: 0;
+    padding: 1%;
+}
+.rowAlbum div button:disabled:hover,
+button[disabled]:hover {
     background-color: #cccccc;
     border: 1px solid #999999;
     color: #666666;
     font-size: 3vmin;
-    padding: 7px;
+    padding: 1%;
 }
 
 .rowAlbum div button img {
@@ -116,9 +124,8 @@
 
 .rowAlbum div button:hover {
     margin-bottom: 0;
-    padding-bottom: 5px;
     border: 1px solid #1565C0;
     color: white;
     background-color: #1565C0;
-    
+
 }
