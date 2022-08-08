@@ -11,7 +11,6 @@ function AlbumCase() {
 
     const uuid = getUserInfo().id;
     const [album, setAlbum] = useState([]);
-    const [albumComm, setAlbumComm] = useState([]);
     const [startedYearofStates, setStartedYearOfStates] = useState([])
     const [loading, setLoading] = useState(false);
 
@@ -20,10 +19,7 @@ function AlbumCase() {
     }
 
     const onDelete = (deletedCoin) => {
-        console.log(deletedCoin)
-        id === "euro" ?
-            setAlbum(album.filter(coin => coin !== deletedCoin)) :
-            setAlbumComm(albumComm.filter(coin => coin !== deletedCoin))
+        setAlbum(album.filter(coin => coin !== deletedCoin))
     }
 
     useEffect(() => {
@@ -41,6 +37,7 @@ function AlbumCase() {
         fetchAlbum()
     }, [id])
 
+    console.log(album)
     return (
         <>
             {/* <Insert id={id} onInsert={onInsert}/> */}
