@@ -44,7 +44,8 @@
 }
 
 .fl-table img {
-    max-width: 85%;
+    border-radius: 100%;
+    width: 75%;
 }
 
 .fl-table thead th {
@@ -119,7 +120,8 @@ button[disabled]:hover {
 }
 
 .rowAlbum div button img {
-    max-width: 100%;
+    border-radius: 100%;
+    width: 100%;
 }
 
 .rowAlbum div button:hover {
