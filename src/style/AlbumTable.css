@@ -124,6 +124,10 @@ button[disabled]:hover {
     width: 100%;
 }
 
+.rowAlbum .imgComm {
+    width: 65%;
+}
+
 .rowAlbum div button:hover {
     margin-bottom: 0;
     border: 1px solid #1565C0;

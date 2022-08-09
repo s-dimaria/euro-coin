@@ -243,7 +243,7 @@ function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDe
 
                                                                     return (
                                                                         coin ? <button disabled>
-                                                                            <img src={startedYearofStates[key].coin_commemorative[yearValue][value].imageUrl}
+                                                                            <img className="imgComm" src={startedYearofStates[key].coin_commemorative[yearValue][value].imageUrl}
                                                                                 onClick={() => {
                                                                                     setTitle("Eliminare la moneta '" + state + " " + yearValue + " " + startedYearofStates[key].coin_commemorative[yearValue][value].title + "' ?")
                                                                                     setDeletedCoin(coin)
