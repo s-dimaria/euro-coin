@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { values, states } from '../utils/constants';
 import { putInsertCoin, putInsertCoinCommemorative, getUserInfo } from '../service/supabase';
-import CustomizedSnackbars from './CustomizedSnackbar';
+import CustomizedSnackbars from '../info/CustomizedSnackbar';
 import '../style/Coins.css';
 import '../style/Insert.css';
 
@@ -75,9 +75,15 @@ function Insert({id, onInsert}) {
         let userId = getUserInfo().id;
         if(year > 1998 && year < d.getFullYear()+1) {
             let coin = await putInsertCoin(state,year,value,userId)
-            if(coin) {
+           
+            if(coin === null) {
                 setOpen(true)
-                onInsert(coin)
+                setText("Operazione annullata! Moneta inesistente")
+                setSeverity("error")
+            }
+            else if(coin.data) {
+                setOpen(true)
+                onInsert(coin.data[0])
                 setText("Moneta aggiunta con successo!")
                 setSeverity("success")
             }
@@ -130,8 +136,8 @@ function Insert({id, onInsert}) {
                     <Button label="Inserisci moneta euro" onClick={putCoin}/>
                     <CustomizedSnackbars text= {text} severity={severity} open={open} onClose={handleClose} />
                 </div>
-            </div>   :
-            <div className="containerBox">
+            </div>   :<></>
+           /*  <div className="containerBox">
                 <div className="rowBox">
                     <SelectInput label="Stato:" element={states} value={state} onChange={(event) => setState(event.target.value)}></SelectInput>
                     <Input label="Anno:" value={year} type="number" max={d.getFullYear()} onChange={(event) => setYear(event.target.value)}></Input>
@@ -141,7 +147,7 @@ function Insert({id, onInsert}) {
                     <Button label="Inserisci moneta commemorativa" onClick={putCoinCommemorative}/>
                     <CustomizedSnackbars text= {text} severity={severity} open={open} onClose={handleClose} />
                 </div>
-            </div>
+            </div> */
             }
         </>
               

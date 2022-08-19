@@ -1,3 +1,4 @@
+import { keys } from '@mui/system';
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://fcbgtjrvluvirbkzmxra.supabase.co'
@@ -96,11 +97,11 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
     let { data, error } = await supabase
         .from('album_coin')
         .select('state, year, value, user')
-        .eq('state',state)
-        .eq('value',value)
-        .eq('year',year)
-        .eq('user',uuid)
-    if(error)
+        .eq('state', state)
+        .eq('value', value)
+        .eq('year', year)
+        .eq('user', uuid)
+    if (error)
         console.error(error.message)
     else
         return data[0];
@@ -108,15 +109,22 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
 
 const putInsertCoin = async (state, year, value, uuid) => {
     console.info("Insert Coin")
-    let { data, error } = await supabase
-        .from('album_coin')
-        .insert([
-            { state: state, year: year, value: value, user: uuid }
-        ])
-    if (error)
-        console.error(error.message)
-    else
-        return data[0];
+    let initialYear = Object.keys((await supabase
+        .from('states_eu')
+        .select('coin')
+        .eq('state_name', state)).data[0].coin)[0];
+
+    if (year >= initialYear) {
+        let { data, error } = await supabase
+            .from('album_coin')
+            .insert([
+                { state: state, year: year, value: value, user: uuid }
+            ])
+
+        return {data,error};
+    }
+
+    return null
 }
 
 

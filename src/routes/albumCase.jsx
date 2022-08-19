@@ -1,5 +1,6 @@
 import AlbumInteractive from '../component/AlbumInteractive';
 import LoadingSpinner from '../info/LoadingSpinner';
+import Insert from '../component/Insert';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
@@ -37,10 +38,9 @@ function AlbumCase() {
         fetchAlbum()
     }, [id])
 
-    console.log(album)
     return (
         <>
-            {/* <Insert id={id} onInsert={onInsert}/> */}
+            <Insert id={id} onInsert={onInsert}/>
             {loading ?
                 <LoadingSpinner /> : <AlbumInteractive id={id} album={album} startedYearofStates={startedYearofStates} uuid={uuid} onInsert={onInsert} onDelete={onDelete} />}
         </>
