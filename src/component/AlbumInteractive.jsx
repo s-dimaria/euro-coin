@@ -65,7 +65,7 @@ function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDe
             coin.year,
             coin.value,
             uuid
-        ).then((data) => onInsert(data))
+        ).then((data) => onInsert(data.data[0]))
             .then(() => {
                 setCoin(null)
                 setDeletedCoin(null)
