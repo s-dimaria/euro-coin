@@ -12,7 +12,7 @@ function Access() {
           <div className="access_logo">
              <Logo/>
           </div>
-          <h2><b>Benvenuto su EuroCoins</b></h2>
+          <h2>Benvenuto su EuroCoins</h2>
           <p>EuroCoins è una WebApp in cui puoi tenere traccia della tua collezione di MONETE EURO online.</p>
         </div>
         <Link to="login"><button className="access_btn">Accedi</button></Link>

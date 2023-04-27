@@ -10,7 +10,7 @@ import User from '../component/User';
 function Home() {
 
   return (
-    <>
+    <div className="center">
       <div className="userBox">
         <div className="accessPageUser">
           <div className="userInfoBox">
@@ -44,7 +44,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

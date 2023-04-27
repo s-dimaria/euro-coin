@@ -1,22 +1,23 @@
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .wrapper_accessPage {
    display: flex;
    justify-content: center;
-   /* height: 100vh; */
  }
  
  .accessPage {
      margin: 2vw;
      display: flex;
-     align-items: center;
      justify-content: center;
    }
 
 .accessPageUser {
-    margin: 2vw;
-    /* margin-bottom:0; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
   }
  
  .accessPage_container {
@@ -42,28 +43,33 @@
     font-size: 3vmin;
    }
 
-   @media only screen and (max-width: 600px) {
-    .accessPage_container .accessPage_header {
-      width: 25vw;
-      height: 25vh;
+   @media screen and (max-width: 768px) {
+    .accessPage_btn {
+      font-size: 14px;
     }
-
-    .accessPageUser {
-      margin-top: 20%;
-      margin-bottom: 5vh;
-    }
+    
   }
  
    .accessPage_btn {
      width: 100%;
-     padding: 10px;
+     padding: 5px;
      font-size: 18px;
-     margin-bottom: 10px;
      border: 1px solid #023476;
      color: white;
      background-color: #034499;
      text-decoration: none;
    }
+
+   .accessPage_btn:hover {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 5px;
+    font-size: 18px;
+    border: 1px solid #023476;
+    color: white;
+    background-color: #0152ba;
+    text-decoration: none;
+  }
  
    .accessPage_btn a {
      color: white;
@@ -71,8 +77,8 @@
    }
  
    .accessPage_logo svg {
-     width: 20vw;
-     height: 10vh;
+     width: 40%;
+     height: 40%;
    }
  
    .accessPage_logo svg g {
@@ -80,13 +86,8 @@
    }
 
    .userBox{
-    justify-content: center;
+    margin: 2vw;
     display: flex;
-    --bs-gutter-x: 3rem;
-    --bs-gutter-y: 0;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
-    margin-right: auto;
-    margin-left: auto;
+    justify-content: center;
 }
 
