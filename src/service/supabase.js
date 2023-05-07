@@ -100,7 +100,7 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
         .eq('state', state)
         .eq('value', value)
         .eq('year', year)
-        .eq('user', uuid)
+        .eq('user_id', uuid)
     if (error)
         console.error(error.message)
     else
@@ -150,7 +150,7 @@ const getFullAlbum = async (uuid) => {
     let dataComm = await supabase
         .from('album_commemorative')
         .select('state, year, description')
-        .eq('user', uuid);
+        .eq('user_id', uuid);
     data.data = [...data.data, dataComm.data]
 
     return data.data;
@@ -161,7 +161,7 @@ const getAlbumCoin = async (uuid) => {
     return (await supabase
         .from('album_coin')
         .select('state, year, value')
-        .eq('user', uuid)).data;
+        .eq('user_id', uuid)).data;
 }
 
 const getAlbumCommemorative = async (uuid) => {
@@ -169,7 +169,7 @@ const getAlbumCommemorative = async (uuid) => {
     return (await supabase
         .from('album_commemorative')
         .select('state, year, description')
-        .eq('user', uuid)).data;
+        .eq('user_id', uuid)).data;
 }
 
 const deleteCoin = async (state, year, value, uuid) => {
