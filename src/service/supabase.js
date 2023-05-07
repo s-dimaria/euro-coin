@@ -96,7 +96,7 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
     console.log(state, year, value, uuid)
     let { data, error } = await supabase
         .from('album_coin')
-        .select('state, year, value, user')
+        .select('state, year, value, user_id')
         .eq('state', state)
         .eq('value', value)
         .eq('year', year)
@@ -118,7 +118,7 @@ const putInsertCoin = async (state, year, value, uuid) => {
         let { data, error } = await supabase
             .from('album_coin')
             .insert([
-                { state: state, year: year, value: value, user: uuid }
+                { state: state, year: year, value: value, user_id: uuid }
             ])
 
         return {data,error};
@@ -133,7 +133,7 @@ const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
     let { data, error } = await supabase
         .from('album_commemorative')
         .insert([
-            { state: state, year: year, description: descr, user: uuid, value: "2 Euro" }
+            { state: state, year: year, description: descr, user_id: uuid, value: "2 Euro" }
         ])
     if (error)
         console.error(error.message)
@@ -177,7 +177,7 @@ const deleteCoin = async (state, year, value, uuid) => {
     const { data, error } = await supabase
         .from('album_coin')
         .delete()
-        .match({ state: state, year: year, value: value, user: uuid })
+        .match({ state: state, year: year, value: value, user_id: uuid })
 
     if (error)
         console.log(error)
@@ -190,7 +190,7 @@ const deleteCommemorative = async (state, year, description, uuid) => {
     const { data, error } = await supabase
         .from('album_commemorative')
         .delete()
-        .match({ state: state, year: year, description: description, user: uuid })
+        .match({ state: state, year: year, description: description, user_id: uuid })
 
     if (error)
         console.log(error)
