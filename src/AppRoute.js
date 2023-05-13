@@ -11,6 +11,8 @@ import Access from './routes/authentication/Access';
 import Register from './routes/authentication/Register';
 import Login from './routes/authentication/Login';
 import Reset from './routes/authentication/Reset';
+import LoadingAlbum from './info/LoadingAlbum';
+import Test from './routes/test';
 
 
 function AppRoute() {
@@ -36,39 +38,13 @@ function AppRoute() {
       path: 'home', 
       element: <Home />,
     },
-    {
-      path: 'app',
-      element: <App />,
-      children: [
-      {
-        path: 'album',
-        element: <Album />,
-        children: [
-          { 
-            path: '', 
-            element: <AlbumRoute />
-          },
-          { 
-            path: ':id', 
-            element: <AlbumCase />
-          }
-        ]
-      },
-      { 
-        path: 'coin', 
-        element: <Coin />,
-        children: [
-        { 
-          path: '', 
-          element: <div></div>
-        },
-        { 
-          path: ':id', 
-          element: <CoinStates />
-        }
-        ]
-      }
-      ]
+    { 
+      path: 'albums', 
+      element: <Home />,
+    },
+    { 
+      path: 'albums/:id', 
+      element: <CoinStates />,
     },
   
 ]);

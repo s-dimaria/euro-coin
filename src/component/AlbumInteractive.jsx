@@ -115,7 +115,7 @@ function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDe
                             if (years.length === 1) {
                                 return (
                                     <>
-                                        <h2>{state}</h2>
+                                        {/* <h2>{state}</h2> */}
                                         <hr />
                                         <div className="containerGrid">
                                             {getYears(years[0]).map((yearValue) => {
@@ -161,7 +161,7 @@ function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDe
                             else {
                                 return (
                                     <>
-                                        <h2>{state}</h2>
+                                        {/* <h2>{state}</h2> */}
                                         <hr />
                                         <div className="containerGrid">
                                             {getYears(years[0]).map((yearValue) => {
@@ -215,7 +215,7 @@ function AlbumInteractive({ id, uuid, album, startedYearofStates, onInsert, onDe
                             return (years.length != 0 ?
 
                                 <>
-                                    <h2>{state}</h2>
+                                    {/* <h2>{state}</h2> */}
                                     <hr />
                                     <div className="containerGrid">
                                         {getYears(years[0], years[years.length - 1]).map((yearValue) => {

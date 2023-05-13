@@ -4,11 +4,11 @@ import Insert from '../component/Insert';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-import { getUserInfo, getAlbumCoin, getAlbumCommemorative, getAllStatesWithCoins } from '../service/supabase';
+import { getUserInfo, getAlbumCoinByState, getAlbumCommemorative, getStateWithCoins } from '../service/supabase';
 
-function AlbumCase() {
+function AlbumCase({id, state}) {
 
-    const { id } = useParams();
+    //const { id } = useParams();
 
     const uuid = getUserInfo().id;
     const [album, setAlbum] = useState([]);
@@ -24,12 +24,13 @@ function AlbumCase() {
     }
 
     useEffect(() => {
+        console.log(state)
         setLoading(true)
         async function fetchAlbum() {
 
-            setStartedYearOfStates(await getAllStatesWithCoins());
+            setStartedYearOfStates(await getStateWithCoins(state));
             if(id === "euro")
-                setAlbum(await getAlbumCoin(uuid))
+                setAlbum(await getAlbumCoinByState(uuid,state))
             else 
                 setAlbum(await getAlbumCommemorative(uuid))
 
@@ -40,7 +41,7 @@ function AlbumCase() {
 
     return (
         <>
-            <Insert id={id} onInsert={onInsert}/>
+           {/*  <Insert id={id} onInsert={onInsert}/> */}
             {loading ?
                 <LoadingSpinner /> : <AlbumInteractive id={id} album={album} startedYearofStates={startedYearofStates} uuid={uuid} onInsert={onInsert} onDelete={onDelete} />}
         </>

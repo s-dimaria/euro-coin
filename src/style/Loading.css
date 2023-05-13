@@ -1,0 +1,61 @@
+.loading-container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+@keyframes book-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes shelf-lift {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  20% {
+    transform: translateY(-4px) rotate(10deg);
+  }
+  40% {
+    transform: translateY(-4px) rotate(0);
+  }
+  40% {
+    transform: translateY(-4px) rotate(-10deg);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.book-shelf {
+
+  .book-shelf__book {
+    animation: book-bounce 0.8s ease infinite;
+  }
+
+  .book-shelf__book--two {
+    animation-delay: 0.08s;
+  }
+
+  .book-shelf__book--three {
+    animation-delay: 0.16s;
+  }
+
+  .book-shelf__shelf {
+    animation: shelf-lift 0.8s ease infinite;
+    transform-origin: 50% 50%;
+  }
+}

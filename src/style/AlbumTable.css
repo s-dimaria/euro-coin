@@ -17,7 +17,6 @@
     max-width: 100%;
 
     display: grid;
-    white-space: nowrap;
 }
 
 .fl-table thead tbody {
@@ -86,7 +85,7 @@
 
 .rowAlbum .firstColumn {
     margin: auto;
-    padding: 10px;
+    margin-right: 10px;
     display: block;
 }
 

@@ -1,50 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getStates } from "../service/supabase";
 import { Link } from "react-router-dom";
-import { ReactComponent as LogoAlbum } from '../logo.svg';
-import { ReactComponent as LogoCoin } from '../coin.svg';
 import withProtected from "../hoc/withProtected";
+import LoadingAlbum from "../info/LoadingAlbum";
 import "../style/Home.css";
-import User from '../component/User';
-
 
 function Home() {
+  const [loading, setLoading] = useState(false);
+  const [states, setStates] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function startFetching() {
+      setLoading(true);
+      const json = await getStates();
+      if (!ignore) {
+        console.info("Done");
+        setStates(json);
+        console.log(json);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 700);
+    }
+    startFetching();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   return (
-    <div className="center">
-      <div className="userBox">
-        <div className="accessPageUser">
-          <div className="userInfoBox">
-            <User />
-          </div>
-        </div>
-      </div>
-      <div className="wrapper_accessPage">
-        <div className="accessPage">
-          <div className="accessPage_container">
-            <div className="accessPage_header">
-              <div className="accessPage_logo">
-                <LogoCoin />
+    <>
+      {
+        loading ? (
+          <LoadingAlbum />
+        ) : (
+          <div className="container-centered">
+            <div className="container">
+              <div className="centered-text">
+                <h1>I tuoi album</h1>
               </div>
-              <h2><b>Monete</b></h2>
-              <p>Qui trovi le facce delle diverse monete euro in circolazione nei diversi Stati Europei.</p>
-            </div>
-            <Link to="/app/coin"><button className="accessPage_btn">Naviga</button></Link>
-          </div>
-        </div>
-        <div className="accessPage">
-          <div className="accessPage_container">
-            <div className="accessPage_header">
-              <div className="accessPage_logo">
-                <LogoAlbum />
+              <div className="bookshelf">
+                {Object.keys(states)
+                  .sort((a, b) =>
+                    states[a].state_name > states[b].state_name ? 1 : -1
+                  )
+                  .map((element) => {
+                    return (
+                      <Link to={`${states[element].state_name}`}>
+                        <div id={states[element].prefix} className="album">
+                          <div className="side spine">
+                            <span className="spine-title">
+                              {states[element].state_name}
+                            </span>
+                            <span className="spine-author">
+                              <span className="spine-img">
+                                <img src={states[element].flagUrl} alt=""></img>
+                              </span>
+                              {states[element].prefix}
+                            </span>
+                          </div>
+                          <div className="side top"></div>
+                          <div className="side cover"></div>
+                        </div>
+                      </Link>
+                    );
+                  })}
               </div>
-              <h2><b>Album</b></h2>
-              <p>Qui inizia a collezionare le tue monete nel tuo album online di monete euro.</p>
             </div>
-            <Link to="/app/album"><button className="accessPage_btn">Naviga</button></Link>
           </div>
-        </div>
-      </div>
-    </div>
+        )
+      }
+    </>
   );
 }
 

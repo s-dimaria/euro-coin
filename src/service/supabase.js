@@ -72,7 +72,7 @@ const sendPasswordReset = async (email) => {
 
 const getStates = async () => {
     console.info("GET States")
-    return (await supabase.from("states_eu").select('state_name')).data;
+    return (await supabase.from("states_eu").select('state_name, prefix, flagUrl')).data;
 }
 
 const getCoinAndCoinCommWithDetail = async (state) => {
@@ -82,6 +82,10 @@ const getCoinAndCoinCommWithDetail = async (state) => {
 
 const getAllStatesWithCoins = async () => {
     return (await supabase.from("states_eu").select('state_name, coin, coin_commemorative')).data;
+}
+
+const getStateWithCoins = async (state) => {
+    return (await supabase.from("states_eu").select('state_name, coin, coin_commemorative').eq('state_name', state)).data;
 }
 
 const getAllCoin = async () => {
@@ -164,6 +168,15 @@ const getAlbumCoin = async (uuid) => {
         .eq('user_id', uuid)).data;
 }
 
+const getAlbumCoinByState = async (uuid, state) => {
+    console.info("Get Coin of user")
+    return (await supabase
+        .from('album_coin')
+        .select('state, year, value')
+        .eq('user_id', uuid)
+        .eq('state', state)).data;
+}
+
 const getAlbumCommemorative = async (uuid) => {
     console.info("Get Commemorative of user")
     return (await supabase
@@ -225,8 +238,10 @@ export {
     putInsertCoinCommemorative,
     getFullAlbum,
     getAlbumCoin,
+    getAlbumCoinByState,
     getAlbumCommemorative,
     deleteCoin,
     deleteCommemorative,
-    subscribeAlbum
+    subscribeAlbum,
+    getStateWithCoins
 }
