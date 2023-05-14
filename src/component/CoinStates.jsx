@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ReactComponent as Arrow } from "../Arrow_right.svg";
 import { useParams } from "react-router";
-import { getCoinAndCoinCommWithDetail, getUserInfo } from "../service/supabase";
+import { getCoinAndCoinCommWithDetail, getUserInfo, getAlbumCommemorative, getAlbumCoin, getAlbumCoinByState } from "../service/supabase";
 import Popup from "../info/Popup";
 import CoinTable from "./CoinTable";
 import AlbumCase from "../routes/albumCase";
@@ -164,19 +164,9 @@ function CoinStates() {
               </div>
             </div>
           </div>
-          <Popup open={selectedImage} onClose={closePopup} title={titlePopCoin}>
-            <div className="pop-container">
-              <div className="pop-image">
-                <img
-                  className="imagePop"
-                  src={selectedImage}
-                  modal
-                  nested
-                  alt=""
-                ></img>
-              </div>
-            </div>
-          </Popup>
+          <Popup 
+          open={selectedImage} onClose={closePopup} title={titlePopCoin}
+          image={selectedImage} />
         </>
       )}
     </>

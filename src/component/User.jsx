@@ -94,29 +94,6 @@ function User() {
             <div className="wrapperCard">
                 <div className="cardUser">
                     <div className="row">
-                        <div className="col image">
-                            <img src={user.user_metadata.avatar_url}></img>
-                        </div>
-                        <div className="col">
-                            <p>Utente: {user.user_metadata.name}</p>
-                        </div>
-                        <div className="col">
-                            <p>Email: {user.email}</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col buttonBox">
-                            <button onClick={() =>
-                                setOpenDialog(true)
-                            }>Modifica Password</button>
-                            <div className="quitBtn">
-                                <Link to="/"><button onClick={() => logout()}>Esci</button></Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="cardUser">
-                    <div className="row">
                         <div className="col">
                             <span>La tua collezione</span>
                         </div>

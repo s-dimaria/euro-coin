@@ -50,6 +50,10 @@
     font-size: 1.5vmin;
 }
 
+.titlePopup {
+    font-family: Lexend Deca, -apple-system, CenturyGothic, AppleGothic, sans-serif, monospace !important;
+}
+
 .imagePop {
     width: 90%
 }
@@ -63,7 +67,7 @@
 
 .pop-content p {
     text-align: justify;
-    margin-left: 10px;
+    padding: 0px 10px 10px 10px;
 }
 
 .pop-image {
@@ -71,17 +75,5 @@
     float: left;
     padding: 2vmin;
 }
-
-@media only screen and (max-width: 600px) {
-    .pop-container {
-        flex-direction: column;
-    }
-
-    .popDiv p {
-        font-size: 2.5vmin;
-    }
-
-}
-
 
   

@@ -3,6 +3,7 @@ import { putInsertCoinCommemorative } from "../service/supabase";
 import "../style/AlbumTable.css";
 import AlertDialog from "../info/AlertDialog";
 import CustomizedSnackbars from "../info/CustomizedSnackbar";
+import Popup from "../info/Popup";
 
 function CoinTable({ coins, uuid, state }) {
   const [coin, setCoin] = useState(null);
@@ -16,34 +17,6 @@ function CoinTable({ coins, uuid, state }) {
   const handleClose = () => {
     setCoin(null);
     setOpen(false);
-  };
-
-  const onConfirm = async () => {
-    let data = await putInsertCoinCommemorative(
-      state,
-      coin.year,
-      coin.title,
-      uuid
-    );
-    if (data) {
-      setCoin(null);
-      setOpen(true);
-      setText(
-        "Moneta '" +
-          state +
-          " - " +
-          coin.year +
-          " - " +
-          coin.title +
-          "' inserita nell'album"
-      );
-      setSeverity("success");
-    } else {
-      setCoin(null);
-      setOpen(true);
-      setText("Moneta già esistente nell'album");
-      setSeverity("error");
-    }
   };
 
   const setParametersOfCoin = (dataItem) => {
@@ -74,13 +47,13 @@ function CoinTable({ coins, uuid, state }) {
                         <tr
                           onClick={() => {
                             setTitle(
-                              "Inserire la moneta commemorativa '" +
+                              "Moneta commemorativa '" +
                                 state +
                                 " " +
                                 dataItem.year +
                                 " " +
                                 dataItem.title +
-                                "' ?"
+                                "'"
                             );
                             setParametersOfCoin(dataItem);
                           }}
@@ -99,20 +72,12 @@ function CoinTable({ coins, uuid, state }) {
           </tbody>
         </table>
       </div>
-      <AlertDialog
+      <Popup
         onClose={handleClose}
-        onConfirm={onConfirm}
         open={coin}
         image={img}
         infoImg={infoImg}
         title={title}
-        text="Attenzione stai per inserire una moneta commemorativa. La conferma comporterà la modifica del tuo album."
-      />
-      <CustomizedSnackbars
-        open={open}
-        onClose={handleClose}
-        text={text}
-        severity={severity}
       />
     </>
   );

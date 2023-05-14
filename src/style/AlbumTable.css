@@ -1,9 +1,8 @@
 /* Table Styles */
 
 .table-wrapper {
-    margin-top: 3vh;
+    margin-top: 1vh;
     box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
-
     display: flex;
 }
 
@@ -24,7 +23,7 @@
 }
 
 .fl-table tbody {
-    max-height: 50vh;
+    max-height: 52vh;
     overflow: auto;
 }
 

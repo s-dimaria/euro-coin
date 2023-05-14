@@ -185,6 +185,15 @@ const getAlbumCommemorative = async (uuid) => {
         .eq('user_id', uuid)).data;
 }
 
+const getAlbumCommemorativeByState = async (uuid, state) => {
+    console.info("Get Commemorative of user")
+    return (await supabase
+        .from('album_commemorative')
+        .select('state, year, description')
+        .eq('user_id', uuid)
+        .eq('state', state)).data;
+}
+
 const deleteCoin = async (state, year, value, uuid) => {
     console.info("Delete Coin...", state, year, value, uuid)
     const { data, error } = await supabase
@@ -240,6 +249,7 @@ export {
     getAlbumCoin,
     getAlbumCoinByState,
     getAlbumCommemorative,
+    getAlbumCommemorativeByState,
     deleteCoin,
     deleteCommemorative,
     subscribeAlbum,
