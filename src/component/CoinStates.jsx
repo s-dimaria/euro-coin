@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as Arrow } from "../Arrow_right.svg";
 import { useParams } from "react-router";
-import { getCoinAndCoinCommWithDetail, getUserInfo, getAlbumCommemorative, getAlbumCoin, getAlbumCoinByState } from "../service/supabase";
+import { getCoinAndCoinCommWithDetail, getUserInfo } from "../service/supabase";
 import Popup from "../info/Popup";
 import CoinTable from "./CoinTable";
 import AlbumCase from "../routes/albumCase";

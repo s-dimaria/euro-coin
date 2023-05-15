@@ -7,20 +7,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-/* {children, open, onClose, title} */
-
 function Popup ({ onClose, open, title, text, image, infoImg}) {
 
-    return !open ? null : 
-   /*  <div className="wrapperPop">
-        <div className="popDiv">
-            <div className="titlePop">
-                {title} 
-                <button onClick={onClose}>X</button>
-            </div>
-            {children}
-        </div>
-    </div> */
+    return open ? 
     <div>
           <Dialog
             open="true"
@@ -52,7 +41,7 @@ function Popup ({ onClose, open, title, text, image, infoImg}) {
               </div>
             </DialogActions>
           </Dialog>
-        </div>
+        </div> : null;
 }
 
 export default Popup;

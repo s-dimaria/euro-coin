@@ -1,8 +1,6 @@
 import AlbumInteractive from "../component/AlbumInteractive";
 import LoadingSpinner from "../info/LoadingSpinner";
-import Insert from "../component/Insert";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
 
 import {
   getUserInfo,
@@ -13,7 +11,6 @@ import {
 import { values, valuesComm } from "../utils/constants";
 
 function AlbumCase({ id, state }) {
-  //const { id } = useParams();
 
   const uuid = getUserInfo().id;
   const [album, setAlbum] = useState([]);

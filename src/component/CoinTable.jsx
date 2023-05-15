@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { putInsertCoinCommemorative } from "../service/supabase";
 import "../style/AlbumTable.css";
-import AlertDialog from "../info/AlertDialog";
-import CustomizedSnackbars from "../info/CustomizedSnackbar";
 import Popup from "../info/Popup";
 
 function CoinTable({ coins, uuid, state }) {
   const [coin, setCoin] = useState(null);
   const [img, setImg] = useState("");
   const [infoImg, setInfoImg] = useState("");
-  const [text, setText] = useState("");
   const [title, setTitle] = useState("");
-  const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("info");
 
   const handleClose = () => {
     setCoin(null);
-    setOpen(false);
   };
 
   const setParametersOfCoin = (dataItem) => {

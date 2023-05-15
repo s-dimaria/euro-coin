@@ -1,17 +1,11 @@
 import { useRoutes } from 'react-router-dom';
 
-import App from "./routes/app";
-import Coin from "./routes/coin";
 import CoinStates from "./component/CoinStates";
 import Home from "./routes/home";
-import Album from "./routes/album";
-import AlbumCase from './routes/albumCase';
 import Access from './routes/authentication/Access';
 import Register from './routes/authentication/Register';
 import Login from './routes/authentication/Login';
 import Reset from './routes/authentication/Reset';
-import LoadingAlbum from './info/LoadingAlbum';
-import Test from './routes/test';
 
 
 function AppRoute() {
@@ -32,10 +26,6 @@ function AppRoute() {
     { 
       path: 'register', 
       element: <Register />
-    },
-    { 
-      path: 'home', 
-      element: <Home />,
     },
     { 
       path: 'albums', 

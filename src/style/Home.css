@@ -11,8 +11,13 @@
 }
 
 .centered-text {
+  display: flex;
   text-align: center;
+  flex-direction: row;
   margin-top: 10px;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
 }
 
 .centered-text h1 {
@@ -125,6 +130,15 @@
 .spine:hover {
   z-index: 1;
   background-color: #e03b3e;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  height: 50px;
+  width: 50px;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover {
+  margin-bottom: 0 !important;
 }
 
 

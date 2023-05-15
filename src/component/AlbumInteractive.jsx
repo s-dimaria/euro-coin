@@ -9,6 +9,7 @@ import {
 import CustomizedSnackbars from "../info/CustomizedSnackbar";
 import AlertDialog from "../info/AlertDialog";
 import "../style/AlbumTable.css";
+import "../style/App.css";
 
 function AlbumInteractive({
   id,
