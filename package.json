@@ -6,6 +6,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.9.2",
     "@react-firebase/database": "^0.3.11",
     "@supabase/supabase-js": "^1.35.4",

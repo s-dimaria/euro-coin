@@ -15,7 +15,7 @@ function Login() {
   const login = async() =>
   {
     await loginWithEmailAndPassword(email,password).then(() =>{
-      navigate("/home", { replace: true })
+      navigate("/albums", { replace: true })
     })
   }
 

@@ -28,10 +28,10 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
             </DialogContent>
             <DialogActions>
               <div className="disagree">
-                <Button onClick={onClose}>{textClose? textClose: "Annulla"}</Button>
+                <Button onClick={onClose}>{textClose || "Annulla"}</Button>
               </div>
               <Button onClick={onConfirm}>
-                {textConfirm? textConfirm: "Conferma"}
+                {textConfirm || "Conferma"}
               </Button>
             </DialogActions>
           </Dialog>
@@ -50,7 +50,7 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
               <div className="imgBox">
                 <div className="pop-container">
                 <div className="pop-image">
-                  <img className="imagePop" src={image} modal nested></img>
+                  <img className="imagePop" src={image} modal nested alt=""></img>
                 </div>
                 <div className="pop-content">
                   <p>{infoImg}</p>

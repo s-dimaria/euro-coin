@@ -1,9 +1,8 @@
 /* Table Styles */
 
 .table-wrapper {
-    margin-top: 3vh;
+    margin-top: 1vh;
     box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
-
     display: flex;
 }
 
@@ -17,7 +16,6 @@
     max-width: 100%;
 
     display: grid;
-    white-space: nowrap;
 }
 
 .fl-table thead tbody {
@@ -25,7 +23,7 @@
 }
 
 .fl-table tbody {
-    max-height: 50vh;
+    max-height: 52vh;
     overflow: auto;
 }
 
@@ -86,7 +84,7 @@
 
 .rowAlbum .firstColumn {
     margin: auto;
-    padding: 10px;
+    margin-right: 10px;
     display: block;
 }
 

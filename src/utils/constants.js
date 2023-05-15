@@ -1,3 +1,5 @@
+export const DEFAULT_COLOR = "#700";
+
 export const values= {
     c1: "1 Centesimo",
     c2: "2 Centesimi",

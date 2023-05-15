@@ -1,12 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
-import App from "./routes/app";
-import Coin from "./routes/coin";
 import CoinStates from "./component/CoinStates";
 import Home from "./routes/home";
-import Album from "./routes/album";
-import AlbumRoute from './routes/albumRoute';
-import AlbumCase from './routes/albumCase';
 import Access from './routes/authentication/Access';
 import Register from './routes/authentication/Register';
 import Login from './routes/authentication/Login';
@@ -33,42 +28,12 @@ function AppRoute() {
       element: <Register />
     },
     { 
-      path: 'home', 
+      path: 'albums', 
       element: <Home />,
     },
-    {
-      path: 'app',
-      element: <App />,
-      children: [
-      {
-        path: 'album',
-        element: <Album />,
-        children: [
-          { 
-            path: '', 
-            element: <AlbumRoute />
-          },
-          { 
-            path: ':id', 
-            element: <AlbumCase />
-          }
-        ]
-      },
-      { 
-        path: 'coin', 
-        element: <Coin />,
-        children: [
-        { 
-          path: '', 
-          element: <div></div>
-        },
-        { 
-          path: ':id', 
-          element: <CoinStates />
-        }
-        ]
-      }
-      ]
+    { 
+      path: 'albums/:id', 
+      element: <CoinStates />,
     },
   
 ]);

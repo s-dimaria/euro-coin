@@ -7,7 +7,7 @@ function withProtected (Component) {
 
         let user = getLoginUser();
         
-        return user ? <Navigate to="/home" replace={true}/> : <Component {...props}/>
+        return user ? <Navigate to="/albums" replace={true}/> : <Component {...props}/>
     })
 
 }

@@ -1,96 +1,297 @@
 .coinSelectList {
-    display: flex;
-    text-align: start;
-    padding: 2vmin;
+  display: flex;
+  text-align: start;
+  padding: 2vmin;
 }
 
 .coinImageList {
-    text-align: start;
-    padding: 0 2vmin 2vmin 2vmin;
+  text-align: start;
+  padding: 0 2vmin 2vmin 2vmin;
 }
 
 .coinImageList h2 {
-    margin-bottom: 0;
-}
-
-.coinList li{
-    margin-right: 1vmin;
-    margin-bottom: 1vmin;
-    display: inline;
+  margin-bottom: 0;
 }
 
 .coinList li {
-	padding:0;
-	float:left;
-	display: block;
-	border: 1px solid #0151bb;
-	position: relative;
+  margin-right: 1vmin;
+  margin-bottom: 1vmin;
+  display: inline;
+}
+
+.coinList li {
+  padding: 0;
+  float: left;
+  display: block;
+  border: 1px solid #0151bb;
+  position: relative;
 }
 
 .coinList li a {
-    font-size: 2.5vmin;
-	float: left;
-	padding: 12px 20px;
-	color: #fff;
-	text-decoration:none;
+  font-size: 2.5vmin;
+  float: left;
+  padding: 12px 20px;
+  color: #fff;
+  text-decoration: none;
 }
 
 .coinList li a:hover {
-	background: #666;
-	color:#fff
+  background: #666;
+  color: #fff;
 }
-
 
 .coinList {
-	padding:0;
+  padding: 0;
 }
 
-.containerBox{
-    --bs-gutter-x: 3rem;
-    --bs-gutter-y: 0;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
-    margin-right: auto;
-    margin-left: auto;
+.containerBox {
+  --bs-gutter-x: 3rem;
+  --bs-gutter-y: 0;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.rowBox{
-    max-height: 25vmin;
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    /* margin-top: calc(-1 * var(--bs-gutter-y)); */
-    margin-right: calc(-.5 * var(--bs-gutter-x));
-    margin-left: calc(-.5 * var(--bs-gutter-x));
+.rowBox {
+  max-height: 25vmin;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 
-.rowBox>* {
-    flex-shrink: 0;
-    max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
-    margin-top: var(--bs-gutter-y);
+.rowBox > * {
+  flex-shrink: 0;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
 }
-
 
 .columnBox {
-    display: flex;
+  padding: 0px 30px 10px 30px;
+  display: flex;
 }
 
 .left {
-    max-width: 25%;
+  max-width: 25%;
 }
 
 .right {
-    max-width: 75%;
+  max-width: 75%;
 }
 
 .imageBox {
-    padding-right: 2vmin;
+  padding-right: 2vmin;
 }
 
 .imageCoin {
-    text-align: center;
-    max-width: 100%;
+  text-align: center;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.book {
+  --book-height: 100vh;
+  --book-ratio: 1.4;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-delay: 0.2s;
+  position: relative;
+}
+
+.book > div {
+  height: var(--book-height);
+  width: calc(var(--book-height) / var(--book-ratio));
+  overflow: auto;
+  background-color: #d06061;
+  /* transform: scale(0.9); */
+  border-radius: 6px;
+  transform-origin: left;
+}
+
+.book-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 3; 
+  text-align: center;
+  background-size: 2em 2em;
+  background-color: #d06061;
+  color: white;
+}
+
+.book-cover::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  background-color: #7d0028;
+}
+
+h1 {
+  font-size: 98px;
+  font-weight: 300;
+  color: #7d0028;
+}
+
+h2 {
+  padding: 0px 30px 10px 30px;
+  font-size: 16px;
+}
+
+.separator {
+  --separator-size: 8px;
+  width: var(--separator-size);
+  height: var(--separator-size);
+  background-color: #dbd75d;
+  margin: 50px auto 60px auto;
+  border-radius: 50%;
+  position: relative;
+}
+
+.separator::after,
+.separator::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  background-color: white;
+  height: 2px;
+  top: calc(50% - 1px);
+}
+
+.separator::after {
+  left: 15px;
+}
+
+.separator::before {
+  right: 15px;
+}
+
+.book-content {
+  background-color: white !important;
+}
+
+.page {
+  position: absolute !important;
+}
+
+h3 {
+  padding: 30px 30px 10px 30px;
+}
+
+p {
+  padding: 0px 30px 10px 30px;
+  text-align: justify;
+  font-size: 14px;
+}
+
+.headerNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.headerNav svg {
+  padding: 20px 30px 10px 30px;
+}
+
+.book-content .leftArrow {
+	transform: rotateY(180deg);
+}
+
+.changePage {
+  animation-name: rotatePage;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+}
+
+.backPage {
+	animation-name: reverseRotatePage;
+	animation-fill-mode: both;
+	animation-duration: 1s;
+}
+
+.fadingOut {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadingOut;
+}
+
+.fadingIn {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadingIn;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes rotatePage {
+  from {
+    transform: rotateY(0deg) translateX(0);
+  }
+
+  to {
+    transform: rotateY(180deg) translateX(0);
+  }
+}
+
+@keyframes reverseRotatePage {
+  from {
+    transform: rotateY(180deg) translateX(0);
+  }
+
+  to {
+    transform: rotateY(0deg) translateX(0);
+  }
+}
+
+@keyframes fadingOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadingIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

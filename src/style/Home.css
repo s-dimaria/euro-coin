@@ -1,93 +1,152 @@
-.center {
+.container-centered {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.centered-text {
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  margin-top: 10px;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+
+.centered-text h1 {
+  margin: 0;
+  font-size: 70px;
+  font-weight: 600;
+  font-family: 'Lexend Deca', sans-serif !important;
+  color: #ffa700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0px #c87100, 1px 2px 0px #c87100, 1px 3px 0px #c87100,
+    1px 4px 0px #c87100, 1px 5px 0px #c87100, 1px 6px 0px #c87100;
+}
+
+.bookshelf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 1000px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.album {
+  width: 50px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px 10px 20px;
+  transform-style: preserve-3d;
+  transform: rotateY(0) translateZ(0);
+  transition: transform 1s;
+  position: relative;
+}
+
+.side {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  transform-origin: center left;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
-.wrapper_accessPage {
-   display: flex;
-   justify-content: center;
- }
- 
- .accessPage {
-     margin: 2vw;
-     display: flex;
-     justify-content: center;
-   }
-
-.accessPageUser {
-    width: 100%;
-  }
- 
- .accessPage_container {
-     border-radius: 5%;
-     display: flex;
-     flex-direction: column;
-     text-align: center;
-     background-color: #e7f9fc;
-     padding: 20px;
-     box-shadow: 5px 7px #888888;
-   }
- 
-   .accessPage_container .accessPage_header {
-     padding-bottom: 2.5vmin;
-     width: 20vw;
-     /* height: 25vh; */
-   }
-
-   .accessPage_header p {
-    font-size: 2vmin;
-   }
-   .accessPage_header h2 {
-    font-size: 3vmin;
-   }
-
-   @media screen and (max-width: 768px) {
-    .accessPage_btn {
-      font-size: 14px;
-    }
-    
-  }
- 
-   .accessPage_btn {
-     width: 100%;
-     padding: 5px;
-     font-size: 18px;
-     border: 1px solid #023476;
-     color: white;
-     background-color: #034499;
-     text-decoration: none;
-   }
-
-   .accessPage_btn:hover {
-    width: 100%;
-    margin-bottom: 0;
-    padding: 5px;
-    font-size: 18px;
-    border: 1px solid #023476;
-    color: white;
-    background-color: #0152ba;
-    text-decoration: none;
-  }
- 
-   .accessPage_btn a {
-     color: white;
-     text-decoration: none;
-   }
- 
-   .accessPage_logo svg {
-     width: 40%;
-     height: 40%;
-   }
- 
-   .accessPage_logo svg g {
-     fill: #0D47A1;
-   }
-
-   .userBox{
-    margin: 2vw;
-    display: flex;
-    justify-content: center;
+.spine {
+  width: 50px;
+  height: 280px;
+  background-color: #d06061;
+  border: none;
+  border-radius: 10px;
+  transform: rotateY(0deg) translateZ(0px);
 }
 
+.spine-img {
+  bottom: 0px;
+}
+
+.spine-img img {
+  height: 30px;
+  width: 100%;
+}
+
+.spine-title {
+  margin: 10px;
+  font-size: 14px;
+  color: #7d0028;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.spine-author {
+  padding-bottom: 10px;
+  width: 100%;
+  color: #4a041a;
+}
+
+.top {
+  width: 50px;
+  height: 190px;
+  top: 0px;
+  background-image: linear-gradient(90deg, white 90%, gray 10%);
+  background-size: 5px 5px;
+  transform: rotateX(90deg) translateZ(95px) translateY(-95px);
+}
+
+.cover {
+  width: 190px;
+  height: 280px;
+  top: 0px;
+  background-image: url("../logo.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  left: 50px;
+  transform: rotateY(90deg) translateZ(0);
+  transition: transform 1s;
+}
+
+.album:hover {
+  z-index: 1;
+  transform: scale(1.2);
+  transition: transform 0.5s ease-in-out;
+}
+
+.spine:hover {
+  z-index: 1;
+  background-color: #e03b3e;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  height: 50px;
+  width: 50px;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover {
+  margin-bottom: 0 !important;
+}
+
+
+@media screen and (max-width: 767px) {
+  .bookshelf {
+    width: 100% !important;
+  }
+  .centered-text h1 {
+    font-size: 50px !important;
+  }
+}
