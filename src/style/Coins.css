@@ -256,6 +256,39 @@ p {
   }
 }
 
+@media screen and (max-width: 1080px) {
+  .book-cover {
+    width: 100% !important;
+  }
+  .book {
+    width: 100% !important;
+    --book-ratio: null !important;
+  }
+  .book-cover h1 {
+    font-size: 5em;
+  }
+  .book-cover::before {
+    width: 10px;
+    right: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .book {
+    width: 100% !important;
+    --book-ratio: null !important;
+  }
+  .book-cover h1 {
+    font-size: 2em;
+  }
+  .book-cover::before {
+    width: 10px;
+    right: 10px;
+  }
+}
+
+
+
 @keyframes rotatePage {
   from {
     transform: rotateY(0deg) translateX(0);
