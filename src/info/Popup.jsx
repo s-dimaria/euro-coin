@@ -24,7 +24,7 @@ function Popup ({ onClose, open, title, text, image, infoImg}) {
               <div className="imgBox">
                 <div className="pop-container">
                 <div className="pop-image">
-                  <img className="imagePop" src={image} modal nested></img>
+                  <img className="imagePop" src={image} modal nested alt=""></img>
                 </div>
                 <div className="pop-content">
                   <p>{infoImg}</p>

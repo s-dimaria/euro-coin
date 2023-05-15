@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerWithEmailAndPassword} from "../../service/supabase";
+import { registerWithEmailAndPassword } from "../../service/supabase";
 import "../../style/Register.css";
-
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -11,13 +10,14 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const register = async() => {
-    if (!name 
-      || !(/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(email))) 
-      alert("Dati invalidi")
-    else
-      await registerWithEmailAndPassword(name, email, password).then(() => {
-        navigate("/login", { replace: true })});
+  const register = async () => {
+    if(!name ||
+      !/^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/.test(email)
+    )
+      alert("Dati invalidi");
+    else await registerWithEmailAndPassword(name, email, password).then(() => {
+        navigate("/login", { replace: true });
+      });
   };
 
   return (
