@@ -135,7 +135,7 @@ function AlbumInteractive({
 
   const getYears = (initYear, lastYear) => {
     const thisYear =
-      lastYear !== initYear ? lastYear : new Date().getFullYear();
+      lastYear || new Date().getFullYear();
     const retval = [];
     for (let i = parseInt(initYear); i <= thisYear; i++) retval.push(i);
     return retval;
@@ -175,7 +175,7 @@ function AlbumInteractive({
                   </p>
                   <hr />
                   <div className="containerGrid">
-                    {getYears(years[0], years[years.length - 1]).map(
+                    {getYears(years[0]).map(
                       (yearValue) => {
                         return (
                           <div className="rowAlbum">
@@ -260,11 +260,11 @@ function AlbumInteractive({
                   <p>
                     {album.length}/{totalEuro}
                   </p>
-                  {/* <h2>{state}</h2> */}
                   <hr />
                   <div className="containerGrid">
-                    {getYears(years[0], years[years.length - 1]).map(
+                    {getYears(years[0]).map(
                       (yearValue) => {
+                        console.log(yearValue)
                         return (
                           <div className="rowAlbum">
                             <>
@@ -356,7 +356,6 @@ function AlbumInteractive({
                 <p>
                   {album.length}/{totalComm}
                 </p>
-                {/* <h2>{state}</h2> */}
                 <hr />
                 <div className="containerGrid">
                   {getYears(years[0], years[years.length - 1]).map(

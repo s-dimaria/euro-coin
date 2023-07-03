@@ -53,7 +53,7 @@ function AlbumCase({ id, state }) {
   const totalCoin = (year, coinNum) => {
     let total = 0;
     let years = Object.keys(year);
-    getYears(years[0], years[years.length - 1]).forEach((y) => {
+    getYears(years[0]).forEach((y) => {
       coinNum.forEach((c) => {
         if (id === "euro") {
           total++;
@@ -68,7 +68,7 @@ function AlbumCase({ id, state }) {
 
   const getYears = (initYear, lastYear) => {
     const thisYear =
-      lastYear !== initYear ? lastYear : new Date().getFullYear();
+      lastYear || new Date().getFullYear();
     const retval = [];
     for (let i = parseInt(initYear); i <= thisYear; i++) retval.push(i);
     return retval;
