@@ -216,6 +216,14 @@ p {
   padding: 20px 30px 10px 30px;
 }
 
+.headerNav div svg {
+  padding: 20px 30px 10px 15px;
+}
+
+.homeIcon {
+  padding: 0px 0px 10px 0px !important; 
+}
+
 .book-content .leftArrow {
 	transform: rotateY(180deg);
 }

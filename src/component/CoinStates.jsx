@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as Arrow } from "../Arrow_right.svg";
+import { ReactComponent as Home } from "../home-icon.svg";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getCoinAndCoinCommWithDetail, getUserInfo } from "../service/supabase";
 import Popup from "../info/Popup";
 import CoinTable from "./CoinTable";
@@ -10,11 +12,17 @@ import "../style/Coins.css";
 import LoadingAlbum from "../info/LoadingAlbum";
 
 function Info({ details, state, changePage }) {
+
+  const navigate = useNavigate();
+
   return (
     <div style={{ textAlign: "justify" }}>
       <div className="headerNav">
         <h3>{state}</h3>
-        <Arrow onClick={changePage} />
+        <div>
+          <Home class="homeIcon" onClick={() => navigate("/albums",{replace:"true"})} />
+          <Arrow onClick={changePage} />
+        </div>
       </div>
       <p>{details}</p>
     </div>
@@ -105,9 +113,8 @@ function CoinStates() {
                 </div>
               </div>
               <div
-                className={`book-content page ${newPage ? "changePage" : ""} ${
-                  back ? "backPage" : ""
-                }`}
+                className={`book-content page ${newPage ? "changePage" : ""} ${back ? "backPage" : ""
+                  }`}
                 style={{ zIndex: zIndex }}
                 onAnimationEndCapture={handleAnimation}
               >
@@ -116,6 +123,7 @@ function CoinStates() {
                     details={storyCoin}
                     state={id}
                     changePage={() => changePage()}
+
                   ></Info>
                   {Object.keys(coin).map((key) => {
                     return (
@@ -158,15 +166,15 @@ function CoinStates() {
                   <h3>Euro Comuni</h3>
                   <Arrow className="leftArrow" onClick={backPage} />
                 </div>
-                <AlbumCase id="euro" state={id}/>
-                <h3>Euro Commemorativi</h3>
-                <AlbumCase id="commemorative" state={id}/>
+                <AlbumCase id="euro" state={id} />
+                {coinComm ? <h3>Euro Commemorativi</h3> : <></>}
+                <AlbumCase id="commemorative" state={id} />
               </div>
             </div>
           </div>
-          <Popup 
-          open={selectedImage} onClose={closePopup} title={titlePopCoin}
-          image={selectedImage} />
+          <Popup
+            open={selectedImage} onClose={closePopup} title={titlePopCoin}
+            image={selectedImage} />
         </>
       )}
     </>
