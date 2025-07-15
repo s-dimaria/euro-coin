@@ -43,7 +43,7 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">
+            <DialogTitle className="titlePopup" id="alert-dialog-title">
               {title}
             </DialogTitle>
             <DialogContent>

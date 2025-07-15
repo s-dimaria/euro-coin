@@ -104,13 +104,14 @@
     padding-bottom: 11%;
 }
 
-.rowAlbum div button:disabled {
+.rowAlbum div button.disabled {
     padding-bottom: 0;
     padding: 1%;
+    background-color: #ccc;
 }
-.rowAlbum div button:disabled:hover,
+.rowAlbum div button.disabled:hover,
 button[disabled]:hover {
-    background-color: #cccccc;
+    background-color: #8f0808c5;
     border: 1px solid #999999;
     color: #666666;
     font-size: 3vmin;

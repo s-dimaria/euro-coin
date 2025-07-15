@@ -67,8 +67,7 @@ function Home() {
                             {states[element].state_name}
                           </span>
                           <span className="spine-author">
-                            <span className="spine-img">
-                              <img src={states[element].flagUrl} alt=""></img>
+                            <span className={`spine-img fi fi-${states[element].prefix.toLowerCase()}`}>
                             </span>
                             {states[element].prefix}
                           </span>

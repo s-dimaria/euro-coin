@@ -69,7 +69,7 @@ function CoinTable({ coins, uuid, state }) {
         onClose={handleClose}
         open={coin}
         image={img}
-        infoImg={infoImg}
+        text={infoImg}
         title={title}
       />
     </>

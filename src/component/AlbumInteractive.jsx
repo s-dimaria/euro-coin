@@ -192,15 +192,8 @@ function AlbumInteractive({
                                       data.value === values[value]
                                   );
                                   return coin ? (
-                                    <button disabled>
-                                      <img
-                                        alt=""
-                                        src={
-                                          startedYearofStates[key].coin[
-                                            years[0]
-                                          ][value].imageUrl
-                                        }
-                                        onClick={() => {
+                                    <button className="disabled"
+                                      onClick={() => {
                                           setTitle(
                                             "Eliminare la moneta '" +
                                               state +
@@ -216,7 +209,14 @@ function AlbumInteractive({
                                               years[0]
                                             ][value].imageUrl
                                           );
-                                        }}
+                                      }}>
+                                      <img
+                                        alt=""
+                                        src={
+                                          startedYearofStates[key].coin[
+                                            years[0]
+                                          ][value].imageUrl
+                                        }
                                       ></img>
                                     </button>
                                   ) : (
@@ -281,16 +281,8 @@ function AlbumInteractive({
                                   );
                                   // findCoin(state, yearValue, values[value]) ?
                                   return coin ? (
-                                    <button disabled>
-                                      <img
-
-                                        alt=""
-                                        src={
-                                          startedYearofStates[key].coin[
-                                            imageSelect(yearValue, years)
-                                          ][value].imageUrl
-                                        }
-                                        onClick={() => {
+                                    <button className="disabled"
+                                      onClick={() => {
                                           setTitle(
                                             "Eliminare la moneta '" +
                                               state +
@@ -307,6 +299,14 @@ function AlbumInteractive({
                                             ][value].imageUrl
                                           );
                                         }}
+                                    >
+                                      <img
+                                        alt=""
+                                        src={
+                                          startedYearofStates[key].coin[
+                                            imageSelect(yearValue, years)
+                                          ][value].imageUrl
+                                        }
                                       ></img>
                                     </button>
                                   ) : (
@@ -388,16 +388,8 @@ function AlbumInteractive({
                                 );
 
                                 return coin ? (
-                                  <button disabled>
-                                    <img
-                                      alt=""
-                                      className="imgComm"
-                                      src={
-                                        startedYearofStates[key]
-                                          .coin_commemorative[yearValue][value]
-                                          .imageUrl
-                                      }
-                                      onClick={() => {
+                                  <button className="disabled"
+                                    onClick={() => {
                                         setTitle(
                                           "Eliminare la moneta '" +
                                             state +
@@ -418,6 +410,15 @@ function AlbumInteractive({
                                           ].imageUrl
                                         );
                                       }}
+                                    >
+                                    <img
+                                      alt=""
+                                      className="imgComm"
+                                      src={
+                                        startedYearofStates[key]
+                                          .coin_commemorative[yearValue][value]
+                                          .imageUrl
+                                      }
                                     ></img>
                                   </button>
                                 ) : (

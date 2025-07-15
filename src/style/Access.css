@@ -1,4 +1,3 @@
-
 .access {
     height: 100vh;
     width: 100vw;
@@ -8,35 +7,38 @@
     background-image: url("../EUflag.svg");
     background-repeat: no-repeat;
     background-position: center;
-  }
-
-  .access_header h2 {
-    margin-bottom: 0;
-    font-size: 20px;
-  }
-
-  .access_header p {
-    margin-top: 3%;
-    font-size: 14px;
-  }
+    /*background-size: cover; /* Aggiunto per coprire tutto lo sfondo */
+    padding: 20px; /* Aggiunto spazio ai lati per mobile */
+    box-sizing: border-box; /* Include il padding nella larghezza/altezza */
+}
 
 .access_container {
-    border-radius: 5%;
+    border-radius: 20px; /* Aumentato per un look più moderno */
     display: flex;
     flex-direction: column;
     text-align: center;
     background-color: #e7f9fc;
     padding: 30px;
-    max-width: 40%;
-  }
+    width: 100%; /* Cambiato da max-width a width con max-width */
+    max-width: 400px; /* Larghezza massima fissata */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Aggiunta ombra per profondità */
+    margin: 0 auto; /* Doppia sicurezza per il centraggio */
+}
 
-  .access__textBox {
-    padding: 10px;
-    font-size: 18px;
+.access_header h2 {
     margin-bottom: 10px;
-  }
+    font-size: clamp(18px, 5vw, 24px); /* Testo responsive */
+    color: #034499; /* Colore coordinato con il tema */
+}
 
-  .access_btn {
+.access_header p {
+    margin: 10px 0 20px;
+    font-size: clamp(12px, 3vw, 16px); /* Testo responsive */
+    color: #383838;
+    line-height: 1.4;
+}
+
+.access_btn {
     width: 100%;
     padding: 10px;
     font-size: 18px;
@@ -44,49 +46,50 @@
     border: 1px solid #023476;
     color: white;
     background-color: #034499;
-    text-decoration: none;
-  }
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-  .access_btn a {
-    color: white;
-    text-decoration: none;
-  }
+.access_btn:hover {
+    background-color: #023476;
+}
 
-  .access_logo {
-    display: contents;
-  }
-
-  .access_logo svg {
-    width: 40%;
-    height: 40%;
-  }
-
-  .access_logo svg g {
-    fill: #0D47A1;
-  }
-
-  .route_register a{
-    text-decoration: none;
+.route_register {
+    font-size: clamp(12px, 3vw, 14px);
+    margin-top: 10px;
     color: #383838;
-  }
+}
 
-  .route_register a:hover, a:active{
-    color:green; 
-  }
+.route_register a {
+    text-decoration: none;
+    color: #034499;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.route_register a:hover {
+    color: #0288d1;
+}
+
+.access_logo svg {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.access_logo svg g {
+  fill: #0D47A1;
+}
 
 
-  @media only screen and (max-width: 600px) {
-
+/* Media query per schermi molto piccoli */
+@media only screen and (max-width: 400px) {
     .access_container {
-      border-radius: 5%;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      background-color: #e7f9fc;
-      padding: 30px;
-      max-width: 65%;
+        padding: 20px;
+        border-radius: 15px;
     }
-
-  }
-
-
+    
+    .access {
+        padding: 10px;
+    }
+}

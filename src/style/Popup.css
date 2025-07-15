@@ -1,79 +1,180 @@
-.titlePop {
-    border-radius: 10px;
-    background: #0061dc;
-    font-size: 2.5vmin;
-    padding: 5px 10px;
+/* Stili base per il Dialog */
+.MuiDialog-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.titlePop button {
-    color: white;
-    font-size: 2.5vmin;
-    float: right;
-    background-color: #0061dc;
-    border: none;
-    padding: 0;
-    margin: 0
+.MuiDialog-paper {
+  margin: 24px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+  width: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
-.titlePop button:hover {
-    color: gold;
-    padding: 0;
-    margin: 0;
-    font-size: 2.5vmin;
-    border: none;
+/* Stili per il titolo */
+.MuiDialogTitle-root {
+  font-family: Lexend Deca, -apple-system, CenturyGothic, AppleGothic, sans-serif, monospace !important;
+  padding: 16px 24px;
+  background: #0061dc;
+  color: white;
+  margin: 0;
+  font-weight: 600;
 }
 
-.wrapperPop {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
+/* Stili per il contenuto */
+.MuiDialogContent-root {
+  padding: 20px 24px;
+  overflow-x: hidden;
+  color: #333;
 }
 
-
-.popDiv {
-    border-radius: 10px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 100vmax rgba(255 255 255 / .3);
-    background: #333;
-    color: white
+.MuiDialogContentText-root {
+  color: #333 !important;
+  font-size: 16px;
+  margin: 16px 0;
+  word-wrap: break-word;
+  line-height: 1.6;
 }
 
-.popDiv p {
-    margin-top: 0;
-    text-align: justify;
-    font-size: 1.5vmin;
+/* Stili per le azioni - BOTTONI AFFIANCATI */
+.MuiDialogActions-root {
+  padding: 16px 24px;
+  justify-content: center; /* Centra i bottoni */
+  background: rgba(0, 0, 0, 0.02);
+  gap: 16px; /* Spaziatura tra bottoni */
+  display: flex;
+  flex-wrap: nowrap; /* Mantiene i bottoni sulla stessa riga */
 }
 
-.titlePopup {
-    font-family: Lexend Deca, -apple-system, CenturyGothic, AppleGothic, sans-serif, monospace !important;
+/* Stile base per tutti i bottoni */
+.MuiDialogActions-root button {
+  text-transform: none;
+  padding: 12px 28px; /* PIÙ PADDING per le scritte */
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 120px; /* Larghezza minima uguale per entrambi */
+  flex: 1; /* Stessa larghezza */
 }
 
-.imagePop {
-    width: 90%
+/* Bottone Annulla - ROSSO */
+.MuiDialogActions-root .disagree button {
+  background-color: #ff4444;
+  color: white;
 }
 
-.pop-container {
-    display: flex;
-    text-align: justify;
-    flex-direction: column;
-    overflow: auto
+/* Bottone Conferma - VERDE */
+.MuiDialogActions-root button:not(.disagree button) {
+  background-color: #4CAF50;
+  color: white;
 }
 
-.pop-content p {
-    text-align: justify;
-    padding: 0px 10px 10px 10px;
+/* Stili hover */
+.MuiDialogActions-root .disagree button:hover {
+  background-color: #cc0000;
 }
 
+.MuiDialogActions-root button:not(.disagree button):hover {
+  background-color: #388E3C;
+}
+
+/* Contenitore principale */
+.imgBox {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 24px 0 16px 0;
+}
+
+/* Contenitore immagine intermedio - AGGIUNTO STILE MANCANTE */
 .pop-image {
-    text-align: center;
-    float: left;
-    padding: 2vmin;
+  display: flex;
+  justify-content: center;
+  /*align-items: center;*/
+  width: 100%;
+  max-width: 600px; /* Larghezza massima desiderata */
+  height: 250px; /* Altezza fissa */
+  overflow: hidden; /* Previene overflow */
 }
 
+/* Immagine finale - STILE CORRETTO */
+.imagePop {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .pop-image {
+    height: 200px;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pop-image {
+    height: 150px;
+    max-width: 95%;
+  }
+}
+/* Stili responsive - BOTTONI SEMPRE AFFIANCATI */
+@media (max-width: 768px) {
+  .MuiDialog-paper {
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    margin: 16px;
+  }
   
+  .MuiDialogContent-root {
+    padding: 16px;
+  }
+  
+  .MuiDialogActions-root {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .MuiDialogActions-root button {
+    padding: 10px 20px;
+    font-size: 15px;
+    min-width: 110px;
+  }
+}
+
+@media (max-width: 480px) {
+  .MuiDialogTitle-root {
+    font-size: 18px;
+    padding: 14px 16px;
+  }
+  
+  .MuiDialogActions-root {
+    flex-direction: row; /* BOTTONI SULLA STESSA RIGA */
+    gap: 8px;
+  }
+  
+  .MuiDialogActions-root button {
+    padding: 10px 12px;
+    font-size: 14px;
+    min-width: 100px; /* STESSA GRANDEZZA */
+    flex: 1; /* Occupano spazio uguale */
+  }
+  
+  .imgBox {
+    margin: 20px 0 12px 0;
+  }
+}

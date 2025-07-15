@@ -150,7 +150,7 @@ p {
 }
 
 h1 {
-  font-size: 98px;
+  font-size: 3em;
   font-weight: 300;
   color: #7d0028;
 }
@@ -287,7 +287,7 @@ p {
     --book-ratio: null !important;
   }
   .book-cover h1 {
-    font-size: 2em;
+    font-size: 3em;
   }
   .book-cover::before {
     width: 10px;
