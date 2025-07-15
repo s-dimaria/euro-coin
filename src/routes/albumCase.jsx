@@ -11,44 +11,70 @@ import {
 import { values, valuesComm } from "../utils/constants";
 
 function AlbumCase({ id, state }) {
-
-  const uuid = getUserInfo().id;
+  const [userInfo, setUserInfo] = useState(null);
   const [album, setAlbum] = useState([]);
   const [startedYearofStates, setStartedYearOfStates] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [totalEuro, setTotalEuro] = useState(0);
   const [totalComm, setTotalComm] = useState(0);
 
+  // Carica le informazioni dell'utente all'avvio
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const user = await getUserInfo();
+        setUserInfo(user);
+        setInitialLoad(false);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+        setInitialLoad(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  // Carica i dati dell'album quando le info utente sono disponibili
+  useEffect(() => {
+    if (!userInfo || initialLoad) return;
+
     let ignore = false;
     setLoading(true);
-    async function fetchAlbum() {
-      const yearOfState = await getStateWithCoins(state);
-      const aEuro = await getAlbumCoinByState(uuid, state);
-      const cEuro = await getAlbumCommemorativeByState(uuid, state);
-      if (!ignore) {
-        console.info("Done");
-        setStartedYearOfStates(yearOfState);
-        if (id === "euro") {
-          setAlbum(aEuro);
-          setTotalEuro(totalCoin(yearOfState[0].coin, Object.keys(values)));
-        } else if (yearOfState[0].coin_commemorative !== null) {
-          setAlbum(cEuro);
-          setTotalComm(
-            totalCoin(yearOfState[0].coin_commemorative, valuesComm)
-          );
-        }
 
-        setLoading(false);
+    async function fetchAlbum() {
+      try {
+        const yearOfState = await getStateWithCoins(state);
+        const aEuro = await getAlbumCoinByState(userInfo.id, state);
+        const cEuro = await getAlbumCommemorativeByState(userInfo.id, state);
+
+        if (!ignore) {
+          console.info("Done");
+          setStartedYearOfStates(yearOfState);
+          
+          if (id === "euro") {
+            setAlbum(aEuro);
+            setTotalEuro(totalCoin(yearOfState[0].coin, Object.keys(values)));
+          } else if (yearOfState[0].coin_commemorative !== null) {
+            setAlbum(cEuro);
+            setTotalComm(totalCoin(yearOfState[0].coin_commemorative, valuesComm));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching album data:", error);
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
       }
     }
+
     fetchAlbum();
 
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [userInfo, state, id, initialLoad]);
 
   const totalCoin = (year, coinNum) => {
     let total = 0;
@@ -62,13 +88,11 @@ function AlbumCase({ id, state }) {
         }
       });
     });
-
     return total;
   };
 
   const getYears = (initYear, lastYear) => {
-    const thisYear =
-      lastYear || new Date().getFullYear();
+    const thisYear = lastYear || new Date().getFullYear();
     const retval = [];
     for (let i = parseInt(initYear); i <= thisYear; i++) retval.push(i);
     return retval;
@@ -82,6 +106,14 @@ function AlbumCase({ id, state }) {
     setAlbum(album.filter((coin) => coin !== deletedCoin));
   };
 
+  if (initialLoad) {
+    return <LoadingSpinner />;
+  }
+
+  if (!userInfo) {
+    return <div>Errore nel caricamento delle informazioni utente</div>;
+  }
+
   return (
     <>
       {loading ? (
@@ -92,7 +124,7 @@ function AlbumCase({ id, state }) {
           id={id}
           album={album}
           startedYearofStates={startedYearofStates}
-          uuid={uuid}
+          uuid={userInfo.id}
           onInsert={onInsert}
           onDelete={onDelete}
           totalEuro={totalEuro}

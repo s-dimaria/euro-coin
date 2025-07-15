@@ -4,14 +4,19 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = 'https://fcbgtjrvluvirbkzmxra.supabase.co'
 const supabase = createClient(supabaseUrl, process.env.REACT_APP_SUPABASE_KEY);
 
-const getLoginUser = () => {
+const getLoginUser = async () => {
     console.info("Get User State...")
-    return supabase.auth.user() ? true : false;
+    const { data } = await supabase.auth.getUser()
+    console.info(!!data.user)
+
+    return !!data.user;
 }
 
-const getUserInfo = () => {
+const getUserInfo = async () => {
     console.info("Get User Info...")
-    return supabase.auth.user();
+    const { data, error } = await supabase.auth.getUser()
+
+    return data.user ? data.user : alert(error.message);
 }
 
 const registerWithEmailAndPassword = async (name, email, password) => {
@@ -30,7 +35,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 const loginWithEmailAndPassword = async (email, password) => {
 
     console.info("Login...")
-    let { user, error } = await supabase.auth.signIn({
+    let { user, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password
     });
@@ -43,7 +48,7 @@ const loginWithEmailAndPassword = async (email, password) => {
 const loginWithProvider = async (provider) => {
 
     console.info("Login Provider...")
-    let { user, error } = await supabase.auth.signIn({
+    let { user, error } = await supabase.auth.signInWithOAuth({
         provider: provider
     }, {
         redirectTo: "https://s-dimaria.github.io/euro-coin/"
@@ -113,6 +118,7 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
 
 const putInsertCoin = async (state, year, value, uuid) => {
     console.info("Insert Coin")
+
     let initialYear = Object.keys((await supabase
         .from('states_eu')
         .select('coin')
@@ -123,8 +129,9 @@ const putInsertCoin = async (state, year, value, uuid) => {
             .from('album_coin')
             .insert([
                 { state: state, year: year, value: value, user_id: uuid }
-            ])
-
+            ]).select()
+        
+        
         return {data,error};
     }
 
@@ -138,7 +145,7 @@ const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
         .from('album_commemorative')
         .insert([
             { state: state, year: year, description: descr, user_id: uuid, value: "2 Euro" }
-        ])
+        ]).select()
     if (error)
         console.error(error.message)
     else
@@ -199,7 +206,7 @@ const deleteCoin = async (state, year, value, uuid) => {
     const { data, error } = await supabase
         .from('album_coin')
         .delete()
-        .match({ state: state, year: year, value: value, user_id: uuid })
+        .match({ state: state, year: year, value: value, user_id: uuid }).select()
 
     if (error)
         console.log(error)
@@ -212,7 +219,7 @@ const deleteCommemorative = async (state, year, description, uuid) => {
     const { data, error } = await supabase
         .from('album_commemorative')
         .delete()
-        .match({ state: state, year: year, description: description, user_id: uuid })
+        .match({ state: state, year: year, description: description, user_id: uuid }).select()
 
     if (error)
         console.log(error)

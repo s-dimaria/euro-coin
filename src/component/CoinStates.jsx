@@ -7,12 +7,10 @@ import { getCoinAndCoinCommWithDetail, getUserInfo } from "../service/supabase";
 import Popup from "../info/Popup";
 import CoinTable from "./CoinTable";
 import AlbumCase from "../routes/albumCase";
-
 import "../style/Coins.css";
 import LoadingAlbum from "../info/LoadingAlbum";
 
 function Info({ details, state, changePage }) {
-
   const navigate = useNavigate();
 
   return (
@@ -20,7 +18,7 @@ function Info({ details, state, changePage }) {
       <div className="headerNav">
         <h3>{state}</h3>
         <div>
-          <Home class="homeIcon" onClick={() => navigate("/albums",{replace:"true"})} />
+          <Home class="homeIcon" onClick={() => navigate("/albums", { replace: "true" })} />
           <Arrow onClick={changePage} />
         </div>
       </div>
@@ -30,22 +28,68 @@ function Info({ details, state, changePage }) {
 }
 
 function CoinStates() {
-  const uuid = getUserInfo().id;
-
+  const [userInfo, setUserInfo] = useState(null);
   const [coin, setCoin] = useState([]);
   const [coinComm, setCoinComm] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [titlePopCoin, setTitlePopCoin] = useState("");
   const [storyCoin, setStoryCoin] = useState("");
-
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
   const [isZoomed, setIsZoomed] = useState(false);
   const [newPage, setNewPage] = useState(false);
   const [back, setBack] = useState(false);
   const [zIndex, setZIndex] = useState(2);
-
   const { id } = useParams();
+
+  // Fetch user info on component mount
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const user = await getUserInfo();
+        setUserInfo(user);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      } finally {
+        setUserLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  // Fetch coin data when user info is available
+  useEffect(() => {
+    if (userLoading || !userInfo) return;
+
+    let ignore = false;
+    setLoading(true);
+
+    async function startFetching() {
+      try {
+        const coins = await getCoinAndCoinCommWithDetail(id);
+        if (!ignore) {
+          setCoin(coins.coin);
+          setStoryCoin(coins.detail);
+          setCoinComm(coins.coin_commemorative);
+        }
+      } catch (error) {
+        console.error("Error fetching coin data:", error);
+      } finally {
+        if (!ignore) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 700);
+        }
+      }
+    }
+
+    startFetching();
+
+    return () => {
+      ignore = true;
+    };
+  }, [id, userInfo, userLoading]);
 
   const handleAnimationEnd = () => {
     setIsZoomed(true);
@@ -68,28 +112,6 @@ function CoinStates() {
     setZIndex(zIndex > 3 ? zIndex - 1 : zIndex);
   };
 
-  useEffect(() => {
-    let ignore = false;
-    setLoading(true);
-    async function startFetching() {
-      const coins = await getCoinAndCoinCommWithDetail(id);
-      if (!ignore) {
-        console.info("Done");
-        setCoin(coins.coin);
-        setStoryCoin(coins.detail);
-        setCoinComm(coins.coin_commemorative);
-        setTimeout(() => {
-          setLoading(false);
-        }, 700);
-      }
-    }
-    startFetching();
-
-    return () => {
-      ignore = true;
-    };
-  }, [id]);
-
   const setParametersPopup = (imageUrl, value) => {
     setSelectedImage(imageUrl);
     setTitlePopCoin(value);
@@ -97,6 +119,14 @@ function CoinStates() {
 
   function closePopup() {
     setSelectedImage(null);
+  }
+
+  if (userLoading) {
+    return <LoadingAlbum />;
+  }
+
+  if (!userInfo) {
+    return <div>Error loading user data. Please try again.</div>;
   }
 
   return (
@@ -123,7 +153,6 @@ function CoinStates() {
                     details={storyCoin}
                     state={id}
                     changePage={() => changePage()}
-
                   ></Info>
                   {Object.keys(coin).map((key) => {
                     return (
@@ -135,7 +164,7 @@ function CoinStates() {
                             .sort((a, b) => (a.order > b.order ? 1 : -1))
                             .map((dataItem) => {
                               return (
-                                <div className="imageBox">
+                                <div className="imageBox" key={dataItem.value}>
                                   <img
                                     onClick={() => {
                                       setParametersPopup(
@@ -155,7 +184,7 @@ function CoinStates() {
                     );
                   })}
                   {coinComm ? (
-                    <CoinTable coins={coinComm} uuid={uuid} state={id} />
+                    <CoinTable coins={coinComm} uuid={userInfo.id} state={id} />
                   ) : (
                     <></>
                   )}
@@ -173,8 +202,11 @@ function CoinStates() {
             </div>
           </div>
           <Popup
-            open={selectedImage} onClose={closePopup} title={titlePopCoin}
-            image={selectedImage} />
+            open={selectedImage}
+            onClose={closePopup}
+            title={titlePopCoin}
+            image={selectedImage}
+          />
         </>
       )}
     </>
