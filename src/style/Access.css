@@ -7,7 +7,6 @@
     background-image: url("../EUflag.svg");
     background-repeat: no-repeat;
     background-position: center;
-    /*background-size: cover; /* Aggiunto per coprire tutto lo sfondo */
     padding: 20px; /* Aggiunto spazio ai lati per mobile */
     box-sizing: border-box; /* Include il padding nella larghezza/altezza */
 }
