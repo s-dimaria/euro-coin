@@ -5,15 +5,15 @@ const supabaseUrl = 'https://fcbgtjrvluvirbkzmxra.supabase.co'
 const supabase = createClient(supabaseUrl, process.env.REACT_APP_SUPABASE_KEY);
 
 const getLoginUser = async () => {
-    console.info("Get User State...")
+    console.debug("Get User State...")
     const { data } = await supabase.auth.getUser()
-    console.info(!!data.user)
+    console.debug(!!data.user)
 
     return !!data.user;
 }
 
 const getUserInfo = async () => {
-    console.info("Get User Info...")
+    console.debug("Get User Info...")
     const { data, error } = await supabase.auth.getUser()
 
     return data.user ? data.user : alert(error.message);
@@ -21,7 +21,7 @@ const getUserInfo = async () => {
 
 const registerWithEmailAndPassword = async (name, email, password) => {
 
-    console.info("Registration...")
+    console.debug("Registration...")
     let { user, error } = await supabase.auth.signUp({
         email: email,
         password: password
@@ -34,7 +34,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 
 const loginWithEmailAndPassword = async (email, password) => {
 
-    console.info("Login...")
+    console.debug("Login...")
     let { user, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password
@@ -47,7 +47,7 @@ const loginWithEmailAndPassword = async (email, password) => {
 
 const loginWithProvider = async (provider) => {
 
-    console.info("Login Provider...")
+    console.debug("Login Provider...")
     let { user, error } = await supabase.auth.signInWithOAuth({
         provider: provider
     }, {
@@ -61,7 +61,7 @@ const loginWithProvider = async (provider) => {
 
 const logout = async () => {
 
-    console.info("Logout...")
+    console.debug("Logout...")
     let { error } = await supabase.auth.signOut();
 
     if (error) return alert(error.message);
@@ -69,19 +69,19 @@ const logout = async () => {
 }
 
 const sendPasswordReset = async (email) => {
-    console.info("Password Reset...")
+    console.debug("Password Reset...")
     let { data, error } = await supabase.auth.api.resetPasswordForEmail(email);
     if (error) return alert(error.message);
     return data;
 }
 
 const getStates = async () => {
-    console.info("GET States")
+    console.debug("GET States")
     return (await supabase.from("states_eu").select('state_name, prefix, flagUrl')).data;
 }
 
 const getCoinAndCoinCommWithDetail = async (state) => {
-    console.info("GET Coin By States -> " + state)
+    console.debug("GET Coin By States -> " + state)
     return (await supabase.from("states_eu").select('coin, coin_commemorative, detail').eq('state_name', state)).data[0];
 }
 
@@ -102,7 +102,7 @@ const getAllCoinCommemorative = async () => {
 }
 
 const getSingleAlbumCoin = async (state, year, value, uuid) => {
-    console.log(state, year, value, uuid)
+    console.debug(state, year, value, uuid)
     let { data, error } = await supabase
         .from('album_coin')
         .select('state, year, value, user_id')
@@ -117,7 +117,7 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
 }
 
 const putInsertCoin = async (state, year, value, uuid) => {
-    console.info("Insert Coin")
+    console.debug("Insert Coin")
 
     let initialYear = Object.keys((await supabase
         .from('states_eu')
@@ -140,7 +140,7 @@ const putInsertCoin = async (state, year, value, uuid) => {
 
 
 const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
-    console.info("Insert Coin Commemorative")
+    console.debug("Insert Coin Commemorative")
     let { data, error } = await supabase
         .from('album_commemorative')
         .insert([
@@ -153,22 +153,23 @@ const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
 }
 
 const getFullAlbum = async (uuid) => {
-    console.info("Get Coin of user")
+    console.debug("Get Coin of user")
     let data = await supabase
         .from('album_coin')
         .select('state, year, value')
-        .eq('user', uuid);
+        .eq('user_id', uuid);
+
     let dataComm = await supabase
         .from('album_commemorative')
         .select('state, year, description')
         .eq('user_id', uuid);
-    data.data = [...data.data, dataComm.data]
+    //data.data = [...data.data, dataComm.data]
 
-    return data.data;
+    return {data: data.data, dataComm: dataComm.data};
 }
 
 const getAlbumCoin = async (uuid) => {
-    console.info("Get Coin of user")
+    console.debug("Get Coin of user")
     return (await supabase
         .from('album_coin')
         .select('state, year, value')
@@ -176,7 +177,7 @@ const getAlbumCoin = async (uuid) => {
 }
 
 const getAlbumCoinByState = async (uuid, state) => {
-    console.info("Get Coin of user")
+    console.debug("Get Coin of user")
     return (await supabase
         .from('album_coin')
         .select('state, year, value')
@@ -185,7 +186,7 @@ const getAlbumCoinByState = async (uuid, state) => {
 }
 
 const getAlbumCommemorative = async (uuid) => {
-    console.info("Get Commemorative of user")
+    console.debug("Get Commemorative of user")
     return (await supabase
         .from('album_commemorative')
         .select('state, year, description')
@@ -193,7 +194,7 @@ const getAlbumCommemorative = async (uuid) => {
 }
 
 const getAlbumCommemorativeByState = async (uuid, state) => {
-    console.info("Get Commemorative of user")
+    console.debug("Get Commemorative of user")
     return (await supabase
         .from('album_commemorative')
         .select('state, year, description')
@@ -202,27 +203,27 @@ const getAlbumCommemorativeByState = async (uuid, state) => {
 }
 
 const deleteCoin = async (state, year, value, uuid) => {
-    console.info("Delete Coin...", state, year, value, uuid)
+    console.debug("Delete Coin...", state, year, value, uuid)
     const { data, error } = await supabase
         .from('album_coin')
         .delete()
         .match({ state: state, year: year, value: value, user_id: uuid }).select()
 
     if (error)
-        console.log(error)
+        console.debug(error)
 
     return data[0];
 }
 
 const deleteCommemorative = async (state, year, description, uuid) => {
-    console.info("Delete Coin Commemmorative...")
+    console.debug("Delete Coin Commemmorative...")
     const { data, error } = await supabase
         .from('album_commemorative')
         .delete()
         .match({ state: state, year: year, description: description, user_id: uuid }).select()
 
     if (error)
-        console.log(error)
+        console.debug(error)
 
     return data;
 }

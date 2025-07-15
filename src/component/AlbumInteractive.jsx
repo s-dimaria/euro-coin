@@ -113,7 +113,7 @@ function AlbumInteractive({
           uuid
         )
           .then((data) => {
-            console.log(data);
+            console.debug(data);
             onInsert(data);
           })
           .then(() => {
@@ -264,7 +264,7 @@ function AlbumInteractive({
                   <div className="containerGrid">
                     {getYears(years[0]).map(
                       (yearValue) => {
-                        console.log(yearValue)
+                        console.debug(yearValue)
                         return (
                           <div className="rowAlbum">
                             <>

@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function Popup ({ onClose, open, title, text, image, infoImg}) {
+function Popup ({ onClose, open, title, text, image, infoImg, isHtml = false }) {
 
     return open ? 
     <div>
@@ -21,18 +21,24 @@ function Popup ({ onClose, open, title, text, image, infoImg}) {
               <b>{title}</b>
             </DialogTitle>
             <DialogContent>
+              {(image != null) ?
               <div className="imgBox">
                 <div className="pop-container">
-                <div className="pop-image">
-                  <img className="imagePop" src={image} modal nested alt=""></img>
+                  <div className="pop-image">
+                    <img className="imagePop" src={image} modal nested alt=""></img>
+                  </div>
+                  <div className="pop-content">
+                    <p>{infoImg}</p>
+                  </div>
                 </div>
-                <div className="pop-content">
-                  <p>{infoImg}</p>
-                </div>
-              </div>
-              </div>
+              </div> : <></>
+              }
               <DialogContentText id="alert-dialog-description">
-                {text}
+                {isHtml ? (
+                  <span dangerouslySetInnerHTML={{ __html: text }} />
+                ) : (
+                  text
+                )}
               </DialogContentText>
             </DialogContent>
             <DialogActions>

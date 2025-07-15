@@ -37,7 +37,7 @@ function withLogin(Component) {
       );
     }
 
-    console.log("Authentication status:", authStatus.isAuthenticated);
+    console.debug("Authentication status:", authStatus.isAuthenticated);
 
     return authStatus.isAuthenticated 
       ? <Navigate to="/albums" replace /> 

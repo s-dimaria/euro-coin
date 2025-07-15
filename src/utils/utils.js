@@ -6,7 +6,7 @@ export function getRootCssStyles(rootRule = ":root") {
                 return [...styleSheet.cssRules]
                     .map(rule => rule)
             } catch (e) {
-                // console.log('Access to stylesheet %s is denied. Ignoring...', styleSheet.href);
+                // console.debug('Access to stylesheet %s is denied. Ignoring...', styleSheet.href);
             }
         })
 
@@ -26,3 +26,31 @@ export function getRootCssStyles(rootRule = ":root") {
 
     return cssVars;
 }
+
+export function calculateTotalValue(coins) {
+  // Somma in centesimi (interi)
+  const totalCents = coins.reduce((total, coin) => {
+    if (!coin.value) return total;
+
+    const match = coin.value.match(/(\d+)/);
+    if (match) {
+      let valueNumber = parseInt(match[1], 10);
+      if (coin.value.includes("Centesimi")) {
+        // Già in centesimi
+        return total + valueNumber;
+      } else if (coin.value.includes("Euro")) {
+        // Converti euro in centesimi
+        return total + (valueNumber * 100);
+      }
+    }
+    
+    return total;
+  }, 0);
+
+  // Converte in euro
+  return totalCents / 100;
+}
+
+
+
+

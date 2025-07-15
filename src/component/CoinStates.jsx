@@ -79,7 +79,7 @@ function CoinStates() {
         if (!ignore) {
           setTimeout(() => {
             setLoading(false);
-          }, 700);
+          }, 500);
         }
       }
     }

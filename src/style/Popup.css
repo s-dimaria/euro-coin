@@ -124,16 +124,7 @@
     height: 200px;
     max-width: 90%;
   }
-}
 
-@media (max-width: 480px) {
-  .pop-image {
-    height: 150px;
-    max-width: 95%;
-  }
-}
-/* Stili responsive - BOTTONI SEMPRE AFFIANCATI */
-@media (max-width: 768px) {
   .MuiDialog-paper {
     max-width: calc(100vw - 32px);
     max-height: calc(100vh - 32px);
@@ -157,6 +148,11 @@
 }
 
 @media (max-width: 480px) {
+  .pop-image {
+    height: 200px;
+    max-width: 95%;
+  }
+
   .MuiDialogTitle-root {
     font-size: 18px;
     padding: 14px 16px;
@@ -177,4 +173,29 @@
   .imgBox {
     margin: 20px 0 12px 0;
   }
+}
+
+
+.popup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.popup-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.popup-table td:first-child {
+  text-align: left;
+}
+
+.popup-table td:last-child {
+  text-align: right;
+}
+
+.popup-table .total-row td {
+  border-top: 2px solid #333;
+  font-weight: bold;
 }

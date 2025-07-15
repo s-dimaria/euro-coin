@@ -49,7 +49,7 @@ function AlbumCase({ id, state }) {
         const cEuro = await getAlbumCommemorativeByState(userInfo.id, state);
 
         if (!ignore) {
-          console.info("Done");
+          console.debug("Done");
           setStartedYearOfStates(yearOfState);
           
           if (id === "euro") {
