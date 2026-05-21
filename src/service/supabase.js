@@ -1,4 +1,3 @@
-import { keys } from '@mui/system';
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://fcbgtjrvluvirbkzmxra.supabase.co'
@@ -202,6 +201,30 @@ const getAlbumCommemorativeByState = async (uuid, state) => {
         .eq('state', state)).data;
 }
 
+const searchAlbumCoins = async (coinageValue, stateName) => {
+    console.debug("Search Album Coins...", coinageValue, stateName)
+    let query = supabase
+        .from('album_coin')
+        .select('state, year, value, user_id');
+    
+    if (coinageValue) {
+        query = query.eq('value', coinageValue);
+    }
+    
+    if (stateName) {
+        query = query.eq('state', stateName);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) {
+        console.error(error.message);
+        return [];
+    }
+    
+    return data;
+}
+
 const deleteCoin = async (state, year, value, uuid) => {
     console.debug("Delete Coin...", state, year, value, uuid)
     const { data, error } = await supabase
@@ -237,6 +260,7 @@ const subscribeAlbum = (callback) => {
     return subscribe;
 }
 
+
 export {
     getLoginUser,
     getUserInfo,
@@ -258,6 +282,7 @@ export {
     getAlbumCoinByState,
     getAlbumCommemorative,
     getAlbumCommemorativeByState,
+    searchAlbumCoins,
     deleteCoin,
     deleteCommemorative,
     subscribeAlbum,

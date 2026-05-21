@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { getStates } from "../service/supabase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import withProtected from "../hoc/withProtected";
 import LoadingAlbum from "../info/LoadingAlbum";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import LogoutIcon from "@mui/icons-material/Logout";
+import SearchIcon from "@mui/icons-material/Search";
 import { logout } from "../service/supabase";
 import "../style/Home.css";
 import InfoAlbum from "../info/InfoAlbum";
 
 function Home() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true); // Inizializza a true
   const [states, setStates] = useState(null); // Inizializza a null invece di array vuoto
   const [openInfo, setOpenInfo] = useState(false);
@@ -57,6 +59,9 @@ function Home() {
             <div className="centered-text">
               <IconButton onClick={handleOpen}>
                 <InfoIcon />
+              </IconButton>
+              <IconButton onClick={() => navigate("/albums/search")}>
+                <SearchIcon />
               </IconButton>
               <h1>I tuoi album</h1>
               <Link to="/">

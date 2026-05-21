@@ -1,0 +1,72 @@
+.search-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8eef7 100%);
+}
+
+.search-page-header {
+  background-color: #003399;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(31, 113, 209, 0.3);
+}
+
+.search-page-header h1 {
+  margin: 0;
+  font-size: 54px;
+  font-weight: 600;
+  font-family: 'Lexend Deca', sans-serif !important;
+  color: #ffa700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0px #c87100, 1px 2px 0px #c87100, 1px 3px 0px #c87100,
+    1px 4px 0px #c87100, 1px 5px 0px #c87100, 1px 6px 0px #c87100;
+}
+
+.search-page-content {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  width: 95%;
+  flex: 1;
+}
+
+.search-form-section {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.search-results-section {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.search-results-section h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #202124;
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 3px solid #1F71D1;
+  padding-bottom: 12px;
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -2,6 +2,7 @@ import { useRoutes } from 'react-router-dom';
 
 import CoinStates from "./component/CoinStates";
 import Home from "./routes/home";
+import SearchPage from "./routes/SearchPage";
 import Access from './routes/authentication/Access';
 import Register from './routes/authentication/Register';
 import Login from './routes/authentication/Login';
@@ -30,6 +31,10 @@ function AppRoute() {
     { 
       path: 'albums', 
       element: <Home />,
+    },
+    { 
+      path: 'albums/search', 
+      element: <SearchPage />,
     },
     { 
       path: 'albums/:id', 
