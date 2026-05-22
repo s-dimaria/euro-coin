@@ -234,6 +234,11 @@ function SearchPage() {
                       borderColor: "#1F71D1",
                       boxShadow: "0 4px 12px rgba(31, 113, 209, 0.3)",
                     },
+                    "@media (max-width: 768px)": {
+                      width: "70px",
+                      height: "70px",
+                      fontSize: "0.75rem",
+                    },
                   },
                 }}
               >
@@ -350,6 +355,9 @@ function SearchPage() {
                       display: "grid",
                       gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
                       gap: 2,
+                      "@media (max-width: 768px)": {
+                         gridTemplateColumns: "repeat(auto-fill, minmax(70px, 1fr))",
+                      },
                     }}
                   >
                     {allAvailableYears.map((year, idx) => {
@@ -391,6 +399,11 @@ function SearchPage() {
                               backgroundColor: "#34A853",
                               color: "#fff",
                               borderColor: "#34A853",
+                            },
+                            "@media (max-width: 768px)": {
+                              width: "80px",
+                              height: "80px",
+                              fontSize: "1rem",
                             },
                           }}
                         >

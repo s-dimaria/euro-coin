@@ -60,9 +60,6 @@ function Home() {
               <IconButton onClick={handleOpen}>
                 <InfoIcon />
               </IconButton>
-              <IconButton onClick={() => navigate("/albums/search")}>
-                <SearchIcon />
-              </IconButton>
               <h1>I tuoi album</h1>
               <Link to="/">
                 <IconButton onClick={() => logout()}>
@@ -100,6 +97,9 @@ function Home() {
                   );
                 })}
             </div>
+            <IconButton onClick={() => navigate("/albums/search")} className="search-btn">
+                <SearchIcon />
+            </IconButton>
           </div>
         </div>
       )}

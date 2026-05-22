@@ -28,9 +28,7 @@
 .search-page-content {
   max-width: 900px;
   margin: 40px auto;
-  padding: 20px;
   width: 95%;
-  flex: 1;
 }
 
 .search-form-section {
