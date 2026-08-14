@@ -28,7 +28,7 @@ function PopupWrapper({ open, onClose }) {
 
         if (!ignore) {
          const formatted = `
-            <table class="popup-table">
+            <table className="popup-table">
                 <tr>
                     <td><b>Numero monete</b></td>
                     <td>${coins.length}</td>
@@ -37,7 +37,7 @@ function PopupWrapper({ open, onClose }) {
                     <td><b>Monete commemorative</b></td>
                     <td>${coinsComm.length}</td>
                 </tr>
-                <tr class="total-row">
+                <tr className="total-row">
                     <td><b>Valore totale</b></td>
                     <td>${total}€</td>
                 </tr>

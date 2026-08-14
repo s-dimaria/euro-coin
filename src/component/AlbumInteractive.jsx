@@ -31,6 +31,14 @@ function AlbumInteractive({
   const [title, setTitle] = useState("");
   const [severity, setSeverity] = useState("info");
 
+  const germanyLetters = [
+    "A",
+    "D",
+    "F",
+    "G",
+    "J",
+  ];
+
   const handleClose = () => {
     setOpen(false);
     setCoin(null);
@@ -43,6 +51,7 @@ function AlbumInteractive({
           deletedCoin.state,
           deletedCoin.year,
           deletedCoin.value,
+          deletedCoin.letter,
           uuid
         )
           .then(() => onDelete(deletedCoin))
@@ -55,6 +64,7 @@ function AlbumInteractive({
                 deletedCoin.state +
                 " " +
                 deletedCoin.year +
+                (deletedCoin.letter ? " " + deletedCoin.letter : "") +
                 " " +
                 deletedCoin.value +
                 "' eliminata"
@@ -89,8 +99,23 @@ function AlbumInteractive({
 
   const onConfirm = async () => {
     id === "euro"
-      ? await putInsertCoin(coin.state, coin.year, coin.value, uuid)
-          .then((data) => onInsert(data.data[0]))
+      ? await putInsertCoin(
+          coin.state,
+          coin.year,
+          coin.value,
+          coin.letter,
+          uuid
+        )
+          .then((response) => {
+            const insertedCoin = response?.data?.[0] ?? {
+              state: coin.state,
+              year: coin.year,
+              value: coin.value,
+              ...(coin.letter ? { letter: coin.letter } : {}),
+            };
+
+            onInsert(insertedCoin);
+          })
           .then(() => {
             setCoin(null);
             setDeletedCoin(null);
@@ -100,6 +125,7 @@ function AlbumInteractive({
                 coin.state +
                 " - " +
                 coin.year +
+                (coin.letter ? " - " + coin.letter : "") +
                 " - " +
                 coin.value +
                 "' inserita nell'album"
@@ -152,6 +178,20 @@ function AlbumInteractive({
     }
   };
 
+  const getGermanyCoin = (coinSet, yearKey, letter) => {
+    const yearCoins = coinSet?.[yearKey];
+
+    if (yearCoins?.[letter]) {
+      return yearCoins[letter];
+    }
+
+    if (coinSet?.[letter]) {
+      return coinSet[letter];
+    }
+
+    return yearCoins;
+  };
+
   return (
     <>
       {Object.keys(startedYearofStates)
@@ -162,11 +202,151 @@ function AlbumInteractive({
         )
         .map((key) => {
           let state = startedYearofStates[key].state_name;
+          let isGermany = state === "Germania";
           let years;
 
           // Euro Table
           if (id === "euro") {
             years = Object.keys(startedYearofStates[key].coin);
+            if (isGermany) {
+              return years.length !== 0 ? (
+                <>
+                  <p>
+                    {album.length}/{totalEuro}
+                  </p>
+                  <hr />
+                  <div className="containerGrid">
+                    {getYears(years[0]).map(
+                      (yearValue) => {
+                        const coinYearKey = imageSelect(yearValue, years);
+
+                        return (
+                          <div
+                            className="rowAlbum"
+                            key={yearValue}
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "0.75rem",
+                              paddingTop: "1rem",
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: "100%",
+                                textAlign: "center",
+                                fontWeight: 700,
+                              }}
+                            >
+                              <span>{yearValue}</span>
+                            </div>
+                            <section
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                width: "100%",
+                              }}
+                            >
+                              {germanyLetters.map((letter) => {
+                                const coinByLetter = getGermanyCoin(
+                                  startedYearofStates[key].coin,
+                                  coinYearKey,
+                                  letter
+                                );
+
+                                if (!coinByLetter) {
+                                  return null;
+                                }
+
+                                return (
+                                  <section
+                                    key={`${yearValue}-${letter}`}
+                                    style={{
+                                      display: "flex",
+                                      width: "100%",
+                                    }}
+                                  >
+                                    <div className="firstColumn">
+                                      <span>{letter}</span>
+                                    </div>
+                                    <div>
+                                      {Object.keys(values).map((value) => {
+                                        let coin = album.find(
+                                          (data) =>
+                                            data.state === state &&
+                                            data.year === yearValue &&
+                                            data.value === values[value] &&
+                                            (data.letter ?? null) === (letter ?? null)
+                                        );
+                                        const imageUrl =
+                                          coinByLetter?.[value]?.imageUrl;
+                                        const coinTitle =
+                                          state +
+                                          " " +
+                                          yearValue +
+                                          " " +
+                                          letter +
+                                          " " +
+                                          values[value];
+
+                                        return coin ? (
+                                          <button
+                                            key={`${yearValue}-${letter}-${value}`}
+                                            className="disabled"
+                                            onClick={() => {
+                                              setTitle(
+                                                "Eliminare la moneta '" +
+                                                  coinTitle +
+                                                  "' ?"
+                                              );
+                                              setDeletedCoin(
+                                                coin ?? {
+                                                  state,
+                                                  year: yearValue,
+                                                  value: values[value],
+                                                  letter,
+                                                }
+                                              );
+                                              setImg(imageUrl);
+                                            }}
+                                          >
+                                            <img alt="" src={imageUrl}></img>
+                                          </button>
+                                        ) : (
+                                          <button
+                                            key={`${yearValue}-${letter}-${value}`}
+                                            onClick={() => {
+                                              setTitle(
+                                                "Inserire la moneta '" +
+                                                  coinTitle +
+                                                  "' ?"
+                                              );
+                                              setCoin({
+                                                state: state,
+                                                year: yearValue,
+                                                value: values[value],
+                                                letter: letter,
+                                              });
+                                              setImg(imageUrl);
+                                            }}
+                                          ></button>
+                                        );
+                                      })}
+                                    </div>
+                                  </section>
+                                );
+                              })}
+                            </section>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                </>
+              ) : (
+                <></>
+              );
+            }
             if (years.length === 1) {
               return (
                 <>

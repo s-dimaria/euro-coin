@@ -1,6 +1,6 @@
 import AlbumInteractive from "../component/AlbumInteractive";
 import LoadingSpinner from "../info/LoadingSpinner";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import {
   getUserInfo,
@@ -18,6 +18,24 @@ function AlbumCase({ id, state }) {
   const [initialLoad, setInitialLoad] = useState(true);
   const [totalEuro, setTotalEuro] = useState(0);
   const [totalComm, setTotalComm] = useState(0);
+
+  const totalCoin = useCallback(
+    (year, coinNum) => {
+      let total = 0;
+      let years = Object.keys(year);
+      getYears(years[0]).forEach((y) => {
+        coinNum.forEach((c) => {
+          if (id === "euro") {
+            total++;
+          } else if (!(year[y] === undefined || year[y][c] === undefined)) {
+            total++;
+          }
+        });
+      });
+      return total;
+    },
+    [id]
+  );
 
   // Carica le informazioni dell'utente all'avvio
   useEffect(() => {
@@ -74,22 +92,7 @@ function AlbumCase({ id, state }) {
     return () => {
       ignore = true;
     };
-  }, [userInfo, state, id, initialLoad]);
-
-  const totalCoin = (year, coinNum) => {
-    let total = 0;
-    let years = Object.keys(year);
-    getYears(years[0]).forEach((y) => {
-      coinNum.forEach((c) => {
-        if (id === "euro") {
-          total++;
-        } else if (!(year[y] === undefined || year[y][c] === undefined)) {
-          total++;
-        }
-      });
-    });
-    return total;
-  };
+  }, [userInfo, state, id, initialLoad, totalCoin]);
 
   const getYears = (initYear, lastYear) => {
     const thisYear = lastYear || new Date().getFullYear();
@@ -98,12 +101,31 @@ function AlbumCase({ id, state }) {
     return retval;
   };
 
+  const isSameCoin = (a, b) => {
+    if (!a || !b) return false;
+
+    return (
+      a.state === b.state &&
+      a.year === b.year &&
+      a.value === b.value &&
+      (a.letter ?? null) === (b.letter ?? null)
+    );
+  };
+
   const onInsert = (newInsert) => {
-    setAlbum([...album, newInsert]);
+    setAlbum((prevAlbum) => {
+      if (prevAlbum.some((coin) => isSameCoin(coin, newInsert))) {
+        return prevAlbum;
+      }
+
+      return [...prevAlbum, newInsert];
+    });
   };
 
   const onDelete = (deletedCoin) => {
-    setAlbum(album.filter((coin) => coin !== deletedCoin));
+    setAlbum((prevAlbum) =>
+      prevAlbum.filter((coin) => !isSameCoin(coin, deletedCoin))
+    );
   };
 
   if (initialLoad) {

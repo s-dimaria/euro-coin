@@ -18,7 +18,7 @@ function Info({ details, state, changePage }) {
       <div className="headerNav">
         <h3>{state}</h3>
         <div>
-          <Home class="homeIcon" onClick={() => navigate("/albums", { replace: "true" })} />
+          <Home className="homeIcon" onClick={() => navigate("/albums", { replace: "true" })} />
           <Arrow onClick={changePage} />
         </div>
       </div>
@@ -137,7 +137,7 @@ function CoinStates() {
         <>
           <div className="main">
             <div className="book" onAnimationEnd={handleAnimationEnd}>
-              <div class={`book-cover ${isZoomed ? "changePage" : ""}`}>
+              <div className={`book-cover ${isZoomed ? "changePage" : ""}`}>
                 <div className={`${isZoomed ? "fadingOut" : ""}`}>
                   <h1>{id}</h1>
                 </div>

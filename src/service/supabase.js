@@ -104,7 +104,7 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
     console.debug(state, year, value, uuid)
     let { data, error } = await supabase
         .from('album_coin')
-        .select('state, year, value, user_id')
+        .select('state, year, value, letter, user_id')
         .eq('state', state)
         .eq('value', value)
         .eq('year', year)
@@ -115,8 +115,11 @@ const getSingleAlbumCoin = async (state, year, value, uuid) => {
         return data[0];
 }
 
-const putInsertCoin = async (state, year, value, uuid) => {
+const putInsertCoin = async (state, year, value, letterOrUuid, maybeUuid) => {
     console.debug("Insert Coin")
+
+    const letter = maybeUuid === undefined ? undefined : letterOrUuid;
+    const uuid = maybeUuid === undefined ? letterOrUuid : maybeUuid;
 
     let initialYear = Object.keys((await supabase
         .from('states_eu')
@@ -124,17 +127,27 @@ const putInsertCoin = async (state, year, value, uuid) => {
         .eq('state_name', state)).data[0].coin)[0];
 
     if (year >= initialYear) {
+        const insertPayload = {
+            state: state,
+            year: year,
+            value: value,
+            user_id: uuid,
+            ...(letter ? { letter: letter } : {})
+        };
+
         let { data, error } = await supabase
             .from('album_coin')
-            .insert([
-                { state: state, year: year, value: value, user_id: uuid }
-            ]).select()
-        
-        
-        return {data,error};
+            .insert([insertPayload]).select()
+
+        if (error) {
+            console.error(error.message);
+            return { data: [insertPayload], error };
+        }
+
+        return { data: data && data.length ? data : [insertPayload], error: null };
     }
 
-    return null
+    return { data: [], error: null }
 }
 
 
@@ -155,7 +168,7 @@ const getFullAlbum = async (uuid) => {
     console.debug("Get Coin of user")
     let data = await supabase
         .from('album_coin')
-        .select('state, year, value')
+        .select('state, year, value, letter')
         .eq('user_id', uuid);
 
     let dataComm = await supabase
@@ -171,7 +184,7 @@ const getAlbumCoin = async (uuid) => {
     console.debug("Get Coin of user")
     return (await supabase
         .from('album_coin')
-        .select('state, year, value')
+        .select('state, year, value, letter')
         .eq('user_id', uuid)).data;
 }
 
@@ -179,7 +192,7 @@ const getAlbumCoinByState = async (uuid, state) => {
     console.debug("Get Coin of user")
     return (await supabase
         .from('album_coin')
-        .select('state, year, value')
+        .select('state, year, value, letter')
         .eq('user_id', uuid)
         .eq('state', state)).data;
 }
@@ -205,7 +218,7 @@ const searchAlbumCoins = async (coinageValue, stateName) => {
     console.debug("Search Album Coins...", coinageValue, stateName)
     let query = supabase
         .from('album_coin')
-        .select('state, year, value, user_id');
+        .select('state, year, value, letter, user_id');
     
     if (coinageValue) {
         query = query.eq('value', coinageValue);
@@ -225,12 +238,14 @@ const searchAlbumCoins = async (coinageValue, stateName) => {
     return data;
 }
 
-const deleteCoin = async (state, year, value, uuid) => {
-    console.debug("Delete Coin...", state, year, value, uuid)
+const deleteCoin = async (state, year, value, letterOrUuid, maybeUuid) => {
+    console.debug("Delete Coin...", state, year, value, letterOrUuid, maybeUuid)
+    const letter = maybeUuid === undefined ? undefined : letterOrUuid;
+    const uuid = maybeUuid === undefined ? letterOrUuid : maybeUuid;
     const { data, error } = await supabase
         .from('album_coin')
         .delete()
-        .match({ state: state, year: year, value: value, user_id: uuid }).select()
+        .match({ state: state, year: year, value: value, ...(letter ? { letter: letter } : {}), user_id: uuid }).select()
 
     if (error)
         console.debug(error)
