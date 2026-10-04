@@ -151,17 +151,31 @@ const putInsertCoin = async (state, year, value, letterOrUuid, maybeUuid) => {
 }
 
 
-const putInsertCoinCommemorative = async (state, year, descr, uuid) => {
+
+const putInsertCoinCommemorative = async (state, year, descr, letterOrUuid, maybeUuid) => {
     console.debug("Insert Coin Commemorative")
+
+    const letter = maybeUuid === undefined ? undefined : letterOrUuid;
+    const uuid = maybeUuid === undefined ? letterOrUuid : maybeUuid;
+    const payload = {
+        state: state,
+        year: year,
+        description: descr,
+        user_id: uuid,
+        ...(letter ? { letter: letter } : {}),
+        value: "2 Euro"
+    };
+
     let { data, error } = await supabase
         .from('album_commemorative')
-        .insert([
-            { state: state, year: year, description: descr, user_id: uuid, value: "2 Euro" }
-        ]).select()
-    if (error)
-        console.error(error.message)
-    else
-        return data[0];
+        .insert([payload]).select()
+
+    if (error) {
+        console.error(error.message);
+        return payload;
+    }
+
+    return data?.[0] ?? payload;
 }
 
 const getFullAlbum = async (uuid) => {
@@ -173,7 +187,7 @@ const getFullAlbum = async (uuid) => {
 
     let dataComm = await supabase
         .from('album_commemorative')
-        .select('state, year, description')
+        .select('state, year, description, letter')
         .eq('user_id', uuid);
     //data.data = [...data.data, dataComm.data]
 
@@ -201,7 +215,7 @@ const getAlbumCommemorative = async (uuid) => {
     console.debug("Get Commemorative of user")
     return (await supabase
         .from('album_commemorative')
-        .select('state, year, description')
+        .select('state, year, description, letter')
         .eq('user_id', uuid)).data;
 }
 
@@ -209,7 +223,7 @@ const getAlbumCommemorativeByState = async (uuid, state) => {
     console.debug("Get Commemorative of user")
     return (await supabase
         .from('album_commemorative')
-        .select('state, year, description')
+        .select('state, year, description, letter')
         .eq('user_id', uuid)
         .eq('state', state)).data;
 }
@@ -253,12 +267,14 @@ const deleteCoin = async (state, year, value, letterOrUuid, maybeUuid) => {
     return data[0];
 }
 
-const deleteCommemorative = async (state, year, description, uuid) => {
+const deleteCommemorative = async (state, year, description, letterOrUuid, maybeUuid) => {
     console.debug("Delete Coin Commemmorative...")
+    const letter = maybeUuid === undefined ? undefined : letterOrUuid;
+    const uuid = maybeUuid === undefined ? letterOrUuid : maybeUuid;
     const { data, error } = await supabase
         .from('album_commemorative')
         .delete()
-        .match({ state: state, year: year, description: description, user_id: uuid }).select()
+        .match({ state: state, year: year, description: description, ...(letter ? { letter: letter } : {}), user_id: uuid }).select()
 
     if (error)
         console.debug(error)

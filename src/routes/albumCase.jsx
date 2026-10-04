@@ -21,14 +21,20 @@ function AlbumCase({ id, state }) {
 
   const totalCoin = useCallback(
     (year, coinNum) => {
+
+      console.debug("Calculating total coins for year:", year, "and coinNum:", coinNum);
       let total = 0;
       let years = Object.keys(year);
+      let isGermany = state === "Germania";
+      let germanyLetters = ["A", "D", "F", "G", "J"];
+
       getYears(years[0]).forEach((y) => {
+        console.log("Year: ", y, " CoinNum: ", coinNum);
         coinNum.forEach((c) => {
           if (id === "euro") {
-            total++;
+            isGermany ? total += germanyLetters.length : total++;
           } else if (!(year[y] === undefined || year[y][c] === undefined)) {
-            total++;
+            isGermany ? total += germanyLetters.length : total++;
           }
         });
       });
@@ -108,6 +114,7 @@ function AlbumCase({ id, state }) {
       a.state === b.state &&
       a.year === b.year &&
       a.value === b.value &&
+      (a.description ?? null) === (b.description ?? null) &&
       (a.letter ?? null) === (b.letter ?? null)
     );
   };
