@@ -156,7 +156,7 @@ function CoinStates() {
                   ></Info>
                   {Object.keys(coin).map((key) => {
                     return (
-                      <>
+                      <React.Fragment key={key}>
                         <h2>In vigore dal: {key}</h2>
                         <hr style={{ width: "90%" }} />
                         <div className="columnBox">
@@ -180,7 +180,7 @@ function CoinStates() {
                               );
                             })}
                         </div>
-                      </>
+                      </React.Fragment>
                     );
                   })}
                   {coinComm ? (

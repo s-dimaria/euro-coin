@@ -29,7 +29,7 @@ function AlbumCase({ id, state }) {
       let germanyLetters = ["A", "D", "F", "G", "J"];
 
       getYears(years[0]).forEach((y) => {
-        console.log("Year: ", y, " CoinNum: ", coinNum);
+        console.debug("Year: ", y, " CoinNum: ", coinNum);
         coinNum.forEach((c) => {
           if (id === "euro") {
             isGermany ? total += germanyLetters.length : total++;

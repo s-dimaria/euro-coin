@@ -13,7 +13,7 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
       image === undefined ?
         <div>
           <Dialog
-            open="true"
+            open={Boolean(open)}
             onClose={onClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
@@ -38,7 +38,7 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
         </div>
         : <div>
           <Dialog
-            open="true"
+            open={Boolean(open)}
             onClose={onClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
@@ -50,7 +50,7 @@ export default function AlertDialog({ onClose, onConfirm, open, title, text, ima
               <div className="imgBox">
                 <div className="pop-container">
                 <div className="pop-image">
-                  <img className="imagePop" src={image} modal nested alt=""></img>
+                  <img className="imagePop" src={image} alt=""></img>
                 </div>
                 <div className="pop-content">
                   <p>{infoImg}</p>

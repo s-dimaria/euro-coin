@@ -34,10 +34,11 @@ function CoinTable({ coins, uuid, state }) {
               .sort((a, b) => (coins[a].order > coins[b].ordder ? -1 : 1))
               .map((key) => {
                 {
-                  return Object.values(coins[key]).map((dataItem) => {
+                  return Object.entries(coins[key]).map(([dataItemKey, dataItem]) => {
                     if (dataItem.title !== "") {
                       return (
                         <tr
+                          key={`${key}-${dataItemKey}`}
                           onClick={() => {
                             setTitle(
                               "Moneta commemorativa '" +

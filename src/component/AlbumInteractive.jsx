@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { values, valuesComm } from "../utils/constants";
 import {
   putInsertCoin,
@@ -227,7 +227,7 @@ function AlbumInteractive({
             years = Object.keys(startedYearofStates[key].coin);
             if (isGermany) {
               return years.length !== 0 ? (
-                <>
+                <Fragment key={key}>
                   <p>
                     {album.length}/{totalEuro}
                   </p>
@@ -359,14 +359,14 @@ function AlbumInteractive({
                       }
                     )}
                   </div>
-                </>
+                </Fragment>
               ) : (
                 <></>
               );
             }
             if (years.length === 1) {
               return (
-                <>
+                <Fragment key={key}>
                   <p>
                     {album.length}/{totalEuro}
                   </p>
@@ -375,7 +375,7 @@ function AlbumInteractive({
                     {getYears(years[0]).map(
                       (yearValue) => {
                         return (
-                          <div className="rowAlbum">
+                          <div className="rowAlbum" key={yearValue}>
                             <>
                               <div className="firstColumn">
                                 <span>{yearValue}</span>
@@ -389,7 +389,9 @@ function AlbumInteractive({
                                       data.value === values[value]
                                   );
                                   return coin ? (
-                                    <button className="disabled"
+                                    <button
+                                      key={`${yearValue}-${value}`}
+                                      className="disabled"
                                       onClick={() => {
                                           setTitle(
                                             "Eliminare la moneta '" +
@@ -418,6 +420,7 @@ function AlbumInteractive({
                                     </button>
                                   ) : (
                                     <button
+                                      key={`${yearValue}-${value}`}
                                       onClick={() => {
                                         setTitle(
                                           "Inserire la moneta '" +
@@ -449,11 +452,11 @@ function AlbumInteractive({
                       }
                     )}
                   </div>
-                </>
+                </Fragment>
               );
             } else {
               return (
-                <>
+                <Fragment key={key}>
                   <p>
                     {album.length}/{totalEuro}
                   </p>
@@ -462,7 +465,7 @@ function AlbumInteractive({
                     {getYears(years[0]).map(
                       (yearValue) => {
                         return (
-                          <div className="rowAlbum">
+                          <div className="rowAlbum" key={yearValue}>
                             <>
                               <div className="firstColumn">
                                 <span>{yearValue}</span>
@@ -477,7 +480,9 @@ function AlbumInteractive({
                                   );
                                   // findCoin(state, yearValue, values[value]) ?
                                   return coin ? (
-                                    <button className="disabled"
+                                    <button
+                                      key={`${yearValue}-${value}`}
+                                      className="disabled"
                                       onClick={() => {
                                           setTitle(
                                             "Eliminare la moneta '" +
@@ -507,6 +512,7 @@ function AlbumInteractive({
                                     </button>
                                   ) : (
                                     <button
+                                      key={`${yearValue}-${value}`}
                                       onClick={() => {
                                         setTitle(
                                           "Inserire la moneta '" +
@@ -538,7 +544,7 @@ function AlbumInteractive({
                       }
                     )}
                   </div>
-                </>
+                </Fragment>
               );
             }
           }
@@ -550,7 +556,7 @@ function AlbumInteractive({
 
             if (isGermany) {
               return years.length !== 0 ? (
-                <>
+                <Fragment key={key}>
                   <p>
                     {album.length}/{totalComm}
                   </p>
@@ -682,14 +688,14 @@ function AlbumInteractive({
                       }
                     )}
                   </div>
-                </>
+                </Fragment>
               ) : (
                 <></>
               );
             }
 
             return years.length !== 0 ? (
-              <>
+              <Fragment key={key}>
                 <p>
                   {album.length}/{totalComm}
                 </p>
@@ -784,7 +790,7 @@ function AlbumInteractive({
                     }
                   )}
                 </div>
-              </>
+              </Fragment>
             ) : (
               <></>
             );
