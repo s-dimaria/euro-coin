@@ -26,8 +26,11 @@ function SearchPage() {
   const [userId, setUserId] = useState(null);
   const [selectedCoinage, setSelectedCoinage] = useState("");
   const [selectedState, setSelectedState] = useState("");
+  const [selectedGermanyLetter, setSelectedGermanyLetter] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [allAvailableYears, setAllAvailableYears] = useState([]);
+  const [stateData, setStateData] = useState(null);
+  const germanyLetters = ["A", "D", "F", "G", "J"];
   const [openInsertDialog, setOpenInsertDialog] = useState(false);
   const [insertYear, setInsertYear] = useState("");
   const [inserting, setInserting] = useState(false);
@@ -71,53 +74,67 @@ function SearchPage() {
   }, []);
 
   useEffect(() => {
-    if (selectedCoinage && selectedState) {
+    if (!selectedCoinage || !selectedState || (selectedState === "Germania" && !selectedGermanyLetter)) {
+      setHasSearched(false);
+      return;
+    }
 
-      getCoinAndCoinCommWithDetail(selectedState).then((stateData) => {
-        if (stateData && stateData.coin) {
-          const yearsInData = Object.keys(stateData.coin).map((year) => parseInt(year));
+    getCoinAndCoinCommWithDetail(selectedState)
+      .then((result) => {
+        setStateData(result);
+
+        if (result && result.coin) {
+          const yearsInData = Object.keys(result.coin).map((year) => parseInt(year));
           const minYear = Math.min(...yearsInData);
           const currentYear = new Date().getFullYear();
-          
+
           const allYearsRange = [];
           for (let year = minYear; year <= currentYear; year++) {
             allYearsRange.push(year);
           }
-          
+
           setAllAvailableYears(allYearsRange);
         }
 
         setHasSearched(true);
+      })
+      .catch((error) => {
+        console.error("Error loading state coin data:", error);
+        setStateData(null);
       });
-    }
-  }, [selectedCoinage, selectedState]);
+  }, [selectedCoinage, selectedState, selectedGermanyLetter]);
 
   const handleSearch = () => {
+    getCoinAndCoinCommWithDetail(selectedState)
+      .then((result) => {
+        setStateData(result);
 
-    // Get all available years from the state's coin data
-    getCoinAndCoinCommWithDetail(selectedState).then((stateData) => {
-      if (stateData && stateData.coin) {
-        // Extract minimum and maximum years from the coin object
-        const yearsInData = Object.keys(stateData.coin).map((year) => parseInt(year));
-        const minYear = Math.min(...yearsInData);
-        const currentYear = new Date().getFullYear();
-        
-        // Create array of all years from first year to current year
-        const allYearsRange = [];
-        for (let year = minYear; year <= currentYear; year++) {
-          allYearsRange.push(year);
+        if (result && result.coin) {
+          const yearsInData = Object.keys(result.coin).map((year) => parseInt(year));
+          const minYear = Math.min(...yearsInData);
+          const currentYear = new Date().getFullYear();
+
+          const allYearsRange = [];
+          for (let year = minYear; year <= currentYear; year++) {
+            allYearsRange.push(year);
+          }
+
+          setAllAvailableYears(allYearsRange);
         }
-        
-        setAllAvailableYears(allYearsRange);
-      }
 
-      setHasSearched(true);
-    });
+        setHasSearched(true);
+      })
+      .catch((error) => {
+        console.error("Error searching state data:", error);
+        setStateData(null);
+      });
   };
 
   const handleReset = () => {
     setSelectedCoinage("");
     setSelectedState("");
+    setSelectedGermanyLetter("");
+    setStateData(null);
     setHasSearched(false);
   };
 
@@ -132,17 +149,29 @@ function SearchPage() {
       return;
     }
 
+    if (selectedState === "Germania" && !selectedGermanyLetter) {
+      alert("Seleziona una lettera per la moneta Germania");
+      return;
+    }
+
     setInserting(true);
     try {
-      const result = await putInsertCoin(selectedState, parseInt(insertYear), coinageValues[selectedCoinage], userId);
-      
+      const insertLetter = selectedState === "Germania" ? selectedGermanyLetter : undefined;
+      const result = await putInsertCoin(
+        selectedState,
+        parseInt(insertYear),
+        coinageValues[selectedCoinage],
+        insertLetter ?? userId,
+        insertLetter ? userId : undefined
+      );
+
       if (result && result.data) {
         handleCloseInsertDialog();
-        
+
         // Refresh the user coins list
         const updatedCoins = await getAlbumCoin(userId);
         setUserCoins(updatedCoins || []);
-        
+
         // Re-run the search to show the newly added coin
         handleSearch();
       } else {
@@ -157,18 +186,49 @@ function SearchPage() {
   };
 
   const handleYearClick = (year) => {
-    // Check if user already has this year
-    const hasYear = userCoins.some(
-      (coin) =>
-        coin.state === selectedState &&
-        coin.year === year &&
-        coin.value === coinageValues[selectedCoinage]
-    );
+    const hasYear = userCoins.some((coin) => {
+      if (coin.state !== selectedState || coin.year !== year) return false;
+      if (coin.value !== coinageValues[selectedCoinage]) return false;
+
+      if (selectedState === "Germania" && selectedGermanyLetter) {
+        return coin.letter === selectedGermanyLetter;
+      }
+
+      return true;
+    });
 
     if (!hasYear) {
       setInsertYear(year.toString());
       setOpenInsertDialog(true);
     }
+  };
+
+  const getGermanyYearProgress = (year) => {
+    if (selectedState !== "Germania" || !selectedGermanyLetter || !stateData?.coin) return 0;
+
+    const yearData = stateData.coin[year];
+    if (!yearData) return 0;
+
+    const targetValue = coinageValues[selectedCoinage];
+    const lettersToCheck = [selectedGermanyLetter];
+
+    const yearLetters = lettersToCheck.filter((letter) => {
+      return yearData?.[letter]?.[targetValue] !== undefined;
+    });
+
+    if (yearLetters.length === 0) return 0;
+
+    const ownedLetters = yearLetters.filter((letter) =>
+      userCoins.some(
+        (coin) =>
+          coin.state === selectedState &&
+          coin.year === year &&
+          coin.value === targetValue &&
+          coin.letter === letter
+      )
+    ).length;
+
+    return (ownedLetters / yearLetters.length) * 100;
   };
 
   if (loading) {
@@ -314,6 +374,51 @@ function SearchPage() {
               </ToggleButtonGroup>
             </Box>
 
+            {selectedState === "Germania" && (
+              <Box>
+                <Box sx={{ mb: 2, fontWeight: 700, fontSize: "1.1rem", color: "#202124" }}>
+                  Filtra lettere
+                </Box>
+                <ToggleButtonGroup
+                  value={selectedGermanyLetter}
+                  exclusive
+                  onChange={(event, newLetter) => {
+                    setSelectedGermanyLetter(newLetter ?? "");
+                  }}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 1,
+                    "& .MuiToggleButton-root": {
+                      border: "2px solid #dadce0",
+                      borderRadius: "999px",
+                      minWidth: "52px",
+                      fontWeight: 700,
+                      color: "#202124",
+                      backgroundColor: "#fff",
+                        "&:hover": {
+                        backgroundColor: "#f8f9fa",
+                        borderColor: "#1F71D1",
+                        boxShadow: "0 2px 8px rgba(31, 113, 209, 0.2)",
+                      },
+                      "&.Mui-selected": {
+                        backgroundColor: "#1F71D1",
+                        color: "#fff",
+                        borderColor: "#1F71D1",
+                        boxShadow: "0 4px 12px rgba(31, 113, 209, 0.3)",
+                      },
+                    },
+                  }}
+                >
+                  {germanyLetters.map((letter) => (
+                    <ToggleButton key={letter} value={letter}>
+                      {letter}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              </Box>
+            )}
+
             {/* Action Buttons */}
             <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
               <Button
@@ -361,12 +466,16 @@ function SearchPage() {
                     }}
                   >
                     {allAvailableYears.map((year, idx) => {
-                      const userHasYear = userCoins.some(
-                        (coin) =>
-                          coin.state === selectedState &&
-                          coin.year === year &&
-                          coin.value === coinageValues[selectedCoinage]
-                      );
+                      const userHasYear = userCoins.some((coin) => {
+                        if (coin.state !== selectedState || coin.year !== year) return false;
+                        if (coin.value !== coinageValues[selectedCoinage]) return false;
+
+                        if (selectedState === "Germania" && selectedGermanyLetter) {
+                          return coin.letter === selectedGermanyLetter;
+                        }
+
+                        return true;
+                      });
 
                       return (
                         <Button
@@ -431,6 +540,11 @@ function SearchPage() {
                 <div style={{ marginTop: "12px", paddingTop: "12px", borderTop: "1px solid #dadce0" }}>
                   <strong style={{ color: "#202124" }}>Anno:</strong> <span style={{ color: "#5f6368", marginLeft: "8px" }}>{insertYear}</span>
                 </div>
+                {selectedState === "Germania" && selectedGermanyLetter && (
+                  <div style={{ marginTop: "12px" }}>
+                    <strong style={{ color: "#202124" }}>Lettera:</strong> <span style={{ color: "#5f6368", marginLeft: "8px" }}>{selectedGermanyLetter}</span>
+                  </div>
+                )}
               </Box>
             </Box>
           </DialogContent>
